@@ -1,0 +1,55 @@
+--Titan Showdown
+local s,id=GetID()
+function s.initial_effect(c)
+	--Activate
+	aux.AddSkillProcedure(c,1,false)
+	local e1=Effect.CreateEffect(c)
+	e1:SetProperty(EFFECT_FLAG_UNCOPYABLE+EFFECT_FLAG_CANNOT_DISABLE)
+	e1:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
+	e1:SetCode(EVENT_STARTUP)
+	e1:SetCountLimit(1)
+	e1:SetRange(0x5f)
+	e1:SetLabel(0)
+	e1:SetOperation(s.flipop)
+	c:RegisterEffect(e1)
+end
+function s.flipop(e,tp,eg,ep,ev,re,r,rp)
+	Duel.Hint(HINT_SKILL_FLIP,tp,id|(1<<32))
+	Duel.Hint(HINT_CARD,tp,id)
+	--double damage player
+	local e1=Effect.CreateEffect(e:GetHandler())
+	e1:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
+	e1:SetProperty(EFFECT_FLAG_DELAY)
+	e1:SetCode(EVENT_PRE_BATTLE_DAMAGE)
+	e1:SetCondition(s.con1)
+	e1:SetOperation(s.op1)
+	Duel.RegisterEffect(e1,tp)
+	--double damage opponent
+	local e2=Effect.CreateEffect(e:GetHandler())
+	e2:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
+	e2:SetProperty(EFFECT_FLAG_DELAY)
+	e2:SetCode(EVENT_PRE_BATTLE_DAMAGE)
+	e2:SetCondition(s.con2)
+	e2:SetOperation(s.op2)
+	Duel.RegisterEffect(e2,tp)
+end
+function s.con1(e,tp,eg,ep,ev,re,r,rp)
+	local tp=e:GetHandlerPlayer()
+	return ep==tp and (Duel.GetLP(tp)>=(Duel.GetLP(1-tp)*2)) and (Duel.GetAttackTarget() or Duel.GetAttacker())
+end
+function s.op1(e,tp,eg,ep,ev,re,r,rp)
+	Duel.Hint(HINT_SKILL_FLIP,tp,id|(1<<32))
+	Duel.Hint(HINT_CARD,tp,id)
+	Duel.DoubleBattleDamage(ep)
+	Duel.Hint(HINT_SKILL_FLIP,tp,id|(2<<32))
+end
+function s.con2(e,tp,eg,ep,ev,re,r,rp)
+	local tp=e:GetHandlerPlayer()
+	return ep~=tp and (Duel.GetLP(1-tp)>=(Duel.GetLP(tp)*2)) and (Duel.GetAttackTarget() or Duel.GetAttacker())
+end
+function s.op2(e,tp,eg,ep,ev,re,r,rp)
+	Duel.Hint(HINT_SKILL_FLIP,tp,id|(1<<32))
+	Duel.Hint(HINT_CARD,tp,id)
+	Duel.DoubleBattleDamage(ep)
+	Duel.Hint(HINT_SKILL_FLIP,tp,id|(2<<32))
+end

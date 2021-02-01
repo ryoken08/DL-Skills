@@ -19,8 +19,9 @@ function s.flipop(e,tp,eg,ep,ev,re,r,rp)
 	--flag register
 	Duel.RegisterFlagEffect(ep,id,0,0,0)
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_FACEUP)
-	local sg=Duel.SelectMatchingCard(tp,s.filter,tp,LOCATION_MZONE,0,1,1,nil)
-	local tc=sg:GetFirst()
+	local g=Duel.SelectMatchingCard(tp,s.filter,tp,LOCATION_MZONE,0,1,1,nil)
+	Duel.HintSelection(g)
+	local tc=g:GetFirst()
 	if tc then
 		local val=tc:GetFlagEffectLabel(36690018)
 		tc:ResetFlagEffect(36690018)

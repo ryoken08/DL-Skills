@@ -18,6 +18,7 @@ function s.flipop(e,tp,eg,ep,ev,re,r,rp)
 	Duel.Hint(HINT_CARD,tp,id)
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_TARGET)
 	local g=Duel.SelectMatchingCard(tp,s.filter,tp,LOCATION_MZONE,0,1,1,nil)
+	Duel.HintSelection(g)
 	local tc=g:GetFirst()
 	if tc then
 		local e1=Effect.CreateEffect(e:GetHandler())

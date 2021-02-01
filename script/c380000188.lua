@@ -37,7 +37,7 @@ end
 function s.filter(c,ft,tp)
 	local lv=c:GetOriginalLevel()
 	local att=c:GetOriginalAttribute()
-	return c:IsRace(RACE_REPTILE) and lv>0 and not c:IsType(TYPE_TOKEN) and (ft>0 or c:GetSequence()<5)
+	return c:IsRace(RACE_REPTILE) and lv>0 and c:IsFaceup() and not c:IsType(TYPE_TOKEN) and (ft>0 or c:GetSequence()<5)
 		and Duel.IsExistingMatchingCard(s.spfilter,tp,LOCATION_DECK,0,1,nil,lv+3,att)
 end
 function s.spfilter(c,lv,att)

@@ -25,6 +25,7 @@ function s.flipop(e,tp,eg,ep,ev,re,r,rp)
 	Duel.RegisterFlagEffect(ep,id,0,0,0)
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_FACEUP)
 	local g=Duel.SelectMatchingCard(tp,s.filter,tp,LOCATION_MZONE,0,1,1,nil)
+	Duel.HintSelection(g)
 	local tc=g:GetFirst()
 	local atk=Duel.GetMatchingGroupCount(s.filter2,tp,LOCATION_GRAVE,0,nil)*200
 	if atk==0 then return end

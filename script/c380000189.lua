@@ -36,7 +36,7 @@ function s.flipcon(e,tp,eg,ep,ev,re,r,rp)
 	and s[2+tp]>=1500
 end
 function s.filter(c,ft)
-	return c:IsRace(RACE_WINGEDBEAST) and not c:IsType(TYPE_TOKEN) and (ft>0 or c:GetSequence()<5)
+	return c:IsRace(RACE_WINGEDBEAST) and c:IsFaceup() and not c:IsType(TYPE_TOKEN) and (ft>0 or c:GetSequence()<5)
 end
 function s.spfilter(c)
 	return c:IsRace(RACE_DINOSAUR) and c:IsSummonableCard()

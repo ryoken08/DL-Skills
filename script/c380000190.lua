@@ -21,6 +21,7 @@ function s.flipop(e,tp,eg,ep,ev,re,r,rp)
 	Duel.RegisterFlagEffect(ep,id,0,0,0)
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_FACEUP)
 	local sg=Duel.SelectMatchingCard(tp,s.filter,tp,LOCATION_MZONE,0,1,1,nil)
+	Duel.HintSelection(g)
 	local tc=sg:GetFirst()
 	if tc then
 		--ATK/DEF becomes equal to your Life Points

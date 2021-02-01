@@ -27,18 +27,19 @@ function s.flipop(e,tp,eg,ep,ev,re,r,rp)
 	local ft=Duel.GetLocationCount(tp,LOCATION_MZONE)
 	Duel.Hint(HINT_SELECTMSG,tp,aux.Stringid(id,1))
 	local g=Duel.SelectMatchingCard(tp,s.cfilter,tp,LOCATION_MZONE,0,1,1,nil,ft,tp)
-	if #g>0 then
+	local g1=g:GetFirst()
+	if g1 then
 		local e1=Effect.CreateEffect(e:GetHandler())
 		e1:SetType(EFFECT_TYPE_SINGLE)
 		e1:SetCode(EFFECT_CANNOT_TRIGGER)
 		e1:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
 		e1:SetRange(LOCATION_GRAVE+LOCATION_REMOVED)
 		e1:SetReset(RESET_CHAIN)
-		g:GetFirst():RegisterEffect(e1)
-		Duel.SendtoGrave(g,REASON_RULE)
+		g1:RegisterEffect(e1)
+		Duel.SendtoGrave(g1,REASON_RULE)
 	end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_TOFIELD)
-	local sg=Duel.SelectMatchingCard(tp,s.spfilter,tp,LOCATION_HAND,0,1,1,nil,g:GetFirst())
+	local sg=Duel.SelectMatchingCard(tp,s.spfilter,tp,LOCATION_HAND,0,1,1,nil,g1)
 	local tc=sg:GetFirst()
 	if tc then
 		local e0=Effect.CreateEffect(e:GetHandler())

@@ -94,12 +94,12 @@ function s.flipop(e,tp,eg,ep,ev,re,r,rp)
 	local tc=g:GetFirst()
 	if tc then
 		Duel.SendtoHand(tc,nil,REASON_RULE)
-		--add check if you added Tri-Blaze Accelerator
+		--add flag if you added Tri-Blaze Accelerator
 		if tc:IsCode(21420702) then
 			--opd register
 			Duel.RegisterFlagEffect(ep,id,0,0,0)
 		end
-		--add check if you added Volcanic Doomfire
+		--add flag if you added Volcanic Doomfire
 		if tc:IsCode(32543380) then
 			--opd register
 			Duel.RegisterFlagEffect(ep,id+1,0,0,0)

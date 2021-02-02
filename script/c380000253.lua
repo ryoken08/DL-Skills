@@ -2,7 +2,7 @@
 local s,id=GetID()
 function s.initial_effect(c)
 	--Activate
-	aux.AddSkillProcedure(c,1,false,s.flipcon,s.flipop)
+	aux.AddSkillProcedure(c,1,false)
 	local e1=Effect.CreateEffect(c)
 	e1:SetProperty(EFFECT_FLAG_UNCOPYABLE+EFFECT_FLAG_CANNOT_DISABLE)
 	e1:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
@@ -22,12 +22,20 @@ function s.condition(e,tp,eg,ep,ev,re,r,rp)
 	return not Duel.IsExistingMatchingCard(s.filter,tp,LOCATION_DECK+LOCATION_EXTRA,0,1,nil)
 end
 function s.activate(e,tp,eg,ep,ev,re,r,rp)
-	--flag register
-	Duel.RegisterFlagEffect(tp,id,0,0,0)
+	local c=e:GetHandler()
+	if e:GetLabel()==0 then
+		local e1=Effect.CreateEffect(c)
+		e1:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
+		e1:SetCode(EVENT_FREE_CHAIN)
+		e1:SetCondition(s.flipcon)
+		e1:SetOperation(s.flipop)
+		Duel.RegisterEffect(e1,tp)
+	end
+	e:SetLabel(1)
 end
 function s.flipcon(e,tp,eg,ep,ev,re,r,rp)
 	--flag check
-	if Duel.GetFlagEffect(ep,id)==0 or Duel.GetFlagEffect(ep,id+1)>0 then return end
+	if Duel.GetFlagEffect(ep,id)>0 then return end
 	--condition
 	return aux.CanActivateSkill(tp)
 	and Duel.GetTurnCount()>=4
@@ -39,7 +47,7 @@ function s.flipop(e,tp,eg,ep,ev,re,r,rp)
 	Duel.Hint(HINT_SKILL_FLIP,tp,id|(1<<32))
 	Duel.Hint(HINT_CARD,tp,id)
 	--flag register
-	Duel.RegisterFlagEffect(ep,id+1,0,0,0)
+	Duel.RegisterFlagEffect(ep,id,0,0,0)
 	--ask if on top
 	local b1=Duel.GetLocationCount(1-tp,LOCATION_MZONE)>0
 	local b2=Duel.IsExistingMatchingCard(Card.IsCode,tp,0,LOCATION_MZONE,1,nil,83965310)

@@ -43,7 +43,7 @@ function s.flipop(e,tp,eg,ep,ev,re,r,rp)
 	local g=Duel.GetMatchingGroup(Card.IsAttribute,tp,LOCATION_DECK,0,nil,ATTRIBUTE_WIND):RandomSelect(tp,1)
 	local tc=g:GetFirst()
 	if tc then
-		Duel.MoveSequence(tc,SEQ_DECKTOP)
+		Duel.MoveToDeckTop(tc)
 		Duel.Hint(HINT_SKILL_FLIP,tp,id|(2<<32))
 		s[2+tp]=0
 	end

@@ -65,7 +65,7 @@ function s.flipop(e,tp,eg,ep,ev,re,r,rp)
 	local sg=Duel.GetMatchingGroup(s.spfilter,tp,LOCATION_DECK,0,nil,g1:GetLevel()+1,g1:GetRace(),g1:GetAttribute()):RandomSelect(tp,1)
 	local tc=sg:GetFirst()
 	if tc then
-		Duel.MoveSequence(tc,SEQ_DECKTOP)
+		Duel.MoveToDeckTop(tc)
 		tc:ReverseInDeck()
 		local e0=Effect.CreateEffect(e:GetHandler())
 		e0:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_CONTINUOUS)

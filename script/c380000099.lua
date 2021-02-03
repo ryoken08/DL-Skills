@@ -47,7 +47,7 @@ function s.flipop(e,tp,eg,ep,ev,re,r,rp)
 	end
 	if #g>0 then
 		Duel.ShuffleDeck(1-tp)
-		Duel.MoveSequence(g:GetFirst(),SEQ_DECKTOP)
+		Duel.MoveToDeckTop(g:GetFirst())
 	end
 	s[2+tp]=0
 	Duel.Hint(HINT_SKILL_FLIP,tp,id|(2<<32))

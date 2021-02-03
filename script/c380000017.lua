@@ -48,7 +48,7 @@ function s.flipop(e,tp,eg,ep,ev,re,r,rp)
 	local g=Duel.SelectMatchingCard(tp,aux.TRUE,tp,LOCATION_DECK,0,1,1,nil)
 	local tc=g:GetFirst()
 	if tc then
-		Duel.MoveSequence(tc,SEQ_DECKTOP)
+		Duel.MoveToDeckTop(tc)
 		s[2+tp]=0
 	end
 end

@@ -34,7 +34,7 @@ function s.flipop(e,tp,eg,ep,ev,re,r,rp)
 		if ct==0 and num<10 then
 			local g1=Duel.GetMatchingGroup(s.filter,tp,LOCATION_DECK,0,nil):RandomSelect(tp,1)
 			local tc=g1:GetFirst()
-			Duel.MoveSequence(tc,0)
+			Duel.MoveToDeckTop(tc)
 		end
 	end
 	e:SetLabel(1)

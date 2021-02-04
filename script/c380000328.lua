@@ -3,6 +3,7 @@ local s,id=GetID()
 function s.initial_effect(c)
 	aux.AddSkillProcedure(c,1,false,s.flipcon,s.flipop)
 end
+s.listed_series={0xb9,0x32}
 function s.filter(c)
 	return c:IsSetCard(0xb9) or c:IsSetCard(0x32)
 end

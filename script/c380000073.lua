@@ -13,6 +13,7 @@ function s.initial_effect(c)
 	e1:SetOperation(s.flipop)
 	c:RegisterEffect(e1)
 end
+s.listed_series={0xde}
 s.cards = {
 	33396948, 7902349, 70903634, 44519536, 8124921
 }

@@ -4,6 +4,8 @@ function s.initial_effect(c)
 	--skill
 	aux.AddSkillProcedure(c,1,false,s.flipcon,s.flipop)
 end
+s.listed_names={100000139}
+s.counter_place_list={0x1090}
 s.filter=aux.FilterFaceupFunction(Card.IsCode,100000139)
 function s.flipcon(e,tp,eg,ep,ev,re,r,rp)
 	--opd check

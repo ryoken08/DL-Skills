@@ -3,6 +3,7 @@ local s,id=GetID()
 function s.initial_effect(c)
 	aux.AddSkillProcedure(c,1,false,s.flipcon,s.flipop)
 end
+s.listed_names={97642679}
 s.roll_dice=true
 function s.flipcon(e,tp,eg,ep,ev,re,r,rp)
 	--opd check

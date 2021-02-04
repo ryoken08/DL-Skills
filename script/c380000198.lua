@@ -4,6 +4,7 @@ function s.initial_effect(c)
 	--Activate
 	aux.AddPreDrawSkillProcedure(c,1,false,s.flipcon,s.flipop)
 end
+s.listed_series={0x5}
 function s.filter(c)
 	return c:IsSetCard(0x5) and c:IsType(TYPE_MONSTER) and c:IsAbleToDeck()
 end

@@ -3,6 +3,7 @@ local s,id=GetID()
 function s.initial_effect(c)
 	aux.AddSkillProcedure(c,1,false,s.flipcon,s.flipop)
 end
+s.listed_series={0x32,0xb9}
 function s.filter(c)
 	return c:IsSetCard(0x32) and c:IsType(TYPE_MONSTER)
 end
@@ -34,6 +35,7 @@ function s.flipop(e,tp,eg,ep,ev,re,r,rp)
 		Duel.SendtoGrave(g,REASON_RULE)
 	end
 	local ct=g:GetCount()
+	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_ATOHAND)
 	local sg=Duel.SelectMatchingCard(tp,Card.IsSetCard,tp,LOCATION_DECK+LOCATION_GRAVE,0,ct,ct,nil,0xb9)
 	if #sg>0 then
 		Duel.SendtoHand(sg,nil,REASON_RULE)

@@ -13,6 +13,7 @@ function s.initial_effect(c)
 	e1:SetOperation(s.flipop)
 	c:RegisterEffect(e1)
 end
+s.listed_names={25833572,25955164,98434877,62340868}
 s.cards = {
 	25955164, 98434877, 62340868
 }

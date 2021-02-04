@@ -3,6 +3,7 @@ local s,id=GetID()
 function s.initial_effect(c)
 	aux.AddSkillProcedure(c,1,false,s.flipcon,s.flipop)
 end
+s.listed_series={0x5}
 function s.filter(c)
 	return c:IsSetCard(0x5) and c:IsType(TYPE_MONSTER) and c:GetFlagEffect(36690018)>0
 end

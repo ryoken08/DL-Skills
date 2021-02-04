@@ -3,6 +3,7 @@ local s,id=GetID()
 function s.initial_effect(c)
 	aux.AddSkillProcedure(c,1,false,s.flipcon,s.flipop,1)
 end
+s.listed_names={69537999,21420702}
 s.filter=aux.FilterFaceupFunction(Card.IsCode,69537999)
 function s.flipcon(e,tp,eg,ep,ev,re,r,rp)
 	--twice per duel check

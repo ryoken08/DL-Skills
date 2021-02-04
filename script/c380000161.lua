@@ -14,6 +14,8 @@ function s.initial_effect(c)
 	e1:SetOperation(s.activate)
 	c:RegisterEffect(e1)
 end
+s.listed_names={73580471}
+s.listed_series={0x1123}
 function s.exfilter(c)
 	return c:IsType(TYPE_MONSTER) and not (c:IsSetCard(0x1123) or c:IsRace(RACE_PLANT))
 end

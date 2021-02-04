@@ -3,6 +3,7 @@ local s,id=GetID()
 function s.initial_effect(c)
 	aux.AddSkillProcedure(c,1,false,s.flipcon,s.flipop,1)
 end
+s.listed_names={78371393,4779091,31764700}
 function s.filter(c)
 	return c:IsCode(4779091,31764700)
 end

@@ -14,6 +14,7 @@ function s.initial_effect(c)
 	e1:SetOperation(s.op)
 	c:RegisterEffect(e1)
 end
+s.listed_names={27911549}
 function s.con(e,tp,eg,ep,ev,re,r,rp)
 	--condition
 	return Duel.GetMatchingGroup(Card.IsRace,tp,LOCATION_DECK,0,nil,RACE_INSECT):GetClassCount(Card.GetCode)>=4

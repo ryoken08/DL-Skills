@@ -4,6 +4,7 @@ function s.initial_effect(c)
 	--skill
 	aux.AddPreDrawSkillProcedure(c,1,false,s.flipcon,s.flipop)
 end
+s.listed_series={0x31}
 s.filter=aux.FilterFaceupFunction(Card.IsSetCard,0x31)
 function s.flipcon(e,tp,eg,ep,ev,re,r,rp)
 	--condition

@@ -4,6 +4,7 @@ function s.initial_effect(c)
 	--skill
 	aux.AddSkillProcedure(c,1,false,s.flipcon,s.flipop)
 end
+s.listed_names={100000139,100000137}
 function s.filter(c,tp)
 	return c:IsCode(100000139) and c:IsFaceup() and c:GetOwner()==tp
 end

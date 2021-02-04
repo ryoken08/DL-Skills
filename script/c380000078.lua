@@ -4,6 +4,7 @@ function s.initial_effect(c)
 	--Activate
 	aux.AddSkillProcedure(c,1,false,s.flipcon,s.flipop)
 end
+s.listed_names={25955164,62340868,98434877}
 function s.filter(c)
 	return c:IsCode(25955164,62340868,98434877)
 end

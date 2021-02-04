@@ -14,6 +14,8 @@ function s.initial_effect(c)
 	e1:SetOperation(s.activate)
 	c:RegisterEffect(e1)
 end
+s.listed_names={26964762,83965310}
+s.listed_series={0xc008}
 function s.filter(c)
 	return c:IsType(TYPE_MONSTER) and not c:IsSetCard(0xc008)
 end

@@ -10,10 +10,11 @@ function s.initial_effect(c)
 	e1:SetCountLimit(1)
 	e1:SetRange(0x5f)
 	e1:SetLabel(0)
-	e1:SetOperation(s.op)
+	e1:SetOperation(s.activate)
 	c:RegisterEffect(e1)
 end
-function s.op(e,tp,eg,ep,ev,re,r,rp)
+s.listed_series={0xb}
+function s.activate(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	if e:GetLabel()==0 then
 		Duel.Hint(HINT_SKILL_FLIP,tp,id|(1<<32))

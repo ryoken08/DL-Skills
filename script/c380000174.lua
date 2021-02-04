@@ -14,6 +14,8 @@ function s.initial_effect(c)
 	e1:SetOperation(s.activate)
 	c:RegisterEffect(e1)
 end
+s.listed_names={74825788,213326,37318031,63703130,191749}
+s.listed_series={0x08}
 function s.filter(c)
 	return c:IsSetCard(0x08) and c:IsType(TYPE_NORMAL)
 end

@@ -3,6 +3,8 @@ local s,id=GetID()
 function s.initial_effect(c)
 	aux.AddSkillProcedure(c,1,false,s.flipcon,s.flipop,1)
 end
+s.listed_names={9012916}
+s.listed_series={0x33}
 function s.filter(c)
 	return c:IsFaceup() and (c:IsSetCard(0x33) and c:IsType(TYPE_SYNCHRO)) or c:IsCode(9012916)
 end

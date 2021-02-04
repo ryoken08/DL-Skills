@@ -19,7 +19,7 @@ function s.activate(e,tp,eg,ep,ev,re,r,rp)
 		--turn count
 		local e1=Effect.CreateEffect(c)
 		e1:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
-		e1:SetCode(EVENT_PREDRAW)
+		e1:SetCode(EVENT_TURN_END)
 		e1:SetCountLimit(1)
 		e1:SetCondition(s.checkcon)
 		e1:SetOperation(s.checkop)
@@ -38,7 +38,7 @@ function s.activate(e,tp,eg,ep,ev,re,r,rp)
 	e:SetLabel(1)
 end
 function s.checkcon(e,tp,eg,ep,ev,re,r,rp)
-	return Duel.GetTurnPlayer()==tp
+	return Duel.IsTurnPlayer(tp)
 end
 function s.checkop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()

@@ -42,7 +42,7 @@ function s.flipop(e,tp,eg,ep,ev,re,r,rp)
 		Duel.SendtoGrave(g,REASON_RULE)
 	end
 	local tg=g:GetCount()
-	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_TOFIELD)
+	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_TOGRAVE)
 	local sg=Duel.SelectMatchingCard(tp,s.filter2,tp,LOCATION_DECK,0,tg,tg,nil)
 	if #sg>0 then
 		for tc in aux.Next(sg) do
@@ -50,7 +50,7 @@ function s.flipop(e,tp,eg,ep,ev,re,r,rp)
 			e1:SetType(EFFECT_TYPE_SINGLE)
 			e1:SetCode(EFFECT_CANNOT_TRIGGER)
 			e1:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
-			e1:SetRange(LOCATION_GRAVE)
+			e1:SetRange(LOCATION_GRAVE+LOCATION_REMOVED)
 			e1:SetReset(RESET_CHAIN)
 			tc:RegisterEffect(e1)
 		end

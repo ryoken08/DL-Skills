@@ -25,4 +25,5 @@ function s.flipop(e,tp,eg,ep,ev,re,r,rp)
 	--activate
 	local token=Duel.CreateToken(tp,100000107)   
 	Duel.MoveToField(token,tp,tp,LOCATION_SZONE,POS_FACEDOWN,true)
+	token:SetStatus(STATUS_SET_TURN,true)
 end

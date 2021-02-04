@@ -19,9 +19,8 @@ function s.activate(e,tp,eg,ep,ev,re,r,rp)
 		--turn count
 		local e1=Effect.CreateEffect(c)
 		e1:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
-		e1:SetCode(EVENT_PREDRAW)
+		e1:SetCode(EVENT_DRAW)
 		e1:SetCountLimit(1)
-		e1:SetCondition(s.checkcon)
 		e1:SetOperation(s.checkop)
 		e1:SetReset(RESET_PHASE+PHASE_END+RESET_SELF_TURN,4)
 		c:SetTurnCounter(0)
@@ -37,14 +36,12 @@ function s.activate(e,tp,eg,ep,ev,re,r,rp)
 	end
 	e:SetLabel(1)
 end
-function s.checkcon(e,tp,eg,ep,ev,re,r,rp)
-	return Duel.GetTurnPlayer()==tp
-end
 function s.checkop(e,tp,eg,ep,ev,re,r,rp)
-	if Duel.GetTurnCount()==1 and not Duel.IsDuelType(DUEL_1ST_TURN_DRAW) then return end
-	local c=e:GetHandler()
-	local ct=c:GetTurnCounter()+1
-	c:SetTurnCounter(ct)
+	if ep==tp and r==REASON_RULE then
+		local c=e:GetHandler()
+		local ct=c:GetTurnCounter()+1
+		c:SetTurnCounter(ct)
+	end
 end
 function s.filter(c)
 	return c:IsSetCard(0x3008) and c:IsType(TYPE_MONSTER)

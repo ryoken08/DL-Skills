@@ -59,14 +59,14 @@ function s.flipop(e,tp,eg,ep,ev,re,r,rp)
 	elseif b2 then
 		opt=Duel.SelectOption(tp,aux.Stringid(id,2))+1
 	else return end
-	local g=nil
+	local sg=nil
 	if opt==0 then
-		g=Duel.GetMatchingGroup(Card.IsRitualMonster,tp,LOCATION_DECK,0,nil):RandomSelect(tp,1)
+		sg=Duel.GetMatchingGroup(Card.IsRitualMonster,tp,LOCATION_DECK,0,nil):RandomSelect(tp,1)
 	else
-		g=Duel.GetMatchingGroup(Card.IsRitualSpell,tp,LOCATION_DECK,0,nil):RandomSelect(tp,1)
+		sg=Duel.GetMatchingGroup(Card.IsRitualSpell,tp,LOCATION_DECK,0,nil):RandomSelect(tp,1)
 	end
-	if #g>0 then
-		Duel.SendtoHand(g,nil,REASON_RULE)
+	if #sg>0 then
+		Duel.SendtoHand(sg,nil,REASON_RULE)
 		s[2+tp]=0
 		Duel.Hint(HINT_SKILL_FLIP,tp,id|(2<<32))
 	end

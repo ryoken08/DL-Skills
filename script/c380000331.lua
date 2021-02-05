@@ -24,10 +24,8 @@ function s.flipop(e,tp,eg,ep,ev,re,r,rp)
 	Duel.Hint(HINT_CARD,tp,id)
 	--opd register
 	Duel.RegisterFlagEffect(ep,id,0,0,0)
-	local ct=Duel.GetMatchingGroupCount(s.filter,tp,LOCATION_HAND,0,nil)
-	local ft=Duel.GetMatchingGroupCount(s.filter2,tp,LOCATION_DECK,0,nil)
+	local ct=Duel.GetMatchingGroupCount(s.filter2,tp,LOCATION_DECK,0,nil)
 	if ct>2 then ct=2 end
-	if ct>ft then ct=ft end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_TOGRAVE)
 	local g=Duel.SelectMatchingCard(tp,s.filter,tp,LOCATION_HAND,0,1,ct,nil)
 	if #g>0 then
@@ -42,9 +40,9 @@ function s.flipop(e,tp,eg,ep,ev,re,r,rp)
 		end
 		Duel.SendtoGrave(g,REASON_RULE)
 	end
-	local tg=g:GetCount()
+	local ft=g:GetCount()
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_TOGRAVE)
-	local sg=Duel.SelectMatchingCard(tp,s.filter2,tp,LOCATION_DECK,0,tg,tg,nil)
+	local sg=Duel.SelectMatchingCard(tp,s.filter2,tp,LOCATION_DECK,0,ft,ft,nil)
 	if #sg>0 then
 		for tc in aux.Next(sg) do
 			local e1=Effect.CreateEffect(e:GetHandler())

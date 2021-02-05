@@ -20,6 +20,7 @@ function s.flipop(e,tp,eg,ep,ev,re,r,rp)
 	local g=Duel.GetMatchingGroup(Card.IsCode,tp,LOCATION_DECK,0,nil,48948935):RandomSelect(tp,1)
 	if #g>0 then
 		Duel.SendtoHand(g,nil,REASON_RULE)
+		Duel.ConfirmCards(1-tp,g)
 		Duel.ShuffleDeck(tp)
 		Duel.BreakEffect()
 	end

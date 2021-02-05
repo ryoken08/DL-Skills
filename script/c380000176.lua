@@ -50,6 +50,7 @@ function s.flipop(e,tp,eg,ep,ev,re,r,rp)
 	local sg=Duel.GetMatchingGroup(s.filter,tp,LOCATION_DECK,0,nil):RandomSelect(tp,1)
 	if #sg>0 then
 		Duel.SendtoHand(sg,nil,REASON_RULE)
+		Duel.ConfirmCards(1-tp,sg)
 		Duel.Hint(HINT_SKILL_FLIP,tp,id|(2<<32))
 		s[2+tp]=0
 	end

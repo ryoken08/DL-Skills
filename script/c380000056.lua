@@ -18,6 +18,7 @@ function s.flipop(e,tp,eg,ep,ev,re,r,rp)
 	local g=Duel.GetMatchingGroup(Card.IsType,tp,LOCATION_GRAVE,0,nil,TYPE_TRAP):RandomSelect(tp,1)
 	if #g>0 then
 		Duel.SendtoHand(g,nil,REASON_RULE)
+		Duel.ConfirmCards(1-tp,g)
 	end
 	local sg=Duel.GetMatchingGroup(Card.IsType,tp,LOCATION_GRAVE,0,nil,TYPE_TRAP)
 	if #sg>0 then

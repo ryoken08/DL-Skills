@@ -42,5 +42,6 @@ function s.flipop(e,tp,eg,ep,ev,re,r,rp)
 	local sg=Duel.SelectMatchingCard(tp,s.filter,tp,LOCATION_GRAVE,0,ft,ft,nil)
 	if #sg>0 then
 		Duel.SendtoHand(sg,nil,REASON_RULE)
+		Duel.ConfirmCards(1-tp,sg)
 	end
 end

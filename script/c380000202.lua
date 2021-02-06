@@ -27,6 +27,7 @@ function s.flipop(e,tp,eg,ep,ev,re,r,rp)
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_TODECK)
 	local sg=Duel.SelectMatchingCard(tp,Card.IsCode,tp,LOCATION_HAND,0,1,1,nil,22610082)
 	if #sg>0 then
+		Duel.ConfirmCards(1-tp,sg)
 		Duel.SendtoDeck(sg,nil,SEQ_DECKBOTTOM,REASON_RULE)
 		Duel.Hint(HINT_SKILL_FLIP,tp,id|(2<<32))
 	end

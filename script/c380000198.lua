@@ -21,6 +21,7 @@ function s.flipop(e,tp,eg,ep,ev,re,r,rp)
 	--shuffle
 	local g=Duel.SelectMatchingCard(tp,s.filter,tp,LOCATION_HAND,0,1,63,nil)
 	if #g>0 then
+		Duel.ConfirmCards(1-tp,g)
 		local ct=Duel.SendtoDeck(g,nil,SEQ_DECKSHUFFLE,REASON_RULE)
 		Duel.ShuffleDeck(tp)
 		Duel.BreakEffect()

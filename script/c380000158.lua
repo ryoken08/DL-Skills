@@ -20,6 +20,7 @@ function s.flipop(e,tp,eg,ep,ev,re,r,rp)
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_TODECK)
 	local g=Duel.SelectMatchingCard(tp,Card.IsType,tp,LOCATION_HAND,0,1,1,nil,TYPE_FIELD)
 	if #g>0 then
+		Duel.ConfirmCards(1-tp,g)
 		Duel.SendtoDeck(g,nil,SEQ_DECKBOTTOM,REASON_RULE)
 	end
 	if Duel.GetFieldGroupCount(tp,LOCATION_HAND,0)>0 and Duel.SelectYesNo(tp,aux.Stringid(id,1)) then

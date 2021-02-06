@@ -36,6 +36,7 @@ function s.flipop(e,tp,eg,ep,ev,re,r,rp)
 			tc:RegisterEffect(e1)
 		end
 		Duel.SendtoGrave(g,REASON_RULE)
+		Duel.BreakEffect()
 	end
 	local ft=g:GetCount()
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_ATOHAND)

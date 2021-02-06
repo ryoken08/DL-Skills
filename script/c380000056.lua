@@ -20,6 +20,7 @@ function s.flipop(e,tp,eg,ep,ev,re,r,rp)
 		Duel.SendtoHand(g,nil,REASON_RULE)
 		Duel.ConfirmCards(1-tp,g)
 	end
+	Duel.BreakEffect()
 	local sg=Duel.GetMatchingGroup(Card.IsType,tp,LOCATION_GRAVE,0,nil,TYPE_TRAP)
 	if #sg>0 then
 		Duel.SendtoDeck(sg,nil,SEQ_DECKSHUFFLE,REASON_RULE)

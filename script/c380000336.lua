@@ -44,5 +44,5 @@ function s.disop(e,tp,eg,ep,ev,re,r,rp)
 	end
 end
 function s.aclimit(e,re,tp)
-	return re:IsHasCategory(CATEGORY_TODECK+CATEGORY_SPECIAL_SUMMON) and re:GetHandler():IsCode(7841112,67030233)
+	return re:IsHasCategory(CATEGORY_TODECK+CATEGORY_SPECIAL_SUMMON) and re:GetHandler():IsCode(7841112,67030233) and Duel.GetCurrentPhase()==PHASE_END 
 end

@@ -14,7 +14,7 @@ function s.initial_effect(c)
 	e1:SetOperation(s.activate)
 	c:RegisterEffect(e1)
 end
-s.listed_names={73580471}
+s.listed_names={CARD_BLACK_ROSE_DRAGON}
 s.listed_series={0x1123}
 function s.exfilter(c)
 	return c:IsType(TYPE_MONSTER) and not (c:IsSetCard(0x1123) or c:IsRace(RACE_PLANT))
@@ -36,7 +36,7 @@ function s.activate(e,tp,eg,ep,ev,re,r,rp)
 	e:SetLabel(1)
 end
 function s.filter(c)
-	return c:IsFaceup() and c:IsCode(73580471) and c:IsStatus(STATUS_SPSUMMON_TURN)
+	return c:IsFaceup() and c:IsCode(CARD_BLACK_ROSE_DRAGON) and c:IsStatus(STATUS_SPSUMMON_TURN)
 end
 function s.flipcon(e,tp,eg,ep,ev,re,r,rp)
 	--flag check

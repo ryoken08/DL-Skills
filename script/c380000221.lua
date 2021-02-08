@@ -32,7 +32,6 @@ function s.flipop(e,tp,eg,ep,ev,re,r,rp)
 	e2:SetOperation(s.op2)
 	e2:SetLabelObject(e1)
 	Duel.RegisterEffect(e2,tp)
-	Duel.Hint(HINT_SKILL_FLIP,tp,id|(2<<32))
 end
 s.filter=aux.FilterFaceupFunction(Card.IsSetCard,0x31)
 function s.con1(e,tp,eg,ep,ev,re,r,rp)
@@ -40,7 +39,6 @@ function s.con1(e,tp,eg,ep,ev,re,r,rp)
 end
 function s.op1(e,tp,eg,ep,ev,re,r,rp)
 	if Duel.GetFlagEffect(tp,id)==0 then
-		Duel.Hint(HINT_SKILL_FLIP,tp,id|(1<<32))
 		Duel.RegisterFlagEffect(tp,id,0,0,0)
 	end
 	local g=Duel.GetDecktopGroup(e:GetHandler():GetControler(),1)
@@ -59,6 +57,5 @@ function s.con2(e,tp,eg,ep,ev,re,r,rp)
 	return not Duel.IsExistingMatchingCard(s.filter,tp,LOCATION_MZONE,0,2,nil)
 end
 function s.op2(e,tp,eg,ep,ev,re,r,rp)
-	Duel.Hint(HINT_SKILL_FLIP,tp,id|(2<<32))
 	Duel.ResetFlagEffect(tp,id)
 end

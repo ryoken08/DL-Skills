@@ -9,6 +9,7 @@ function s.flipcon(e,tp,eg,ep,ev,re,r,rp)
 	--condition
 	return aux.CanActivateSkill(tp)
 	and Duel.GetTurnCount()>=5
+	and Duel.GetLocationCount(1-tp,LOCATION_MZONE)>0
 	and Duel.GetLP(tp)<=500
 end
 s.cards = { 

@@ -14,7 +14,7 @@ function s.initial_effect(c)
 		Duel.RegisterEffect(ge1,0)
 	end)
 end
-s.listed_names={24094653}
+s.listed_names={CARD_POLYMERIZATION}
 function s.checkop(e,tp,eg,ep,ev,re,r,rp)
 	if not s[tp] then s[tp]=Duel.GetLP(tp) end
 	if s[tp]>Duel.GetLP(tp) then
@@ -46,7 +46,7 @@ function s.flipop(e,tp,eg,ep,ev,re,r,rp)
 		Duel.SendtoDeck(g,nil,SEQ_DECKSHUFFLE,REASON_RULE)
 		Duel.ShuffleDeck(tp)
 	end
-	local token=Duel.CreateToken(tp,24094653)
+	local token=Duel.CreateToken(tp,CARD_POLYMERIZATION)
 	Duel.SendtoHand(token,nil,REASON_RULE)
 	Duel.Hint(HINT_SKILL_FLIP,tp,id|(2<<32))
 	s[2+tp]=0

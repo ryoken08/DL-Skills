@@ -30,14 +30,12 @@ function s.flipop(e,tp,eg,ep,ev,re,r,rp)
 	e2:SetCondition(s.con2)
 	e2:SetOperation(s.op2)
 	Duel.RegisterEffect(e2,tp)
-	Duel.Hint(HINT_SKILL_FLIP,tp,id|(2<<32))
 end
 function s.con1(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.GetTurnCount()>=3 and Duel.GetLP(tp)>=3000
 end
 function s.op1(e,tp,eg,ep,ev,re,r,rp)
 	if Duel.GetFlagEffect(tp,id)==0 then
-		Duel.Hint(HINT_SKILL_FLIP,tp,id|(1<<32))
 		Duel.RegisterFlagEffect(tp,id,0,0,0)
 	end
 	local g=Duel.GetMatchingGroup(Card.IsFacedown,tp,0,LOCATION_ONFIELD,nil)
@@ -54,6 +52,5 @@ function s.con2(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.GetLP(tp)<3000
 end
 function s.op2(e,tp,eg,ep,ev,re,r,rp)
-	Duel.Hint(HINT_SKILL_FLIP,tp,id|(2<<32))
 	Duel.ResetFlagEffect(tp,id)
 end

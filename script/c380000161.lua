@@ -39,7 +39,7 @@ function s.filter(c)
 	return c:IsFaceup() and c:IsCode(CARD_BLACK_ROSE_DRAGON) and c:IsStatus(STATUS_SPSUMMON_TURN)
 end
 function s.flipcon(e,tp,eg,ep,ev,re,r,rp)
-	--flag check
+	--opd check
 	if Duel.GetFlagEffect(ep,id)>0 then return end
 	--condition
 	return aux.CanActivateSkill(tp)
@@ -48,7 +48,7 @@ end
 function s.flipop(e,tp,eg,ep,ev,re,r,rp)
 	Duel.Hint(HINT_SKILL_FLIP,tp,id|(1<<32))
 	Duel.Hint(HINT_CARD,tp,id)
-	--flag register
+	--opd register
 	Duel.RegisterFlagEffect(ep,id,0,0,0)
 	local g=Duel.GetMatchingGroup(aux.TRUE,tp,LOCATION_ONFIELD,LOCATION_ONFIELD,nil)
 	if #g>0 then

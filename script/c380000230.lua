@@ -4,7 +4,8 @@ function s.initial_effect(c)
 	aux.AddSkillProcedure(c,1,false,s.flipcon,s.flipop)
 end
 function s.filter(c)
-	return c:IsRace(RACE_DRAGON) and c:GetLevel()==Duel.GetTurnCount()
+	local ct=Duel.GetTurnCount()
+	return c:IsRace(RACE_DRAGON) and c:IsLevel(ct)
 end
 function s.flipcon(e,tp,eg,ep,ev,re,r,rp)
 	--opd check

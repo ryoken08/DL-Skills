@@ -34,7 +34,7 @@ function s.flipcon(e,tp,eg,ep,ev,re,r,rp)
 	and s[2+tp]>=1000
 end
 function s.filter(c)
-	return c:GetLevel()==8 and c:IsAttribute(ATTRIBUTE_DARK) and c:IsRace(RACE_WARRIOR)
+	return c:IsLevel(8) and c:IsAttribute(ATTRIBUTE_DARK) and c:IsRace(RACE_WARRIOR)
 end
 function s.flipop(e,tp,eg,ep,ev,re,r,rp)
 	Duel.Hint(HINT_SKILL_FLIP,tp,id|(1<<32))

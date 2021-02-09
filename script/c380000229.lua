@@ -7,7 +7,7 @@ function s.filter(c)
 	return c:IsLevelAbove(7) and c:IsRace(RACE_DRAGON)
 end
 function s.cfilter(c)
-	return c:GetLevel()==4 and c:IsAttribute(ATTRIBUTE_LIGHT) and c:IsRace(RACE_DRAGON)
+	return c:IsLevel(4) and c:IsAttribute(ATTRIBUTE_LIGHT) and c:IsRace(RACE_DRAGON)
 end
 function s.flipcon(e,tp,eg,ep,ev,re,r,rp)
 	--opd check

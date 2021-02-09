@@ -5,7 +5,7 @@ function s.initial_effect(c)
 end
 
 function s.filter(c)
-	return c:IsFaceup() and c:IsRace(RACE_DINOSAUR) and c:IsLevelAbove(6)
+	return c:IsFaceup() and c:IsRace(RACE_DINOSAUR) and c:IsLevel(6)
 end
 function s.flipcon(e,tp,eg,ep,ev,re,r,rp)
 	--condition

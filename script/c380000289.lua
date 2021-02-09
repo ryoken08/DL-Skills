@@ -21,7 +21,7 @@ function s.flipop(e,tp,eg,ep,ev,re,r,rp)
 	Duel.RegisterFlagEffect(ep,id,0,0,0)
 	local g=Duel.GetMatchingGroup(Card.IsCode,tp,LOCATION_DECK,0,nil,66957584)
 	if #g>0 and Duel.SelectYesNo(tp,aux.Stringid(id,1)) then
-		local sg=Duel.GetMatchingGroup(Card.IsCode,tp,LOCATION_DECK,0,nil,66957584):RandomSelect(tp,1)
+		local sg=Duel.SelectMatchingCard(tp,Card.IsCode,tp,LOCATION_DECK,0,1,1,nil,66957584)
 		local tc=sg:GetFirst()
 		if tc then
 			Duel.ShuffleDeck(tp)

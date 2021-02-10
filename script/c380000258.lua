@@ -47,6 +47,7 @@ function s.flipop(e,tp,eg,ep,ev,re,r,rp)
 		local seq=tc:GetSequence()
 		local pos=tc:GetPosition()
 		local code=tc:GetCode()
+		tc:ResetEffect(RESETS_REDIRECT,RESET_EVENT)
 		Duel.SendtoDeck(tc,nil,-2,REASON_RULE)
 		local tcode=s.list[code]
 		local token=Duel.CreateToken(tp,tcode)

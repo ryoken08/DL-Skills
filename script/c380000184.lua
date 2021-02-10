@@ -22,7 +22,8 @@ function s.flipop(e,tp,eg,ep,ev,re,r,rp)
 	local g=Duel.SelectMatchingCard(tp,s.filter,tp,LOCATION_MZONE,0,1,1,nil,tp)
 	local tc=g:GetFirst()
 	if tc then
-		Duel.SendtoDeck(g,nil,SEQ_DECKSHUFFLE,REASON_RULE)
+		tc:ResetEffect(RESETS_REDIRECT,RESET_EVENT)
+		Duel.SendtoDeck(tc,nil,SEQ_DECKSHUFFLE,REASON_RULE)
 		local lp=Duel.GetLP(tp)+tc:GetTextAttack()
 		Duel.SetLP(tp, lp)
 	end

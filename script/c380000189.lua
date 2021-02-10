@@ -56,6 +56,7 @@ function s.flipop(e,tp,eg,ep,ev,re,r,rp)
 		e1:SetRange(LOCATION_GRAVE+LOCATION_REMOVED)
 		e1:SetReset(RESET_CHAIN)
 		g1:RegisterEffect(e1)
+		g1:ResetEffect(RESETS_REDIRECT,RESET_EVENT)
 		Duel.SendtoGrave(g1,REASON_RULE)
 	end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_TOFIELD)

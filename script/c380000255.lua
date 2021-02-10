@@ -44,6 +44,7 @@ function s.flipop(e,tp,eg,ep,ev,re,r,rp)
 	if tc then
 		local seq=tc:GetSequence()
 		local pos=tc:GetPosition()
+		tc:ResetEffect(RESETS_REDIRECT,RESET_EVENT)
 		Duel.SendtoDeck(tc,nil,-2,REASON_RULE)
 		local code=nil
 		if g1:IsRace(RACE_FIEND) then

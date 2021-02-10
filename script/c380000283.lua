@@ -34,6 +34,7 @@ function s.flipop(e,tp,eg,ep,ev,re,r,rp)
 		Duel.ConfirmCards(1-tp,g)
 	end
 	local ocode=g:GetFirst():GetOriginalCode()
+	g:GetFirst():ResetEffect(RESETS_REDIRECT,RESET_EVENT)
 	Duel.SendtoDeck(g:GetFirst(),nil,-2,REASON_RULE)
 	--remove the kuriboh you chose from the array
 	local p=1

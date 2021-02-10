@@ -48,4 +48,5 @@ function s.flipop(e,tp,eg,ep,ev,re,r,rp)
 	end
 	local token=Duel.CreateToken(tp,CARD_POLYMERIZATION)
 	Duel.SendtoHand(token,nil,REASON_RULE)
+	Duel.ConfirmCards(1-tp,token)
 end

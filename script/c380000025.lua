@@ -3,6 +3,18 @@ local s,id=GetID()
 function s.initial_effect(c)
 	--skill
 	aux.AddPreDrawSkillProcedure(c,1,false,s.flipcon,s.flipop)
+	local e1=Effect.CreateEffect(c)
+	e1:SetProperty(EFFECT_FLAG_UNCOPYABLE+EFFECT_FLAG_CANNOT_DISABLE)
+	e1:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
+	e1:SetCode(EVENT_STARTUP)
+	e1:SetCountLimit(1)
+	e1:SetRange(0x5f)
+	e1:SetLabel(0)
+	e1:SetOperation(s.activate)
+	c:RegisterEffect(e1)
+end
+function s.activate(e,tp,eg,ep,ev,re,r,rp)
+	Duel.Hint(HINT_SKILL_FLIP,tp,id|(1<<32))
 	Duel.Hint(HINT_CARD,tp,id)
 end
 function s.flipcon(e,tp,eg,ep,ev,re,r,rp)
@@ -12,7 +24,6 @@ function s.flipcon(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.GetCurrentChain()==0 and Duel.GetLP(tp)>=4000
 end
 function s.flipop(e,tp,eg,ep,ev,re,r,rp)
-	Duel.Hint(HINT_SKILL_FLIP,tp,id|(1<<32))
 	--skill is active flag
 	Duel.RegisterFlagEffect(ep,id,0,0,0)
 	--Activate
@@ -28,13 +39,6 @@ function s.flipop(e,tp,eg,ep,ev,re,r,rp)
 	e2:SetCondition(s.condition2)
 	e2:SetOperation(s.activate2)
 	Duel.RegisterEffect(e2,tp)
-	--flip back if LP<4000
-	local e3=Effect.CreateEffect(e:GetHandler())
-	e3:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
-	e3:SetCode(EVENT_PREDRAW)
-	e3:SetCondition(s.con2)
-	e3:SetOperation(s.op2)
-	Duel.RegisterEffect(e3,tp)
 end
 function s.condition1(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.GetBattleDamage(tp)>=Duel.GetLP(tp) and Duel.GetFlagEffect(ep,id)>0
@@ -122,13 +126,6 @@ function s.refcon(e,re,val,r,rp,rc)
 	local cid=Duel.GetChainInfo(0,CHAININFO_CHAIN_ID)
 	if cid==e:GetLabel() then return 0
 	else return val end
-end
-function s.con2(e,tp,eg,ep,ev,re,r,rp)
-	return Duel.GetFlagEffect(tp,id)~=0 and Duel.GetLP(tp)<4000
-end
-function s.op2(e,tp,eg,ep,ev,re,r,rp)
-	Duel.Hint(HINT_SKILL_FLIP,tp,id|(2<<32))
-	Duel.ResetFlagEffect(tp,id)
 end
 function s.limittg(e,c,tp)
 	local sp=Duel.GetActivityCount(tp,ACTIVITY_SPSUMMON)

@@ -10,11 +10,10 @@ function s.initial_effect(c)
 		ge1:SetCode(EVENT_BATTLE_DAMAGE)
 		ge1:SetOperation(s.checkop)
 		Duel.RegisterEffect(ge1,0)
-		local ge2=Effect.CreateEffect(c)
-		ge2:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
-		ge2:SetCode(EVENT_TURN_END)
-		ge2:SetOperation(s.clear)
-		Duel.RegisterEffect(ge2,0)
+		aux.AddValuesReset(function()
+			local p=Duel.GetTurnPlayer()
+			s[p]=0
+		end)
 	end)
 end
 function s.checkop(e,tp,eg,ep,ev,re,r,rp)
@@ -23,14 +22,6 @@ function s.checkop(e,tp,eg,ep,ev,re,r,rp)
 	end
 	if ep==1-tp then
 		s[1-tp]=s[1-tp]+ev
-	end
-end
-function s.clear(e,tp,eg,ep,ev,re,r,rp)
-	if Duel.GetTurnPlayer()==tp then
-		s[tp]=0
-	end
-	if Duel.GetTurnPlayer()==1-tp then
-		s[1-tp]=0
 	end
 end
 function s.flipcon(e,tp,eg,ep,ev,re,r,rp)

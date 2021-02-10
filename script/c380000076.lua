@@ -2,7 +2,7 @@
 local s,id=GetID()
 function s.initial_effect(c)
 	--Activate
-	aux.AddSkillProcedure(c,1,Duel.GetStartingHand(0))
+	aux.AddSkillProcedure(c,1,false)
 	local e1=Effect.CreateEffect(c)
 	e1:SetProperty(EFFECT_FLAG_UNCOPYABLE+EFFECT_FLAG_CANNOT_DISABLE)
 	e1:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
@@ -21,6 +21,7 @@ function s.flipop(e,tp,eg,ep,ev,re,r,rp)
 	Duel.Hint(HINT_SKILL_FLIP,tp,id|(1<<32))
 	Duel.Hint(HINT_CARD,tp,id)
 	--activate
+	Debug.SetPlayerInfo(tp,Duel.GetLP(tp),0,Duel.GetDrawCount(tp))
 	local c=e:GetHandler()
 	Duel.SetLP(tp, 500)
 	local gate=Duel.CreateToken(tp,25833572) 

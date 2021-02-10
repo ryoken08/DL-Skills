@@ -20,24 +20,14 @@ function s.flipop(e,tp,eg,ep,ev,re,r,rp)
 	local e1=Effect.CreateEffect(e:GetHandler())
 	e1:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
 	e1:SetCode(EVENT_ADJUST)
-	e1:SetCondition(s.con1)
-	e1:SetOperation(s.op1)
+	e1:SetCondition(s.condition)
+	e1:SetOperation(s.operation)
 	Duel.RegisterEffect(e1,tp)
-	--flip back if LP<3000
-	local e2=Effect.CreateEffect(e:GetHandler())
-	e2:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
-	e2:SetCode(EVENT_ADJUST)
-	e2:SetCondition(s.con2)
-	e2:SetOperation(s.op2)
-	Duel.RegisterEffect(e2,tp)
 end
-function s.con1(e,tp,eg,ep,ev,re,r,rp)
+function s.condition(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.GetTurnCount()>=3 and Duel.GetLP(tp)>=3000
 end
-function s.op1(e,tp,eg,ep,ev,re,r,rp)
-	if Duel.GetFlagEffect(tp,id)==0 then
-		Duel.RegisterFlagEffect(tp,id,0,0,0)
-	end
+function s.operation(e,tp,eg,ep,ev,re,r,rp)
 	local g=Duel.GetMatchingGroup(Card.IsFacedown,tp,0,LOCATION_ONFIELD,nil)
 	if g and #g>0 then
 		for tc in aux.Next(g) do
@@ -47,10 +37,4 @@ function s.op1(e,tp,eg,ep,ev,re,r,rp)
 			end
 		end
 	end
-end
-function s.con2(e,tp,eg,ep,ev,re,r,rp)
-	return Duel.GetLP(tp)<3000
-end
-function s.op2(e,tp,eg,ep,ev,re,r,rp)
-	Duel.ResetFlagEffect(tp,id)
 end

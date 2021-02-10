@@ -21,26 +21,15 @@ function s.flipop(e,tp,eg,ep,ev,re,r,rp)
 	local e1=Effect.CreateEffect(e:GetHandler())
 	e1:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
 	e1:SetCode(EVENT_ADJUST)
-	e1:SetCondition(s.con1)
-	e1:SetOperation(s.op1)
+	e1:SetCondition(s.condition)
+	e1:SetOperation(s.operation)
 	Duel.RegisterEffect(e1,tp)
-	--flip back if less than 2 fortune lady
-	local e2=Effect.CreateEffect(e:GetHandler())
-	e2:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
-	e2:SetCode(EVENT_ADJUST)
-	e2:SetCondition(s.con2)
-	e2:SetOperation(s.op2)
-	e2:SetLabelObject(e1)
-	Duel.RegisterEffect(e2,tp)
 end
 s.filter=aux.FilterFaceupFunction(Card.IsSetCard,0x31)
-function s.con1(e,tp,eg,ep,ev,re,r,rp)
+function s.condition(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.IsExistingMatchingCard(s.filter,tp,LOCATION_MZONE,0,2,nil)
 end
-function s.op1(e,tp,eg,ep,ev,re,r,rp)
-	if Duel.GetFlagEffect(tp,id)==0 then
-		Duel.RegisterFlagEffect(tp,id,0,0,0)
-	end
+function s.operation(e,tp,eg,ep,ev,re,r,rp)
 	local g=Duel.GetDecktopGroup(e:GetHandler():GetControler(),1)
 	local g2=Duel.GetDecktopGroup(1-e:GetHandler():GetControler(),1)
 	
@@ -52,10 +41,4 @@ function s.op1(e,tp,eg,ep,ev,re,r,rp)
 		Duel.ConfirmCards(e:GetHandler():GetControler(),g2)
 		g2:GetFirst():RegisterFlagEffect(id,RESET_EVENT+RESETS_STANDARD,0,1)
 	end
-end
-function s.con2(e,tp,eg,ep,ev,re,r,rp)
-	return not Duel.IsExistingMatchingCard(s.filter,tp,LOCATION_MZONE,0,2,nil)
-end
-function s.op2(e,tp,eg,ep,ev,re,r,rp)
-	Duel.ResetFlagEffect(tp,id)
 end

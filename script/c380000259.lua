@@ -12,7 +12,7 @@ function s.flipcon(e,tp,eg,ep,ev,re,r,rp)
 	return aux.CanActivateSkill(tp)
 	and Duel.IsExistingMatchingCard(s.filter,tp,LOCATION_HAND+LOCATION_GRAVE,0,1,nil)
 	and Duel.IsExistingMatchingCard(Card.IsCode,tp,LOCATION_DECK,0,1,nil,6172122)
-	--and Duel.GetLP(tp)<=2400
+	and Duel.GetLP(tp)<=2400
 end
 function s.filter(c)
 	if c:IsLocation(LOCATION_GRAVE) then

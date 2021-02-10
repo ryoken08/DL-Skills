@@ -11,7 +11,7 @@ function s.flipcon(e,tp,eg,ep,ev,re,r,rp)
 	and Duel.GetFieldGroupCount(tp,LOCATION_DECK,0)>0
 	and Duel.GetDrawCount(tp)>0
 	and Duel.GetTurnCount()>=5
-	and Duel.IsExistingMatchingCard(aux.FilterFaceupFunction(Card.IsCode,41181774),tp,LOCATION_MZONE,0,1,nil)
+	and Duel.IsExistingMatchingCard(aux.FilterFaceupFunction(Card.IsCode,41181774),tp,LOCATION_ONFIELD,0,1,nil)
 end
 function s.flipop(e,tp,eg,ep,ev,re,r,rp)
 	--ask if you want to activate the skill or not

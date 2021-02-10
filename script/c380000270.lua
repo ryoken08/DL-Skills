@@ -2,7 +2,7 @@
 local s,id=GetID()
 function s.initial_effect(c)
 	--skill
-	aux.AddSkillProcedure(c,1,false,s.flipcon,s.flipop,1)
+	aux.AddSkillProcedure(c,1,false,s.flipcon,s.flipop)
 end
 s.listed_names={4072687}
 function s.filter(c)

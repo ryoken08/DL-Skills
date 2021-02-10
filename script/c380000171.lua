@@ -26,7 +26,7 @@ function s.flipop(e,tp,eg,ep,ev,re,r,rp)
 	--opd register
 	Duel.RegisterFlagEffect(ep,id,0,0,0)
 	local ft=Duel.GetLocationCount(tp,LOCATION_MZONE)
-	Duel.Hint(HINT_SELECTMSG,tp,aux.Stringid(id,1))
+	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_TOGRAVE)
 	local g=Duel.SelectMatchingCard(tp,s.cfilter,tp,LOCATION_MZONE,0,1,1,nil,ft,tp)
 	local g1=g:GetFirst()
 	if g1 then

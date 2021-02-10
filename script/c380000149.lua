@@ -10,7 +10,7 @@ function s.flipcon(e,tp,eg,ep,ev,re,r,rp)
 	--condition
 	return aux.CanActivateSkill(tp)
 	and Duel.IsExistingMatchingCard(aux.TRUE,tp,LOCATION_HAND,0,1,nil)
-	and Duel.IsExistingMatchingCard(aux.FilterFaceupFunction(Card.IsCode,70902743),tp,LOCATION_MZONE,0,1,nil)
+	and Duel.IsExistingMatchingCard(aux.FilterFaceupFunction(Card.IsCode,70902743),tp,LOCATION_ONFIELD,0,1,nil)
 end
 s.cards = {
 	50215517, 87614611, 24566654

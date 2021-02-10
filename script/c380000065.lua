@@ -5,6 +5,8 @@ function s.initial_effect(c)
 	aux.GlobalCheck(s,function()
 		s[0]=0
 		s[1]=0
+		s[2]=0
+		s[3]=0
 		local ge1=Effect.CreateEffect(c)
 		ge1:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
 		ge1:SetCode(EVENT_BATTLE_DAMAGE)
@@ -12,23 +14,18 @@ function s.initial_effect(c)
 		Duel.RegisterEffect(ge1,0)
 		aux.AddValuesReset(function()
 			local p=Duel.GetTurnPlayer()
+			s[2+(1-p)]=s[1-p]
 			s[p]=0
 		end)
 	end)
 end
 function s.checkop(e,tp,eg,ep,ev,re,r,rp)
-	if ep==tp then
-		s[tp]=s[tp]+ev
-	end
-	if ep==1-tp then
-		s[1-tp]=s[1-tp]+ev
-	end
+	s[ep]=s[ep]+ev
 end
 function s.flipcon(e,tp,eg,ep,ev,re,r,rp)
 	--condition
-	return aux.CanActivateSkill(tp)
-		and Duel.IsExistingMatchingCard(Card.IsFaceup,tp,LOCATION_MZONE,0,1,nil)
-		and s[tp]>0
+	return aux.CanActivateSkill(tp) and s[2+tp]>0
+	and Duel.IsExistingMatchingCard(Card.IsFaceup,tp,LOCATION_MZONE,0,1,nil)
 end
 function s.flipop(e,tp,eg,ep,ev,re,r,rp)
 	Duel.Hint(HINT_SKILL_FLIP,tp,id|(1<<32))
@@ -38,7 +35,7 @@ function s.flipop(e,tp,eg,ep,ev,re,r,rp)
 	Duel.HintSelection(g)
 	local tc=g:GetFirst()
 	if tc then
-		local val=math.floor(s[tp]/2)
+		local val=math.floor(s[2+tp]/2)
 		local e1=Effect.CreateEffect(e:GetHandler())
 		e1:SetType(EFFECT_TYPE_SINGLE)
 		e1:SetCode(EFFECT_UPDATE_ATTACK)

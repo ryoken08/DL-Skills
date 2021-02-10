@@ -39,7 +39,7 @@ function s.flipcon(e,tp,eg,ep,ev,re,r,rp)
 	--condition
 	return aux.CanActivateSkill(tp) and s[tp]
 	and Duel.IsExistingMatchingCard(Card.IsCode,tp,LOCATION_DECK,0,1,nil,31461282)
-	and Duel.GetLocationCount(tp,LOCATION_SZONE)>0 
+	and Duel.GetLocationCount(tp,LOCATION_SZONE)>0
 end
 function s.flipop(e,tp,eg,ep,ev,re,r,rp)
 	Duel.Hint(HINT_SKILL_FLIP,tp,id|(1<<32))

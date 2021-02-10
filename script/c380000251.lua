@@ -10,7 +10,7 @@ function s.flipcon(e,tp,eg,ep,ev,re,r,rp)
 	--condition
 	local ft=Duel.GetLocationCount(tp,LOCATION_MZONE)
 	return aux.CanActivateSkill(tp)
-	and Duel.IsExistingMatchingCard(aux.FilterFaceupFunction(Card.IsCode,42280216),tp,LOCATION_MZONE,0,1,nil)
+	and Duel.IsExistingMatchingCard(aux.FilterFaceupFunction(Card.IsCode,42280216),tp,LOCATION_ONFIELD,0,1,nil)
 	and Duel.IsExistingMatchingCard(s.filter,tp,LOCATION_MZONE,0,1,nil,ft,tp)
 	and ft>-1
 end

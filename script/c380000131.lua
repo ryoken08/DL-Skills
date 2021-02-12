@@ -27,6 +27,7 @@ function s.flipop(e,tp,eg,ep,ev,re,r,rp)
 			e1:SetRange(LOCATION_GRAVE+LOCATION_REMOVED)
 			e1:SetReset(RESET_CHAIN)
 			tc:RegisterEffect(e1)
+			tc:ResetEffect(RESETS_REDIRECT,RESET_EVENT)
 		end
 		Duel.SendtoGrave(g,REASON_DESTROY)
 	end

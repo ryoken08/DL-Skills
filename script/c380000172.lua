@@ -23,10 +23,10 @@ function s.flipop(e,tp,eg,ep,ev,re,r,rp)
 		Duel.SendtoDeck(g,nil,SEQ_DECKSHUFFLE,REASON_RULE)
 		Duel.BreakEffect()
 	end
-	local sg=Duel.GetMatchingGroup(Card.IsCode,tp,LOCATION_DECK,0,nil,78371393):RandomSelect(tp,1)
-	if #sg>0 then
-		Duel.SendtoHand(sg,nil,REASON_RULE)
-		Duel.ConfirmCards(1-tp,sg)
+	local tc=Duel.GetFirstMatchingCard(Card.IsCode,tp,LOCATION_DECK,0,nil,78371393)
+	if tc then
+		Duel.SendtoHand(tc,nil,REASON_RULE)
+		Duel.ConfirmCards(1-tp,tc)
 		Duel.Hint(HINT_SKILL_FLIP,tp,id|(2<<32))
 	end
 end

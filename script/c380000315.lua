@@ -1,4 +1,4 @@
---Black Rose Gale
+--Galaxy Photon
 local s,id=GetID()
 function s.initial_effect(c)
 	--Activate
@@ -14,10 +14,9 @@ function s.initial_effect(c)
 	e1:SetOperation(s.activate)
 	c:RegisterEffect(e1)
 end
-s.listed_names={CARD_BLACK_ROSE_DRAGON}
-s.listed_series={0x1123}
+s.listed_series={0x55,0x7b}
 function s.exfilter(c)
-	return c:IsType(TYPE_MONSTER) and not (c:IsSetCard(0x1123) or c:IsRace(RACE_PLANT))
+	return c:IsType(TYPE_MONSTER) and not c:IsAttribute(ATTRIBUTE_LIGHT)
 end
 function s.condition(e,tp,eg,ep,ev,re,r,rp)
 	--condition
@@ -36,32 +35,38 @@ function s.activate(e,tp,eg,ep,ev,re,r,rp)
 	e:SetLabel(1)
 end
 function s.filter(c)
-	return c:IsFaceup() and c:IsCode(CARD_BLACK_ROSE_DRAGON) and c:IsStatus(STATUS_SPSUMMON_TURN)
+	return (c:IsSetCard(0x55) or c:IsSetCard(0x7b)) and c:IsType(TYPE_MONSTER)
+end
+function s.thfilter(c)
+	return (c:IsSetCard(0x55) or c:IsSetCard(0x7b)) and c:IsType(TYPE_SPELL+TYPE_TRAP)
 end
 function s.flipcon(e,tp,eg,ep,ev,re,r,rp)
 	--opd check
 	if Duel.GetFlagEffect(ep,id)>0 then return end
 	--condition
 	return aux.CanActivateSkill(tp)
-	and Duel.IsExistingMatchingCard(s.filter,tp,LOCATION_ONFIELD,0,1,nil)
+	and Duel.IsExistingMatchingCard(s.filter,tp,LOCATION_HAND,0,1,nil)
+	and Duel.IsExistingMatchingCard(s.thfilter,tp,LOCATION_DECK,0,1,nil)
 end
 function s.flipop(e,tp,eg,ep,ev,re,r,rp)
 	Duel.Hint(HINT_SKILL_FLIP,tp,id|(1<<32))
 	Duel.Hint(HINT_CARD,tp,id)
 	--opd register
 	Duel.RegisterFlagEffect(ep,id,0,0,0)
-	local g=Duel.GetMatchingGroup(aux.TRUE,tp,LOCATION_ONFIELD,LOCATION_ONFIELD,nil)
-	if #g>0 then
-		for tc in aux.Next(g) do
-			local e1=Effect.CreateEffect(e:GetHandler())
-			e1:SetType(EFFECT_TYPE_SINGLE)
-			e1:SetCode(EFFECT_CANNOT_TRIGGER)
-			e1:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
-			e1:SetRange(LOCATION_GRAVE+LOCATION_REMOVED)
-			e1:SetReset(RESET_CHAIN)
-			tc:RegisterEffect(e1)
-			tc:ResetEffect(RESETS_REDIRECT,RESET_EVENT)
-		end
-		Duel.SendtoGrave(g,REASON_DESTROY)
+	--return 1 galaxy or photon monster
+	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_TODECK)
+	local g=Duel.SelectMatchingCard(tp,s.filter,tp,LOCATION_HAND,0,1,1,nil)
+	local g1=g:GetFirst()
+	if g1 then
+		Duel.ConfirmCards(1-tp,g1)
+		Duel.SendtoDeck(g1,nil,SEQ_DECKSHUFFLE,REASON_RULE)
+	end
+	--add 1 galaxy or photon spell/trap
+	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_ATOHAND)
+	local sg=Duel.SelectMatchingCard(tp,s.thfilter,tp,LOCATION_DECK,0,1,1,nil)
+	local tc=sg:GetFirst()
+	if tc then
+		Duel.SendtoHand(tc,nil,REASON_RULE)
+		Duel.ConfirmCards(1-tp,tc)
 	end
 end

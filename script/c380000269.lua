@@ -13,11 +13,10 @@ end
 function s.flipop(e,tp,eg,ep,ev,re,r,rp)
 	Duel.Hint(HINT_SKILL_FLIP,tp,id|(1<<32))
 	Duel.Hint(HINT_CARD,tp,id)
-	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_ATOHAND)
-	local g=Duel.SelectMatchingCard(tp,Card.IsCode,tp,LOCATION_DECK,0,1,1,nil,67955331)
-	if #g>0 then
-		Duel.SendtoHand(g,nil,REASON_RULE)
-		Duel.ConfirmCards(1-tp,g)
+	local tc=Duel.GetFirstMatchingCard(Card.IsCode,tp,LOCATION_DECK,0,nil,67955331)
+	if tc then
+		Duel.SendtoHand(tc,nil,REASON_RULE)
+		Duel.ConfirmCards(1-tp,tc)
 	end
 	--skip next draw
 	local e1=Effect.CreateEffect(e:GetHandler())

@@ -37,8 +37,7 @@ function s.flipop(e,tp,eg,ep,ev,re,r,rp)
 	Duel.Hint(HINT_CARD,tp,id)
 	--flag register
 	Duel.RegisterFlagEffect(ep,id,0,0,0)
-	local g=Duel.GetMatchingGroup(Card.IsCode,tp,LOCATION_DECK,0,nil,7653207):RandomSelect(tp,1)
-	local tc=g:GetFirst()
+	local tc=Duel.GetFirstMatchingCard(Card.IsCode,tp,LOCATION_DECK,0,nil,7653207)
 	if tc then
 		Duel.MoveToField(tc,tp,tp,LOCATION_SZONE,POS_FACEDOWN,true)
 		Duel.Hint(HINT_SKILL_FLIP,tp,id|(2<<32))

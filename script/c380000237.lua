@@ -22,9 +22,6 @@ function s.flipcon(e,tp,eg,ep,ev,re,r,rp)
 	--condition
 	return Duel.GetMatchingGroup(s.exfilter,tp,LOCATION_DECK,0,nil):GetClassCount(Card.GetCode)>=3
 end
-function s.filter(c)
-	return c:IsType(TYPE_NORMAL) and c:IsAbleToHand()
-end
 function s.flipop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	if e:GetLabel()==0 then
@@ -36,7 +33,7 @@ function s.flipop(e,tp,eg,ep,ev,re,r,rp)
 		local ct=g:FilterCount(Card.IsType,nil,TYPE_NORMAL)
 		local num=Duel.GetRandomNumber(1,10)
 		if ct==0 and num<10 then
-			local g1=Duel.GetMatchingGroup(s.filter,tp,LOCATION_DECK,0,nil):RandomSelect(tp,1)
+			local g1=Duel.GetMatchingGroup(Card.IsType,tp,LOCATION_DECK,0,nil,TYPE_NORMAL):RandomSelect(tp,1)
 			local tc=g1:GetFirst()
 			Duel.MoveToDeckTop(tc)
 		end

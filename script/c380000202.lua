@@ -17,10 +17,10 @@ function s.flipop(e,tp,eg,ep,ev,re,r,rp)
 	Duel.Hint(HINT_CARD,tp,id)
 	--flag register
 	Duel.RegisterFlagEffect(ep,id,0,0,0)
-	local g=Duel.GetMatchingGroup(Card.IsCode,tp,LOCATION_DECK,0,nil,48948935):RandomSelect(tp,1)
-	if #g>0 then
-		Duel.SendtoHand(g,nil,REASON_RULE)
-		Duel.ConfirmCards(1-tp,g)
+	local tc=Duel.GetFirstMatchingCard(Card.IsCode,tp,LOCATION_DECK,0,nil,48948935)
+	if tc then
+		Duel.SendtoHand(tc,nil,REASON_RULE)
+		Duel.ConfirmCards(1-tp,tc)
 		Duel.ShuffleDeck(tp)
 		Duel.BreakEffect()
 	end

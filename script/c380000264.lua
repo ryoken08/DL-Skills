@@ -27,11 +27,11 @@ function s.flipop(e,tp,eg,ep,ev,re,r,rp)
 	--opd register
 	Duel.RegisterFlagEffect(ep,id,0,0,0)
 	local g=Duel.GetMatchingGroup(s.filter,tp,LOCATION_MZONE,0,nil,tp)
-	local tc=g:GetFirst()
-	if tc then
-		local sg=Duel.GetMatchingGroup(Card.IsCode,tp,LOCATION_DECK,0,nil,100000137):RandomSelect(tp,1)
-		if #sg>0 then
-			Duel.Equip(tp,sg:GetFirst(),tc)
+	local g1=g:GetFirst()
+	if g1 then
+		local tc=Duel.GetFirstMatchingCard(Card.IsCode,tp,LOCATION_DECK,0,nil,100000137)
+		if tc then
+			Duel.Equip(tp,tc,g1)
 		end
 	end
 end

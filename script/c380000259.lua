@@ -39,9 +39,7 @@ function s.flipop(e,tp,eg,ep,ev,re,r,rp)
 		Duel.SendtoDeck(g1,nil,SEQ_DECKSHUFFLE,REASON_RULE)
 	end
 	--add 1 red-eyes fusion
-	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_ATOHAND)
-	local sg=Duel.SelectMatchingCard(tp,Card.IsCode,tp,LOCATION_DECK,0,1,1,nil,6172122)
-	local tc=sg:GetFirst()
+	local tc=Duel.GetFirstMatchingCard(Card.IsCode,tp,LOCATION_DECK,0,nil,6172122)
 	if tc then
 		Duel.SendtoHand(tc,nil,REASON_RULE)
 		Duel.ConfirmCards(1-tp,tc)

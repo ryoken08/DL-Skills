@@ -36,7 +36,7 @@ function s.flipop(e,tp,eg,ep,ev,re,r,rp)
 	local sg=Duel.GetMatchingGroup(s.filter2,tp,LOCATION_DECK,0,nil)
 	if sg:GetClassCount(Card.GetCode)>=2 then
 		local sg1=aux.SelectUnselectGroup(sg,e,tp,2,2,aux.dncheck,1,tp,HINTMSG_ATOHAND)
-		Duel.SendtoHand(sg1,nil,REASON_EFFECT)
+		Duel.SendtoHand(sg1,nil,REASON_RULE)
 		Duel.ConfirmCards(1-tp,sg1)
 	end
 end

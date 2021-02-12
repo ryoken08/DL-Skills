@@ -20,22 +20,20 @@ function s.activate(e,tp,eg,ep,ev,re,r,rp)
 		local e1=Effect.CreateEffect(c)
 		e1:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
 		e1:SetCode(EVENT_CONTROL_CHANGED)
-		e1:SetTarget(s.target)
 		e1:SetOperation(s.operation)
 		Duel.RegisterEffect(e1,tp)
 	end
 	e:SetLabel(1)
 end
-function s.target(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return re:GetHandler():IsCode(100000138) and rp==tp end
-end
 function s.operation(e,tp,eg,ep,ev,re,r,rp)
-	Duel.Hint(HINT_SKILL_FLIP,tp,id|(1<<32))
-	Duel.Hint(HINT_CARD,tp,id)
-	local tc=eg:GetFirst()
-	local atk=tc:GetAttack()
-	local lp=Duel.GetLP(tp)+atk
-	Duel.SetLP(tp, lp)
-	Duel.Hint(HINT_SKILL_FLIP,tp,id|(2<<32))
+	if re:GetHandler():IsCode(100000138) and rp==tp then
+		Duel.Hint(HINT_SKILL_FLIP,tp,id|(1<<32))
+		Duel.Hint(HINT_CARD,tp,id)
+		local tc=eg:GetFirst()
+		local atk=tc:GetAttack()
+		local lp=Duel.GetLP(tp)+atk
+		Duel.SetLP(tp, lp)
+		Duel.Hint(HINT_SKILL_FLIP,tp,id|(2<<32))
+	end
 end
 		

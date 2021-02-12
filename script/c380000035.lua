@@ -10,16 +10,16 @@ function s.initial_effect(c)
 	e1:SetCountLimit(1)
 	e1:SetRange(0x5f)
 	e1:SetLabel(0)
-	e1:SetCondition(s.con)
-	e1:SetOperation(s.op)
+	e1:SetCondition(s.condition)
+	e1:SetOperation(s.activate)
 	c:RegisterEffect(e1)
 end
 s.listed_names={27911549}
-function s.con(e,tp,eg,ep,ev,re,r,rp)
+function s.condition(e,tp,eg,ep,ev,re,r,rp)
 	--condition
 	return Duel.GetMatchingGroup(Card.IsRace,tp,LOCATION_DECK,0,nil,RACE_INSECT):GetClassCount(Card.GetCode)>=4
 end
-function s.op(e,tp,eg,ep,ev,re,r,rp)
+function s.activate(e,tp,eg,ep,ev,re,r,rp)
 	if e:GetLabel()==0 then
 		local e1=Effect.CreateEffect(e:GetHandler())
 		e1:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)

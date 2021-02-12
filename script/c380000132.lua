@@ -20,22 +20,16 @@ function s.activate(e,tp,eg,ep,ev,re,r,rp)
 		local e1=Effect.CreateEffect(c)
 		e1:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
 		e1:SetCode(EVENT_EQUIP)
-		e1:SetTarget(s.equiptarget)
 		e1:SetOperation(s.equipop)
 		Duel.RegisterEffect(e1,tp)
 	end
 	e:SetLabel(1)
 end
-function s.equiptarget(e,tp,eg,ep,ev,re,r,rp,chk)
-	local tc=eg:GetFirst()
-	local g=tc:GetEquipTarget()
-	if chk==0 then return tc:IsCode(303660) and g:IsControler(tp) end
-end
 function s.equipop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	local g=eg:GetFirst()
 	local tc=g:GetEquipTarget()
-	if tc then
+	if tc and g:IsCode(303660) and tc:IsControler(tp) then
 		Duel.Hint(HINT_SKILL_FLIP,tp,id|(1<<32))
 		Duel.Hint(HINT_CARD,tp,id)
 		--500 ATK increase

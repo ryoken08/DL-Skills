@@ -28,7 +28,7 @@ function s.activate(e,tp,eg,ep,ev,re,r,rp)
 		Duel.Hint(HINT_SKILL_FLIP,tp,id|(1<<32))
 		Duel.Hint(HINT_CARD,tp,id)
 		--activate
-		local token=Duel.CreateToken(tp,85475641)   
+		local token=Duel.CreateToken(tp,85475641)
 		Duel.SendtoGrave(token,REASON_RULE)
 	end
 	e:SetLabel(1)

@@ -11,9 +11,6 @@ end
 function s.filter2(c,lvl)
 	return c:IsFaceup() and c:GetLevel()==lvl
 end
-function s.xyzfilter(c)
-	return c:IsType(TYPE_XYZ) and c:IsFaceup()
-end
 function s.flipcon(e,tp,eg,ep,ev,re,r,rp)
 	--opd check
 	if Duel.GetFlagEffect(ep,id)>0 then return end

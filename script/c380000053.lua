@@ -20,8 +20,8 @@ function s.op(e,tp,eg,ep,ev,re,r,rp)
 		e1:SetCode(EVENT_BATTLE_DESTROYED)
 		e1:SetProperty(EFFECT_FLAG_DELAY)
 		e1:SetCountLimit(1)
-		e1:SetCondition(s.drcon)
-		e1:SetOperation(s.drop)
+		e1:SetCondition(s.tgcon)
+		e1:SetOperation(s.tgop)
 		Duel.RegisterEffect(e1,tp)
 	end
 	e:SetLabel(1)
@@ -29,11 +29,11 @@ end
 function s.filter(c,tp)
 	return c:IsPreviousLocation(LOCATION_MZONE) and c:IsPreviousControler(1-tp)
 end
-function s.drcon(e,tp,eg,ep,ev,re,r,rp)
+function s.tgcon(e,tp,eg,ep,ev,re,r,rp)
 	--condition
 	return eg:IsExists(s.filter,1,nil,tp)
 end
-function s.drop(e,tp,eg,ep,ev,re,r,rp)
+function s.tgop(e,tp,eg,ep,ev,re,r,rp)
 	--flag register
 	Duel.RegisterFlagEffect(tp,id,0,0,0)
 end

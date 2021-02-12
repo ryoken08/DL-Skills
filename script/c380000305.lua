@@ -27,13 +27,20 @@ function s.flipop(e,tp,eg,ep,ev,re,r,rp)
 	local tc=g:GetFirst()
 	if tc then
 		local token=Duel.CreateToken(tp,25853045)
+		Duel.SendtoDeck(token,nil,SEQ_DECKTOP,REASON_RULE)
 		local mg=tc:GetOverlayGroup()
 		if #mg~=0 then
 			Duel.Overlay(token,mg)
 		end
-		token:SetMaterial(Group.FromCards(tc))
-		Duel.Overlay(token,Group.FromCards(tc))
+		token:SetMaterial(g)
+		Duel.Overlay(token,g)
+		local e0=Effect.CreateEffect(e:GetHandler())
+		e0:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_CONTINUOUS)
+		e0:SetCode(EVENT_SPSUMMON_SUCCESS)
+		e0:SetOperation(function () Duel.SetChainLimitTillChainEnd(aux.FALSE) end)
+		token:RegisterEffect(e0)
 		Duel.SpecialSummon(token,SUMMON_TYPE_XYZ,tp,tp,false,false,POS_FACEUP)
+		e0:Reset()
 		token:CompleteProcedure()
 	end
 end

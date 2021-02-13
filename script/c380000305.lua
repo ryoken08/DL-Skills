@@ -32,8 +32,8 @@ function s.flipop(e,tp,eg,ep,ev,re,r,rp)
 		if #mg~=0 then
 			Duel.Overlay(token,mg)
 		end
-		token:SetMaterial(g)
-		Duel.Overlay(token,g)
+		token:SetMaterial(Group.FromCards(tc))
+		Duel.Overlay(token,Group.FromCards(tc))
 		local e0=Effect.CreateEffect(e:GetHandler())
 		e0:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_CONTINUOUS)
 		e0:SetCode(EVENT_SPSUMMON_SUCCESS)

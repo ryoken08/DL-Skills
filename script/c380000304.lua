@@ -3,32 +3,18 @@ local s,id=GetID()
 function s.initial_effect(c)
 	--skill
 	aux.AddSkillProcedure(c,1,false,s.flipcon,s.flipop,1)
-	aux.GlobalCheck(s,function()
-		s[0]=false
-		s[1]=false
-		local ge1=Effect.CreateEffect(c)
-		ge1:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
-		ge1:SetCode(EVENT_SUMMON_SUCCESS)
-		ge1:SetOperation(s.checkop)
-		Duel.RegisterEffect(ge1,0)
-		aux.AddValuesReset(function()
-			s[0]=false
-			s[1]=false
-		end)
-	end)
+	Duel.AddCustomActivityCounter(id,ACTIVITY_SUMMON,s.counterfilter)
 end
 s.listed_names={51254277,7653207}
-function s.checkop(e,tp,eg,ep,ev,re,r,rp)
-	local tc=eg:GetFirst()
-	if tc:IsCode(51254277) then
-		s[rp]=true
-	end
+function s.counterfilter(c)
+	return not c:IsCode(51254277)
 end
 function s.flipcon(e,tp,eg,ep,ev,re,r,rp)
 	--twice per duel check
 	if Duel.GetFlagEffect(ep,id)>1 then return end
 	--condition
-	return aux.CanActivateSkill(tp) and s[tp]
+	return aux.CanActivateSkill(tp)
+	and Duel.GetCustomActivityCount(id,tp,ACTIVITY_SUMMON)>0
 	and Duel.IsExistingMatchingCard(Card.IsCode,tp,LOCATION_DECK,0,1,nil,7653207)
 	and Duel.GetLocationCount(tp,LOCATION_SZONE)>0
 end

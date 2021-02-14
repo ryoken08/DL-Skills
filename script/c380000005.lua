@@ -33,56 +33,55 @@ function s.flipop(e,tp,eg,ep,ev,re,r,rp)
 		local spl=Duel.GetMatchingGroupCount(Card.IsType,tp,LOCATION_DECK,0,nil,TYPE_SPELL)/deck*ct
 		local trp=Duel.GetMatchingGroupCount(Card.IsType,tp,LOCATION_DECK,0,nil,TYPE_TRAP)/deck*ct
 		--check cards to add 1 of said type 
+		local g1=nil
+		local tc=nil
 		if mnt>spl and mnt>trp then
-			local g1=Duel.GetMatchingGroup(Card.IsType,tp,LOCATION_DECK,0,nil,TYPE_MONSTER):RandomSelect(tp,1)
-			local tc=g1:GetFirst()
+			g1=Duel.GetMatchingGroup(Card.IsType,tp,LOCATION_DECK,0,nil,TYPE_MONSTER):RandomSelect(tp,1)
+			tc=g1:GetFirst()
 			Duel.MoveToDeckTop(tc)
 		elseif spl>mnt and spl>trp then
-			local g1=Duel.GetMatchingGroup(Card.IsType,tp,LOCATION_DECK,0,nil,TYPE_SPELL):RandomSelect(tp,1)
-			local tc=g1:GetFirst()
+			g1=Duel.GetMatchingGroup(Card.IsType,tp,LOCATION_DECK,0,nil,TYPE_SPELL):RandomSelect(tp,1)
+			tc=g1:GetFirst()
 			Duel.MoveToDeckTop(tc)
 		elseif trp>mnt and trp>spl then
-			local g1=Duel.GetMatchingGroup(Card.IsType,tp,LOCATION_DECK,0,nil,TYPE_TRAP):RandomSelect(tp,1)
-			local tc=g1:GetFirst()
+			g1=Duel.GetMatchingGroup(Card.IsType,tp,LOCATION_DECK,0,nil,TYPE_TRAP):RandomSelect(tp,1)
+			tc=g1:GetFirst()
 			Duel.MoveToDeckTop(tc)
-		end
-		--if equal sends a random one to start with 2 of that type
-		if mnt==spl and spl==trp then
-			local g1=Duel.GetMatchingGroup(Card.IsType,tp,LOCATION_DECK,0,nil,TYPE_MONSTER+TYPE_SPELL+TYPE_TRAP):RandomSelect(tp,1)
-			local tc=g1:GetFirst()
+		elseif mnt==spl and spl==trp then
+			g1=Duel.GetMatchingGroup(Card.IsType,tp,LOCATION_DECK,0,nil,TYPE_MONSTER+TYPE_SPELL+TYPE_TRAP):RandomSelect(tp,1)
+			tc=g1:GetFirst()
 			Duel.MoveToDeckTop(tc)
 		elseif mnt==spl and spl~=trp then
-			local g1=Duel.GetMatchingGroup(Card.IsType,tp,LOCATION_DECK,0,nil,TYPE_MONSTER+TYPE_SPELL):RandomSelect(tp,1)
-			local tc=g1:GetFirst()
-			Duel.MoveToDeckTop(tc)
+			g1=Duel.GetMatchingGroup(Card.IsType,tp,LOCATION_DECK,0,nil,TYPE_MONSTER+TYPE_SPELL):RandomSelect(tp,ct)
+			Duel.MoveToDeckTop(g1)
 		elseif spl==trp and mnt~=spl then
-			local g1=Duel.GetMatchingGroup(Card.IsType,tp,LOCATION_DECK,0,nil,TYPE_SPELL+TYPE_TRAP):RandomSelect(tp,1)
-			local tc=g1:GetFirst()
-			Duel.MoveToDeckTop(tc)
+			g1=Duel.GetMatchingGroup(Card.IsType,tp,LOCATION_DECK,0,nil,TYPE_SPELL+TYPE_TRAP):RandomSelect(tp,ct)
+			Duel.MoveToDeckTop(g1)
 		elseif mnt==trp and spl~=trp then
-			local g1=Duel.GetMatchingGroup(Card.IsType,tp,LOCATION_DECK,0,nil,TYPE_MONSTER+TYPE_TRAP):RandomSelect(tp,1)
-			local tc=g1:GetFirst()
-			Duel.MoveToDeckTop(tc)
+			g1=Duel.GetMatchingGroup(Card.IsType,tp,LOCATION_DECK,0,nil,TYPE_MONSTER+TYPE_TRAP):RandomSelect(tp,ct)
+			Duel.MoveToDeckTop(g1)
 		end
 		--always at least 1 of each
-		local g=Duel.GetDecktopGroup(tp,ct)
-		local ctm=g:FilterCount(Card.IsType,nil,TYPE_MONSTER)
-		local cts=g:FilterCount(Card.IsType,nil,TYPE_SPELL)
-		local ctt=g:FilterCount(Card.IsType,nil,TYPE_TRAP)
-		if ctm==0 then
-			local g1=Duel.GetMatchingGroup(Card.IsType,tp,LOCATION_DECK,0,nil,TYPE_MONSTER):RandomSelect(tp,1)
-			local tc=g1:GetFirst()
-			Duel.MoveToDeckTop(tc)
-		end
-		if cts==0 then
-			local g1=Duel.GetMatchingGroup(Card.IsType,tp,LOCATION_DECK,0,nil,TYPE_SPELL):RandomSelect(tp,1)
-			local tc=g1:GetFirst()
-			Duel.MoveToDeckTop(tc)
-		end
-		if ctt==0 then
-			local g1=Duel.GetMatchingGroup(Card.IsType,tp,LOCATION_DECK,0,nil,TYPE_TRAP):RandomSelect(tp,1)
-			local tc=g1:GetFirst()
-			Duel.MoveToDeckTop(tc)
+		for i=1,2 do
+			local g=Duel.GetDecktopGroup(tp,dr)
+			local ctm=g:FilterCount(Card.IsType,nil,TYPE_MONSTER)
+			local cts=g:FilterCount(Card.IsType,nil,TYPE_SPELL)
+			local ctt=g:FilterCount(Card.IsType,nil,TYPE_TRAP)
+			if ctm==0 then
+				local sg=Duel.GetMatchingGroup(Card.IsType,tp,LOCATION_DECK,0,nil,TYPE_MONSTER):RandomSelect(tp,1)
+				local sg1=sg:GetFirst()
+				Duel.MoveToDeckTop(sg1)
+			end
+			if cts==0 then
+				local sg=Duel.GetMatchingGroup(Card.IsType,tp,LOCATION_DECK,0,nil,TYPE_SPELL):RandomSelect(tp,1)
+				local sg1=sg:GetFirst()
+				Duel.MoveToDeckTop(sg1)
+			end
+			if ctt==0 then
+				local sg=Duel.GetMatchingGroup(Card.IsType,tp,LOCATION_DECK,0,nil,TYPE_TRAP):RandomSelect(tp,1)
+				local sg1=sg:GetFirst()
+				Duel.MoveToDeckTop(sg1)
+			end
 		end
 	end
 	e:SetLabel(1)

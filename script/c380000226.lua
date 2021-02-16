@@ -19,7 +19,7 @@ function s.flipop(e,tp,eg,ep,ev,re,r,rp)
 	local g=Duel.SelectMatchingCard(tp,Card.IsFaceup,tp,LOCATION_MZONE,0,1,1,nil)
 	Duel.HintSelection(g)
 	local tc=g:GetFirst()
-	local def=Duel.GetTurnCount()*100
+	local def=Duel.GetTurnCount()*200
 	if def==0 then return end
 	if tc then
 		local e1=Effect.CreateEffect(e:GetHandler())

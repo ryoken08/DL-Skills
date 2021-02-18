@@ -37,8 +37,8 @@ function s.flipop(e,tp,eg,ep,ev,re,r,rp)
 	Duel.Hint(HINT_SKILL_FLIP,tp,id|(1<<32))
 	Duel.Hint(HINT_CARD,tp,id)
 	local token=Duel.CreateToken(tp,65810489)
-	if Duel.MoveToField(token,tp,tp,LOCATION_SZONE,POS_FACEDOWN,true)~=0 then
-		Duel.Hint(HINT_SKILL_FLIP,tp,id|(2<<32))
-		s[2+tp]=0
-	end
+	Duel.MoveToField(token,tp,tp,LOCATION_SZONE,POS_FACEDOWN,true)
+	token:SetStatus(STATUS_SET_TURN,true)
+	Duel.Hint(HINT_SKILL_FLIP,tp,id|(2<<32))
+	s[2+tp]=0
 end

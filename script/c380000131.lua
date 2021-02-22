@@ -10,7 +10,7 @@ function s.flipcon(e,tp,eg,ep,ev,re,r,rp)
 	--condition
 	return aux.CanActivateSkill(tp)
 	and Duel.IsExistingMatchingCard(aux.FilterFaceupFunction(Card.IsOriginalCodeRule,CARD_JINZO),tp,LOCATION_MZONE,0,1,nil)
-	and Duel.GetMatchingGroupCount(Card.IsType,tp,0,LOCATION_SZONE,nil,TYPE_TRAP)>0
+	and Duel.GetMatchingGroupCount(Card.IsFacedown,tp,0,LOCATION_SZONE,nil)>0
 end
 function s.flipop(e,tp,eg,ep,ev,re,r,rp)
 	Duel.Hint(HINT_SKILL_FLIP,tp,id|(1<<32))

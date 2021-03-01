@@ -72,5 +72,18 @@ function s.flipop(e,tp,eg,ep,ev,re,r,rp)
 		Duel.SendtoHand(tc,nil,REASON_RULE)
 		Duel.ConfirmCards(1-tp,tc)
 	end
+	--Cannot Special Summon Level 10 or higher monsters except T.G. monsters
+	local e1=Effect.CreateEffect(e:GetHandler())
+	e1:SetType(EFFECT_TYPE_FIELD)
+	e1:SetDescription(aux.Stringid(id,0))
+	e1:SetProperty(EFFECT_FLAG_PLAYER_TARGET+EFFECT_FLAG_OATH+EFFECT_FLAG_CLIENT_HINT)
+	e1:SetCode(EFFECT_CANNOT_SPECIAL_SUMMON)
+	e1:SetReset(RESET_PHASE+PHASE_END)
+	e1:SetTargetRange(1,0)
+	e1:SetTarget(s.splimit)
+	Duel.RegisterEffect(e1,tp)
 	Duel.Hint(HINT_SKILL_FLIP,tp,id|(2<<32))
+end
+function s.splimit(e,c,sump,sumtype,sumpos,targetp,se)
+	return c:IsLevelAbove(10) and not c:IsSetCard(0x27)
 end

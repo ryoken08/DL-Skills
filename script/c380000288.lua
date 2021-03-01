@@ -20,7 +20,7 @@ function s.exfilter(c)
 end
 function s.condition(e,tp,eg,ep,ev,re,r,rp)
 	--condition
-	return not Duel.IsExistingMatchingCard(s.exfilter,tp,LOCATION_DECK,0,1,nil)
+	return not Duel.IsExistingMatchingCard(s.exfilter,tp,LOCATION_DECK+LOCATION_EXTRA,0,1,nil)
 end
 function s.activate(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()

@@ -8,14 +8,14 @@ function s.flipcon(e,tp,eg,ep,ev,re,r,rp)
 	if Duel.GetFlagEffect(ep,id)>0 then return end
 	--condition
 	return aux.CanActivateSkill(tp)
-	and Duel.IsExistingMatchingCard(s.cfilter,tp,LOCATION_MZONE,0,1,nil,tp)
+	and Duel.IsExistingMatchingCard(s.cfilter,tp,LOCATION_MZONE,0,1,nil)
+	and Duel.IsExistingMatchingCard(s.lvfilter,tp,LOCATION_HAND,0,1,nil)
 end
-function s.cfilter(c,tp)
+function s.cfilter(c)
 	return c:IsLevelAbove(1) and c:IsFaceup()
-		and Duel.IsExistingMatchingCard(s.lvfilter,tp,LOCATION_HAND,0,1,nil,c:GetLevel())
 end
-function s.lvfilter(c,lv)
-	return c:IsLevelAbove(1) and not c:IsPublic() and c:GetLevel()~=lv
+function s.lvfilter(c)
+	return c:IsLevelAbove(1) and not c:IsPublic()
 end
 function s.flipop(e,tp,eg,ep,ev,re,r,rp)
 	Duel.Hint(HINT_SKILL_FLIP,tp,id|(1<<32))
@@ -23,10 +23,10 @@ function s.flipop(e,tp,eg,ep,ev,re,r,rp)
 	--opd register
 	Duel.RegisterFlagEffect(ep,id,0,0,0)
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_FACEUP)
-	local g=Duel.SelectMatchingCard(tp,s.cfilter,tp,LOCATION_MZONE,0,1,1,nil,tp)
+	local g=Duel.SelectMatchingCard(tp,s.cfilter,tp,LOCATION_MZONE,0,1,1,nil)
 	local tc=g:GetFirst()
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_CONFIRM)
-	local sg=Duel.SelectMatchingCard(tp,s.lvfilter,tp,LOCATION_HAND,0,1,1,nil,tc:GetLevel())
+	local sg=Duel.SelectMatchingCard(tp,s.lvfilter,tp,LOCATION_HAND,0,1,1,nil)
 	local g1=sg:GetFirst()
 	if g1 then
 		Duel.ConfirmCards(1-tp,g1)

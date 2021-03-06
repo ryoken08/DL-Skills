@@ -10,14 +10,8 @@ function s.initial_effect(c)
 	e1:SetCountLimit(1)
 	e1:SetRange(0x5f)
 	e1:SetLabel(0)
-	e1:SetCondition(s.flipcon)
 	e1:SetOperation(s.flipop)
 	c:RegisterEffect(e1)
-end
-function s.flipcon(e,tp,eg,ep,ev,re,r,rp)
-	--condition
-	return Duel.IsExistingMatchingCard(Card.IsType,tp,LOCATION_DECK,0,7,nil,TYPE_SPELL)
-		and Duel.IsExistingMatchingCard(Card.IsType,tp,LOCATION_DECK,0,7,nil,TYPE_TRAP)
 end
 function s.flipop(e,tp,eg,ep,ev,re,r,rp)
 	local e1=Effect.CreateEffect(e:GetHandler())
@@ -42,18 +36,26 @@ function s.activate(e,tp,eg,ep,ev,re,r,rp)
 		Duel.SendtoDeck(g,nil,2,REASON_EFFECT)
 		Duel.ShuffleDeck(g:GetFirst():GetControler())
 		Duel.BreakEffect()
-		Duel.Draw(g:GetFirst():GetControler(),#g,REASON_EFFECT)
+		Duel.Draw(g:GetFirst():GetControler(),#g-1,REASON_EFFECT)
 	end
-	--skip next draw
+	--cannot use monster effects
 	local e1=Effect.CreateEffect(e:GetHandler())
 	e1:SetType(EFFECT_TYPE_FIELD)
 	e1:SetProperty(EFFECT_FLAG_PLAYER_TARGET)
-	e1:SetCode(EFFECT_SKIP_DP)
+	e1:SetCode(EFFECT_CANNOT_ACTIVATE)
 	e1:SetTargetRange(1,0)
-	if Duel.GetTurnPlayer()==tp and Duel.GetCurrentPhase()==PHASE_DRAW then
-		e1:SetReset(RESET_PHASE+PHASE_DRAW+RESET_SELF_TURN,2)
-	else
-		e1:SetReset(RESET_PHASE+PHASE_DRAW+RESET_SELF_TURN)
-	end
+	e1:SetValue(s.aclimit)
+	e1:SetReset(RESET_PHASE+PHASE_MAIN1+RESET_SELF_TURN)
 	Duel.RegisterEffect(e1,tp)
+	--cannot Special Summon
+	local e2=Effect.CreateEffect(e:GetHandler())
+	e2:SetType(EFFECT_TYPE_FIELD)
+	e2:SetCode(EFFECT_CANNOT_SPECIAL_SUMMON)
+	e2:SetProperty(EFFECT_FLAG_PLAYER_TARGET)
+	e2:SetTargetRange(1,0)
+	e2:SetReset(RESET_PHASE+PHASE_MAIN1+RESET_SELF_TURN)
+	Duel.RegisterEffect(e2,tp)
+end
+function s.aclimit(e,re,tp)
+	return re:IsActiveType(TYPE_MONSTER)
 end

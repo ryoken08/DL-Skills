@@ -17,11 +17,15 @@ end
 s.listed_names={CARD_VIJAM}
 s.listed_series={0xe3}
 function s.filter(c)
-	return (c:IsType(TYPE_MONSTER) or c:IsType(TYPE_SPELL+TYPE_TRAP)) and not c:IsSetCard(0xe3)
+	return c:IsType(TYPE_MONSTER) and not c:IsSetCard(0xe3)
+end
+function s.exfilter(c)
+	return c:IsType(TYPE_SPELL+TYPE_TRAP) and not c:IsSetCard(0xe3)
 end
 function s.condition(e,tp,eg,ep,ev,re,r,rp)
 	--condition
 	return not Duel.IsExistingMatchingCard(s.filter,tp,LOCATION_DECK+LOCATION_EXTRA,0,1,nil)
+	   and not Duel.IsExistingMatchingCard(s.exfilter,tp,LOCATION_DECK,0,7,nil)
 end
 function s.activate(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()

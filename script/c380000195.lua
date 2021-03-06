@@ -31,6 +31,18 @@ function s.flipop(e,tp,eg,ep,ev,re,r,rp)
 	e1:SetCondition(s.repcon)
 	e1:SetOperation(s.repop(Duel.GetCoinResult,Duel.SetCoinResult))
 	Duel.RegisterEffect(e1,tp)
+	--skip next draw
+	local e2=Effect.CreateEffect(e:GetHandler())
+	e2:SetType(EFFECT_TYPE_FIELD)
+	e2:SetProperty(EFFECT_FLAG_PLAYER_TARGET)
+	e2:SetCode(EFFECT_SKIP_DP)
+	e2:SetTargetRange(1,0)
+	if Duel.GetTurnPlayer()==tp and not Duel.IsDuelType(DUEL_1ST_TURN_DRAW) then
+		e2:SetReset(RESET_PHASE+PHASE_DRAW+RESET_SELF_TURN,2)
+	else
+		e2:SetReset(RESET_PHASE+PHASE_DRAW+RESET_SELF_TURN)
+	end
+	Duel.RegisterEffect(e2,tp)
 end
 function s.repcon(e,tp,eg,ep,ev,re,r,rp)
 	--flag check

@@ -28,7 +28,9 @@ function s.flipop(e,tp,eg,ep,ev,re,r,rp)
 		Duel.ShuffleDeck(tp)
 		Duel.BreakEffect()
 	end
-	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_FACEDOWN)
+	local g1=Duel.GetMatchingGroup(s.filter,tp,0,LOCATION_SZONE,nil)
+	Duel.ConfirmCards(tp,g1)
+	Duel.Hint(HINT_SELECTMSG,tp,aux.Stringid(id,1))
 	local sg=Duel.SelectMatchingCard(tp,s.filter,tp,0,LOCATION_SZONE,1,1,nil)
 	Duel.MoveToField(sg:GetFirst(),tp,tp,LOCATION_SZONE,POS_FACEDOWN,true)
 end

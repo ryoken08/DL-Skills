@@ -13,7 +13,7 @@ function s.initial_effect(c)
 	e1:SetOperation(s.activate)
 	c:RegisterEffect(e1)
 end
-s.listed_names={63977008,CARD_STARDUST_DRAGON}
+s.listed_names={63977008,CARD_STARDUST_DRAGON,24696097,50091196}
 function s.activate(e,tp,eg,ep,ev,re,r,rp)
 	Duel.Hint(HINT_SKILL_FLIP,tp,id|(1<<32))
 	Duel.Hint(HINT_CARD,tp,id)
@@ -22,7 +22,10 @@ function s.activate(e,tp,eg,ep,ev,re,r,rp)
 		Duel.SendtoDeck(token,nil,SEQ_DECKSHUFFLE,REASON_RULE)
 	end
 	Duel.ShuffleDeck(tp)
-	Duel.BreakEffect()
 	local token2=Duel.CreateToken(tp,CARD_STARDUST_DRAGON)
 	Duel.SendtoDeck(token2,nil,SEQ_DECKTOP,REASON_RULE)
+	local token3=Duel.CreateToken(tp,24696097)
+	Duel.SendtoDeck(token3,nil,SEQ_DECKTOP,REASON_RULE)
+	local token4=Duel.CreateToken(tp,50091196)
+	Duel.SendtoDeck(token4,nil,SEQ_DECKTOP,REASON_RULE)
 end

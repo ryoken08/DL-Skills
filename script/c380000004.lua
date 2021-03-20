@@ -20,16 +20,33 @@ function s.flipop(e,tp,eg,ep,ev,re,r,rp)
 	e1:SetCondition(s.condition)
 	e1:SetOperation(s.activate)
 	Duel.RegisterEffect(e1,tp)
+	--cannot use monster effects
+	local e2=Effect.CreateEffect(e:GetHandler())
+	e2:SetType(EFFECT_TYPE_FIELD)
+	e2:SetProperty(EFFECT_FLAG_PLAYER_TARGET)
+	e2:SetCode(EFFECT_CANNOT_ACTIVATE)
+	e2:SetTargetRange(1,0)
+	e2:SetValue(s.aclimit)
+	e2:SetReset(RESET_PHASE+PHASE_MAIN1+RESET_SELF_TURN)
+	Duel.RegisterEffect(e2,tp)
+	--cannot Special Summon
+	local e3=Effect.CreateEffect(e:GetHandler())
+	e3:SetType(EFFECT_TYPE_FIELD)
+	e3:SetCode(EFFECT_CANNOT_SPECIAL_SUMMON)
+	e3:SetProperty(EFFECT_FLAG_PLAYER_TARGET)
+	e3:SetTargetRange(1,0)
+	e3:SetReset(RESET_PHASE+PHASE_MAIN1+RESET_SELF_TURN)
+	Duel.RegisterEffect(e3,tp)
 end
 function s.condition(e,tp,eg,ep,ev,re,r,rp)
 	--condition
 	return Duel.GetCurrentChain()==0 and Duel.GetTurnCount()==1
 end
 function s.activate(e,tp,eg,ep,ev,re,r,rp)
-	--ask if you want to activate the skill or not
-	if not Duel.SelectYesNo(tp,aux.Stringid(id,0)) then return end
 	Duel.Hint(HINT_SKILL_FLIP,tp,id|(1<<32))
 	Duel.Hint(HINT_CARD,tp,id)
+	--ask if you want to activate the skill or not
+	if not Duel.SelectYesNo(tp,aux.Stringid(id,0)) then return end
 	--shuffle hand
 	local g=Duel.GetFieldGroup(tp,LOCATION_HAND,0)
 	if #g>0 then
@@ -38,23 +55,6 @@ function s.activate(e,tp,eg,ep,ev,re,r,rp)
 		Duel.BreakEffect()
 		Duel.Draw(g:GetFirst():GetControler(),#g-1,REASON_EFFECT)
 	end
-	--cannot use monster effects
-	local e1=Effect.CreateEffect(e:GetHandler())
-	e1:SetType(EFFECT_TYPE_FIELD)
-	e1:SetProperty(EFFECT_FLAG_PLAYER_TARGET)
-	e1:SetCode(EFFECT_CANNOT_ACTIVATE)
-	e1:SetTargetRange(1,0)
-	e1:SetValue(s.aclimit)
-	e1:SetReset(RESET_PHASE+PHASE_MAIN1+RESET_SELF_TURN)
-	Duel.RegisterEffect(e1,tp)
-	--cannot Special Summon
-	local e2=Effect.CreateEffect(e:GetHandler())
-	e2:SetType(EFFECT_TYPE_FIELD)
-	e2:SetCode(EFFECT_CANNOT_SPECIAL_SUMMON)
-	e2:SetProperty(EFFECT_FLAG_PLAYER_TARGET)
-	e2:SetTargetRange(1,0)
-	e2:SetReset(RESET_PHASE+PHASE_MAIN1+RESET_SELF_TURN)
-	Duel.RegisterEffect(e2,tp)
 end
 function s.aclimit(e,re,tp)
 	return re:IsActiveType(TYPE_MONSTER)

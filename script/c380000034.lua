@@ -18,5 +18,5 @@ function s.flipop(e,tp,eg,ep,ev,re,r,rp)
 	--opd register
 	Duel.RegisterFlagEffect(ep,id,0,0,0)
 	local token=Duel.CreateToken(tp,18144507)
-	Duel.SendtoHand(token,nil,REASON_EFFECT)
+	Duel.SendtoHand(token,nil,REASON_RULE)
 end

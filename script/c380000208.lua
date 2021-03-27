@@ -36,7 +36,6 @@ function s.flipop(e,tp,eg,ep,ev,re,r,rp)
 			e1:SetCode(EFFECT_CANNOT_CHANGE_POSITION)
 			e1:SetReset(RESET_PHASE+PHASE_END)
 			tc:RegisterEffect(e1)
-			s[2+tp]=0
 		end
 	end
 end

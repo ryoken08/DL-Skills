@@ -8,14 +8,13 @@ function s.flipcon(e,tp,eg,ep,ev,re,r,rp)
 	--opd check
 	if Duel.GetFlagEffect(ep,id)>0 then return end
 	local b1=Duel.IsExistingMatchingCard(aux.TRUE,tp,LOCATION_HAND,0,1,nil)
-	local b2=Duel.IsExistingMatchingCard(aux.TRUE,tp,LOCATION_HAND,0,2,nil)
-		and Duel.GetLocationCount(tp,LOCATION_MZONE)>0
-	local b3=Duel.IsExistingMatchingCard(aux.TRUE,tp,LOCATION_HAND,0,3,nil)
-		and Duel.GetLocationCount(tp,LOCATION_SZONE)>0
+	local b2=(Duel.IsExistingMatchingCard(aux.TRUE,tp,LOCATION_HAND,0,2,nil)
+		and Duel.GetLocationCount(tp,LOCATION_MZONE)>0)
+	local b3=(Duel.IsExistingMatchingCard(aux.TRUE,tp,LOCATION_HAND,0,3,nil)
+		and Duel.GetLocationCount(tp,LOCATION_SZONE)>0)
 	--condition
-	return aux.CanActivateSkill(tp)
+	return aux.CanActivateSkill(tp) and (b1 or b2 or b3)
 	and (Duel.GetLP(1-tp)-Duel.GetLP(tp))>=2000
-	and (b1 or b2 or b3)
 end
 function s.flipop(e,tp,eg,ep,ev,re,r,rp)
 	Duel.Hint(HINT_SKILL_FLIP,tp,id|(1<<32))
@@ -23,10 +22,10 @@ function s.flipop(e,tp,eg,ep,ev,re,r,rp)
 	--opd register
 	Duel.RegisterFlagEffect(ep,id,0,0,0)
 	local b1=Duel.IsExistingMatchingCard(aux.TRUE,tp,LOCATION_HAND,0,1,nil)
-	local b2=Duel.IsExistingMatchingCard(aux.TRUE,tp,LOCATION_HAND,0,2,nil)
-		and Duel.GetLocationCount(tp,LOCATION_MZONE)>0
-	local b3=Duel.IsExistingMatchingCard(aux.TRUE,tp,LOCATION_HAND,0,3,nil)
-		and Duel.GetLocationCount(tp,LOCATION_SZONE)>0
+	local b2=(Duel.IsExistingMatchingCard(aux.TRUE,tp,LOCATION_HAND,0,2,nil)
+		and Duel.GetLocationCount(tp,LOCATION_MZONE)>0)
+	local b3=(Duel.IsExistingMatchingCard(aux.TRUE,tp,LOCATION_HAND,0,3,nil)
+		and Duel.GetLocationCount(tp,LOCATION_SZONE)>0)
 	local off=1
 	local ops={}
 	local opval={}

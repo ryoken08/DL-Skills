@@ -32,10 +32,9 @@ function s.flipcon(e,tp,eg,ep,ev,re,r,rp)
 	local b1=Duel.IsExistingMatchingCard(Card.IsRitualMonster,tp,LOCATION_DECK,0,1,nil)
 	local b2=Duel.IsExistingMatchingCard(Card.IsRitualSpell,tp,LOCATION_DECK,0,1,nil)
 	--condition
-	return aux.CanActivateSkill(tp)
+	return aux.CanActivateSkill(tp) and (b1 or b2)
 	and Duel.IsExistingMatchingCard(aux.TRUE,tp,LOCATION_HAND,0,1,nil)
 	and s[2+tp]>=1000
-	and (b1 or b2)
 end
 function s.flipop(e,tp,eg,ep,ev,re,r,rp)
 	Duel.Hint(HINT_SKILL_FLIP,tp,id|(1<<32))

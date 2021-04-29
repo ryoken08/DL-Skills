@@ -10,6 +10,7 @@ function s.flipcon(e,tp,eg,ep,ev,re,r,rp)
 	return aux.CanActivateSkill(tp)
 	and Duel.IsExistingMatchingCard(s.cfilter,tp,LOCATION_MZONE,0,1,nil)
 	and Duel.IsExistingMatchingCard(s.lvfilter,tp,LOCATION_HAND,0,1,nil)
+	and Duel.GetLP(tp)<=3000
 end
 function s.cfilter(c)
 	return c:IsLevelAbove(1) and c:IsFaceup()
@@ -42,11 +43,6 @@ function s.flipop(e,tp,eg,ep,ev,re,r,rp)
 		e1:SetReset(RESET_CHAIN)
 		tc:RegisterEffect(e1)
 		--update level
-		local e2=Effect.CreateEffect(e:GetHandler())
-		e2:SetType(EFFECT_TYPE_SINGLE)
-		e2:SetCode(EFFECT_UPDATE_LEVEL)
-		e2:SetValue(lv)
-		e2:SetReset(RESET_EVENT+RESETS_STANDARD)
-		tc:RegisterEffect(e2)
+		tc:UpdateLevel(lv,RESET_EVENT+RESETS_STANDARD+RESET_PHASE+PHASE_END,e:GetHandler())
 	end
 end

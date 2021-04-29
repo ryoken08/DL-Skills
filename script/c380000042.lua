@@ -3,7 +3,6 @@ local s,id=GetID()
 function s.initial_effect(c)
 	aux.AddSkillProcedure(c,1,false,s.flipcon,s.flipop,1)
 end
-
 function s.filter(c)
 	return c:IsFaceup() and c:IsRace(RACE_DINOSAUR) and c:IsLevel(6)
 end

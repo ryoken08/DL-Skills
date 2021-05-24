@@ -1,12 +1,11 @@
---Alternative Evolution
+--Parts Replacement [Wisel]
 local s,id=GetID()
 function s.initial_effect(c)
 	aux.AddSkillProcedure(c,1,false,s.flipcon,s.flipop)
 end
-s.listed_names={CARD_BLUEEYES_W_DRAGON,38517737}
-function s.filter(c)
-	return c:IsOriginalCodeRule(CARD_BLUEEYES_W_DRAGON) and c:IsAttackAbove(3000) and c:IsFaceup()
-end
+s.listed_names={100000051,100000052,100000053}
+s.filter=aux.FilterFaceupFunction(Card.IsOriginalCodeRule,100000051,100000052,100000053)
+s.list={[100000051]=100000049,[100000052]=100000048,[100000053]=100000047}
 function s.flipcon(e,tp,eg,ep,ev,re,r,rp)
 	--opd check
 	if Duel.GetFlagEffect(ep,id)>0 then return end
@@ -26,10 +25,12 @@ function s.flipop(e,tp,eg,ep,ev,re,r,rp)
 	if tc then
 		local seq=tc:GetSequence()
 		local pos=tc:GetPosition()
+		local code=tc:GetCode()
 		tc:ResetEffect(RESETS_REDIRECT,RESET_EVENT)
 		Duel.SendtoDeck(tc,nil,-2,REASON_RULE)
-		local token=Duel.CreateToken(tp,38517737)
-		--Move to field
+		local tcode=s.list[code]
+		local token=Duel.CreateToken(tp,tcode)
+		--transform
 		local e0=Effect.CreateEffect(e:GetHandler())
 		e0:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_CONTINUOUS)
 		e0:SetCode(EVENT_FREE_CHAIN)

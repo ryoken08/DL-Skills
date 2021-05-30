@@ -4,7 +4,7 @@ function s.initial_effect(c)
 	--skill
 	aux.AddSkillProcedure(c,1,false,s.flipcon,s.flipop)
 end
-s.listed_names={40640057,33245030,50185950,46613515}
+s.listed_names={CARD_KURIBOH,33245030,50185950,46613515}
 s.listed_series={0xa4}
 function s.filter(c)
 	return c:IsSetCard(0xa4) and (not c:IsPublic() or c:IsFaceup())
@@ -38,7 +38,7 @@ function s.flipop(e,tp,eg,ep,ev,re,r,rp)
 	Duel.SendtoDeck(g:GetFirst(),nil,-2,REASON_RULE)
 	--remove the kuriboh you chose from the array
 	local p=1
-	local cards={40640057,33245030,50185950,46613515}
+	local cards={CARD_KURIBOH,33245030,50185950,46613515}
 	for i=1,4 do
 		if ocode~=cards[i] then cards[p]=cards[i] p=p+1 end
 	end

@@ -14,7 +14,7 @@ function s.flipcon(e,tp,eg,ep,ev,re,r,rp)
 	--condition
 	return aux.CanActivateSkill(tp)
 	and Duel.IsExistingMatchingCard(s.filter,tp,LOCATION_MZONE,0,1,nil,tp)
-	and Duel.IsPlayerCanSpecialSummonMonster(tp,25853045,0,0x800021,2100,600,4,RACE_BEASTWARRIOR,ATTRIBUTE_WATER,POS_FACEUP,tp,SUMMON_TYPE_XYZ)
+	and Duel.IsPlayerCanSpecialSummonMonster(tp,25853045,0,TYPE_MONSTER+TYPE_EFFECT+TYPE_XYZ,2100,600,4,RACE_BEASTWARRIOR,ATTRIBUTE_WATER,POS_FACEUP,tp,SUMMON_TYPE_XYZ)
 end
 function s.flipop(e,tp,eg,ep,ev,re,r,rp)
 	Duel.Hint(HINT_SKILL_FLIP,tp,id|(1<<32))

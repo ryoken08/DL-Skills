@@ -14,8 +14,22 @@ function s.initial_effect(c)
 	e1:SetOperation(s.activate)
 	c:RegisterEffect(e1)
 end
+function s.IsSetCardListed(c,...)
+	if not c.listed_series then return false end
+	local setcodes={...}
+	for _,setcode in ipairs(setcodes) do
+		if type(c.listed_series)=='table' then
+			for _,v in ipairs(c.listed_series) do
+				if v==setcode then return true end
+			end
+		else
+			if c.listed_series==setcode then return true end
+		end
+	end
+	return false
+end
 function s.exfilter(c)
-	return c:IsType(TYPE_MONSTER) and not c:IsAttribute(ATTRIBUTE_DARK)
+	return (c:IsType(TYPE_MONSTER) and not c:IsSetCard(0xb)) and not s.IsSetCardListed(c,0xb)
 end
 function s.condition(e,tp,eg,ep,ev,re,r,rp)
 	--condition

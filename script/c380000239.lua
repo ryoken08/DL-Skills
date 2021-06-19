@@ -31,7 +31,7 @@ end
 function s.damop(e,tp,eg,ep,ev,re,r,rp)
 	Duel.Hint(HINT_SKILL_FLIP,tp,id|(1<<32))
 	Duel.Hint(HINT_CARD,0,id)
-	local lp=Duel.GetLP(1-tp)-50
+	local lp=Duel.GetLP(1-tp)-100
 	Duel.SetLP(1-tp,lp)
 	Duel.Hint(HINT_SKILL_FLIP,tp,id|(2<<32))
 end

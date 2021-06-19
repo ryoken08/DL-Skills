@@ -47,12 +47,16 @@ end
 function s.filter(c)
 	return c:IsFaceup() and c:IsRankBelow(4) and c:IsAttribute(ATTRIBUTE_WATER) and c:IsType(TYPE_XYZ)
 end
+function s.atkfilter(c)
+	return c:IsFaceup() and c:IsAttackAbove(2500)
+end
 function s.flipcon(e,tp,eg,ep,ev,re,r,rp)
 	--twice per duel check
 	if Duel.GetFlagEffect(ep,id)>1 then return end
 	local b1=e:GetHandler():GetFlagEffect(id+1)>0 and e:GetLabelObject():GetLabel()~=Duel.GetTurnCount()
 	--condition
-	return aux.CanActivateSkill(tp) and b1
+	return aux.CanActivateSkill(tp)
+	and (b1 or Duel.IsExistingMatchingCard(s.atkfilter,tp,0,LOCATION_MZONE,1,nil))
 	and Duel.IsExistingMatchingCard(s.filter,tp,LOCATION_MZONE,0,1,nil)
 end
 function s.flipop(e,tp,eg,ep,ev,re,r,rp)

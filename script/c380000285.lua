@@ -33,5 +33,5 @@ function s.filter(c)
 	return c:IsFaceup() and c:IsType(TYPE_MONSTER) and c:IsSetCard(0x20a2)
 end
 function s.val(e,c)
-	return Duel.GetMatchingGroupCount(s.filter,c:GetControler(),LOCATION_MZONE,0,nil)*100
+	return Duel.GetMatchingGroupCount(s.filter,c:GetControler(),LOCATION_MZONE,0,nil)*300
 end

@@ -1,10 +1,11 @@
 --Respect My Authority!
+Duel.LoadScript("c420.lua")
 local s,id=GetID()
 function s.initial_effect(c)
 	aux.AddSkillProcedure(c,1,false,s.flipcon,s.flipop,1)
 end
 function s.filter(c)
-	return c:IsFaceup() and c:IsCode(7391448,58901502,63364266,98637386,84305651) and c:IsType(TYPE_SYNCHRO)
+	return c:IsFaceup() and c:IsGoyo() and c:IsType(TYPE_SYNCHRO)
 end
 function s.filter2(c,tp)
 	return c:GetOwner()==1-tp and c:IsFaceup()

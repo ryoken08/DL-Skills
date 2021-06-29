@@ -21,11 +21,8 @@ function s.flipop(e,tp,eg,ep,ev,re,r,rp)
 	Duel.Hint(HINT_SKILL_FLIP,tp,id|(1<<32))
 	Duel.Hint(HINT_CARD,tp,id)
 	--activate
-	Debug.SetPlayerInfo(tp,Duel.GetLP(tp),0,Duel.GetDrawCount(tp))
+	Debug.SetPlayerInfo(tp,Duel.GetLP(tp),1,Duel.GetDrawCount(tp))
 	local c=e:GetHandler()
-	Duel.SetLP(tp, 500)
-	local gate=Duel.CreateToken(tp,25833572) 
-	Duel.SendtoHand(gate,nil,REASON_RULE)
 	for i=1,3 do
 		local token=Duel.CreateToken(tp,s.cards[i])
 		if Duel.SpecialSummonStep(token,0,tp,tp,false,false,POS_FACEUP_ATTACK) then
@@ -58,4 +55,7 @@ function s.flipop(e,tp,eg,ep,ev,re,r,rp)
 		end
 	end
 	Duel.SpecialSummonComplete()
+	local gate=Duel.CreateToken(tp,25833572) 
+	Duel.SendtoDeck(gate,nil,SEQ_DECKTOP,REASON_RULE)
+	Duel.SetLP(tp, 500)
 end

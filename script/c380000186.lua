@@ -16,16 +16,13 @@ function s.initial_effect(c)
 	end)
 end
 s.listed_series={0x10e}
-function s.checkop(e,tp,eg,ep,ev,re,r,rp)
-	if not s[tp] then s[tp]=Duel.GetLP(tp) end
-	if s[tp]>Duel.GetLP(tp) then
-		s[2+tp]=s[2+tp]+(s[tp]-Duel.GetLP(tp))
-		s[tp]=Duel.GetLP(tp)
-	end
-	if not s[1-tp] then s[1-tp]=Duel.GetLP(1-tp) end
-	if s[1-tp]>Duel.GetLP(1-tp) then
-		s[2+(1-tp)]=s[2+(1-tp)]+(s[1-tp]-Duel.GetLP(1-tp))
-		s[1-tp]=Duel.GetLP(1-tp)
+function s.checkop()
+	for tp=0,1 do
+		if not s[tp] then s[tp]=Duel.GetLP(tp) end
+		if s[tp]>Duel.GetLP(tp) then
+			s[2+tp]=s[2+tp]+(s[tp]-Duel.GetLP(tp))
+			s[tp]=Duel.GetLP(tp)
+		end
 	end
 end
 function s.flipcon(e,tp,eg,ep,ev,re,r,rp)

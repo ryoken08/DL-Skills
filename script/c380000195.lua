@@ -15,7 +15,7 @@ function s.initial_effect(c)
 	c:RegisterEffect(e1)
 end
 function s.filter(c)
-	return c.toss_coin
+	return c.toss_coin and not c:IsType(TYPE_SKILL)
 end
 function s.flipcon(e,tp,eg,ep,ev,re,r,rp)
 	--condition

@@ -21,7 +21,6 @@ function s.flipop(e,tp,eg,ep,ev,re,r,rp)
 	local num=Duel.GetRandomNumber(1,2)
 	for i=1,num do
 		local token=Duel.CreateToken(tp,CARD_JINZO)
-		Duel.SendtoDeck(token,nil,SEQ_DECKTOP,REASON_RULE)
+		Duel.SendtoDeck(token,nil,SEQ_DECKSHUFFLE,REASON_RULE)
 	end
-	Duel.ShuffleDeck(tp)
 end

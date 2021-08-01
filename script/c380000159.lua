@@ -21,7 +21,6 @@ function s.activate(e,tp,eg,ep,ev,re,r,rp)
 		local token=Duel.CreateToken(tp,66457407)
 		Duel.SendtoDeck(token,nil,SEQ_DECKSHUFFLE,REASON_RULE)
 	end
-	Duel.ShuffleDeck(tp)
 	Duel.BreakEffect()
 	local token2=Duel.CreateToken(tp,CARD_BLACK_ROSE_DRAGON)
 	Duel.SendtoDeck(token2,nil,SEQ_DECKTOP,REASON_RULE)

@@ -20,10 +20,8 @@ s.cards = {
 function s.flipop(e,tp,eg,ep,ev,re,r,rp)
 	Duel.Hint(HINT_SKILL_FLIP,tp,id|(1<<32))
 	Duel.Hint(HINT_CARD,tp,id)
-	Duel.DisableShuffleCheck()
 	for i=1,5 do
 		local token=Duel.CreateToken(tp,s.cards[i])
-		Duel.SendtoDeck(token,nil,SEQ_DECKTOP,REASON_RULE)
+		Duel.SendtoDeck(token,nil,SEQ_DECKSHUFFLE,REASON_RULE)
 	end
-	Duel.ShuffleDeck(tp)
 end

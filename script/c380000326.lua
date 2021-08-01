@@ -23,12 +23,11 @@ function s.activate(e,tp,eg,ep,ev,re,r,rp)
 		Duel.SendtoDeck(token,nil,SEQ_DECKSHUFFLE,REASON_RULE)
 	end
 	local token2=Duel.CreateToken(tp,32543380)
-	Duel.SendtoDeck(token2,nil,SEQ_DECKTOP,REASON_RULE)
+	Duel.SendtoDeck(token2,nil,SEQ_DECKSHUFFLE,REASON_RULE)
 	local token3=Duel.CreateToken(tp,69537999)
-	Duel.SendtoDeck(token3,nil,SEQ_DECKTOP,REASON_RULE)
+	Duel.SendtoDeck(token3,nil,SEQ_DECKSHUFFLE,REASON_RULE)
 	local token4=Duel.CreateToken(tp,21420702)
-	Duel.SendtoDeck(token4,nil,SEQ_DECKTOP,REASON_RULE)
-	Duel.ShuffleDeck(tp)
+	Duel.SendtoDeck(token4,nil,SEQ_DECKSHUFFLE,REASON_RULE)
 	Duel.Hint(HINT_SKILL_FLIP,tp,id|(2<<32))
 	--Add flag to activate the other skills
 	if e:GetLabel()==0 then

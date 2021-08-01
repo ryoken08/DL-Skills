@@ -17,10 +17,8 @@ s.listed_names={79856792,7093411,95600067,32710364,21698716,68215963,69937550,32
 function s.flipop(e,tp,eg,ep,ev,re,r,rp)
 	Duel.Hint(HINT_SKILL_FLIP,tp,id|(1<<32))
 	Duel.Hint(HINT_CARD,tp,id)
-	Duel.DisableShuffleCheck()
 	for i=1,8 do
 		local token=Duel.CreateToken(tp,s.listed_names[i])
-		Duel.SendtoDeck(token,nil,SEQ_DECKTOP,REASON_RULE)
+		Duel.SendtoDeck(token,nil,SEQ_DECKSHUFFLE,REASON_RULE)
 	end
-	Duel.ShuffleDeck(tp)
 end

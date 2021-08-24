@@ -1,4 +1,5 @@
 --ZEXAL - Xyz Evolution
+local ZEXAL=380000353
 local s,id=GetID()
 function s.initial_effect(c)
 	--skill
@@ -13,13 +14,13 @@ function s.checkcon(e,tp,eg,ep,ev,re,r,rp)
 	--condition
 	return Duel.GetCurrentChain()==0
 	and Duel.GetTurnPlayer()==tp
-	and Duel.GetLP(tp)<=7000
+	and Duel.GetLP(tp)<=2000
 end
 function s.checkop(e,tp,eg,ep,ev,re,r,rp)
 	Duel.Hint(HINT_SKILL_FLIP,tp,id|(1<<32))
 	Duel.Hint(HINT_CARD,tp,id)
 	--ZeXal register
-	Duel.RegisterFlagEffect(ep,id-1,0,0,0)
+	Duel.RegisterFlagEffect(ep,ZEXAL,0,0,0)
 	Duel.Hint(HINT_SKILL_FLIP,tp,id|(2<<32))
 end
 function s.filter(c)
@@ -29,7 +30,7 @@ function s.flipcon(e,tp,eg,ep,ev,re,r,rp)
 	local b1=(Duel.GetFlagEffect(ep,id)==0 and Duel.GetLocationCount(tp,LOCATION_SZONE)>0)
 	local b2=(Duel.GetFlagEffect(ep,id+1)==0 and Duel.IsExistingMatchingCard(s.filter,tp,LOCATION_GRAVE,0,1,nil))
 	--ZeXal check
-	if Duel.GetFlagEffect(ep,id-1)==0 then return end
+	if Duel.GetFlagEffect(ep,ZEXAL)==0 then return end
 	--condition
 	return aux.CanActivateSkill(tp) and (b1 or b2)
 end

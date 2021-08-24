@@ -1,4 +1,5 @@
 --ZEXAL - Zexal Weapon
+local ZEXAL=380000353
 local s,id=GetID()
 function s.initial_effect(c)
 	--skill
@@ -19,7 +20,7 @@ function s.flipop(e,tp,eg,ep,ev,re,r,rp)
 	Duel.Hint(HINT_SKILL_FLIP,tp,id|(1<<32))
 	Duel.Hint(HINT_CARD,tp,id)
 	--ZeXal register
-	Duel.RegisterFlagEffect(ep,id,0,0,0)
+	Duel.RegisterFlagEffect(ep,ZEXAL,0,0,0)
 	--activate
 	local token=Duel.CreateToken(tp,56840427)
 	Duel.SendtoDeck(token,nil,SEQ_DECKTOP,REASON_RULE)
@@ -54,7 +55,7 @@ function s.flipop(e,tp,eg,ep,ev,re,r,rp)
 end
 function s.thcon(e,tp,eg,ep,ev,re,r,rp)
 	--ZeXal check
-	if Duel.GetFlagEffect(ep,id)==0 then return end
+	if Duel.GetFlagEffect(ep,ZEXAL)==0 then return end
 	--condition
 	return Duel.GetCurrentChain()==0 and tp==Duel.GetTurnPlayer()
 	and Duel.GetFieldGroupCount(tp,LOCATION_DECK,0)>0
@@ -85,7 +86,7 @@ function s.spfilter(c)
 end
 function s.spcon(e,tp,eg,ep,ev,re,r,rp)
 	--ZeXal check
-	if Duel.GetFlagEffect(ep,id)==0 then return end
+	if Duel.GetFlagEffect(ep,ZEXAL)==0 then return end
 	--condition
 	return aux.CanActivateSkill(tp) and Duel.IsMainPhase()
 	and Duel.IsExistingMatchingCard(s.spfilter,tp,LOCATION_HAND,0,1,nil)

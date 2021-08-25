@@ -10,7 +10,7 @@ s.listed_names={11705261}
 s.listed_series={0x107f}
 function s.checkcon(e,tp,eg,ep,ev,re,r,rp)
 	--opd check
-	if Duel.GetFlagEffect(ep,id)>0 then return end
+	if Duel.GetFlagEffect(ep,id)>0 or Duel.GetFlagEffect(ep,ZEXAL)>0 then return end
 	--condition
 	return Duel.GetCurrentChain()==0
 	and Duel.GetTurnPlayer()==tp

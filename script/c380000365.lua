@@ -29,5 +29,4 @@ function s.flipop(e,tp,eg,ep,ev,re,r,rp)
 	--Add 1 Hook the Hidden Knight to your hand
 	local token=Duel.CreateToken(tp,511000008)
 	Duel.SendtoHand(token,nil,REASON_RULE)
-	Duel.Hint(HINT_SKILL_FLIP,tp,id|(2<<32))
 end

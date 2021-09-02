@@ -55,17 +55,15 @@ function s.flipop(e,tp,eg,ep,ev,re,r,rp)
 	--send 1 Level 8 Gimmick Puppet monster in your hand or Deck to your Graveyard
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_TOGRAVE)
 	local g=Duel.SelectMatchingCard(tp,s.filter,tp,LOCATION_HAND+LOCATION_DECK,0,1,1,nil)
-	if g and #g>0 then
-		local tc=g:GetFirst()
-		for tc in aux.Next(g) do
-			local e1=Effect.CreateEffect(e:GetHandler())
-			e1:SetType(EFFECT_TYPE_SINGLE)
-			e1:SetCode(EFFECT_CANNOT_TRIGGER)
-			e1:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
-			e1:SetRange(LOCATION_GRAVE+LOCATION_REMOVED)
-			e1:SetReset(RESET_CHAIN)
-			tc:RegisterEffect(e1)
-		end
+	local tc=g:GetFirst()
+	if tc then
+		local e1=Effect.CreateEffect(e:GetHandler())
+		e1:SetType(EFFECT_TYPE_SINGLE)
+		e1:SetCode(EFFECT_CANNOT_TRIGGER)
+		e1:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
+		e1:SetRange(LOCATION_GRAVE+LOCATION_REMOVED)
+		e1:SetReset(RESET_CHAIN)
+		tc:RegisterEffect(e1)
 		Duel.SendtoGrave(g,REASON_RULE)
 	end
 	Duel.BreakEffect()

@@ -7,10 +7,10 @@ end
 s.listed_names={51960178,45939611}
 function s.filter1(c,e,tp)
 	local pg=aux.GetMustBeMaterialGroup(tp,Group.FromCards(c),tp,nil,nil,REASON_XYZ)
-	return (#pg<=0 or (#pg==1 and pg:IsContains(c))) and c:IsCode(45939611)
-		and Duel.IsExistingMatchingCard(s.filter2,tp,LOCATION_EXTRA,0,1,nil,e,tp,c,pg)
+	return (#pg<=0 or (#pg==1 and pg:IsContains(c))) and c:IsCode(45939611) and c:IsFaceup()
+		and Duel.IsExistingMatchingCard(s.filter2,tp,LOCATION_EXTRA,0,1,nil,e,tp,c)
 end
-function s.filter2(c,e,tp,mc,pg)
+function s.filter2(c,e,tp,mc)
 	return c:IsCode(51960178) and Duel.GetLocationCountFromEx(tp,tp,mc,c)>0 and mc:IsCanBeXyzMaterial(c,tp)
 		and c:IsCanBeSpecialSummoned(e,SUMMON_TYPE_XYZ,tp,false,false)
 end
@@ -33,7 +33,7 @@ function s.flipop(e,tp,eg,ep,ev,re,r,rp)
 	local tc=g:GetFirst()
 	local pg=aux.GetMustBeMaterialGroup(tp,Group.FromCards(tc),tp,nil,nil,REASON_XYZ)
 	if not tc or tc:IsFacedown() or #pg>1 or (#pg==1 and not pg:IsContains(tc)) then return end
-	local sc=Duel.GetFirstMatchingCard(Card.IsCode,tp,LOCATION_EXTRA,0,nil,51960178,e,tp,tc,pg)
+	local sc=Duel.GetFirstMatchingCard(Card.IsCode,tp,LOCATION_EXTRA,0,nil,51960178,e,tp,tc)
 	if sc then
 		sc:SetMaterial(Group.FromCards(tc))
 		Duel.Overlay(sc,Group.FromCards(tc))

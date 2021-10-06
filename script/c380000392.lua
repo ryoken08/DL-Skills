@@ -15,6 +15,7 @@ function s.flipcon(e,tp,eg,ep,ev,re,r,rp)
 	if Duel.GetFlagEffect(ep,id)>0 then return end
 	--condition
 	return aux.CanActivateSkill(tp)
+	and Duel.IsExistingMatchingCard(aux.TRUE,tp,LOCATION_HAND,0,1,nil)
 	and Duel.GetCustomActivityCount(94766498,tp,ACTIVITY_CHAIN)>0
 end
 function s.flipop(e,tp,eg,ep,ev,re,r,rp)

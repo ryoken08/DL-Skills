@@ -30,8 +30,6 @@ function s.activate(e,tp,eg,ep,ev,re,r,rp)
 	e:SetLabel(1)
 end
 function s.flipcon(e,tp,eg,ep,ev,re,r,rp)
-	--opd check
-	if Duel.GetFlagEffect(ep,id)>0 then return end
 	--condition
 	return aux.CanActivateSkill(tp)
 	and Duel.GetCustomActivityCount(id,tp,ACTIVITY_CHAIN)>0

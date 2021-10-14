@@ -22,8 +22,6 @@ function s.flipop(e,tp,eg,ep,ev,re,r,rp)
 	Duel.RegisterFlagEffect(ep,id,0,0,0)
 	local g=Duel.GetMatchingGroup(s.filter,tp,0,LOCATION_GRAVE,nil)
 	for tc in aux.Next(g) do
-		Duel.SendtoDeck(tc,tp,-2,REASON_RULE)
-		local token=Duel.CreateToken(1-tp,CARD_SKULL_SERVANT)
-		Duel.SendtoGrave(token,REASON_RULE)
+		tc:Recreate(CARD_SKULL_SERVANT)
 	end
 end

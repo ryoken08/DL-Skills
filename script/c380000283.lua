@@ -24,18 +24,15 @@ function s.flipop(e,tp,eg,ep,ev,re,r,rp)
 	--reveal or choose 1 kuriboh
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_CONFIRM)
 	local g=Duel.SelectMatchingCard(tp,s.filter,tp,LOCATION_HAND+LOCATION_MZONE,0,1,1,nil)
-	local seq=nil
-	local pos=nil
+	local tc=nil
 	if g:GetFirst():IsLocation(LOCATION_MZONE) then
 		Duel.HintSelection(g)
-		seq=g:GetFirst():GetSequence()
-		pos=g:GetFirst():GetPosition()
+		tc=g:GetFirst()
 	else
 		Duel.ConfirmCards(1-tp,g)
+		tc=g:GetFirst()
 	end
-	local ocode=g:GetFirst():GetOriginalCode()
-	g:GetFirst():ResetEffect(RESETS_REDIRECT,RESET_EVENT)
-	Duel.SendtoDeck(g:GetFirst(),nil,-2,REASON_RULE)
+	local ocode=tc:GetOriginalCode()
 	--remove the kuriboh you chose from the array
 	local p=1
 	local cards={CARD_KURIBOH,33245030,50185950,46613515}
@@ -46,18 +43,12 @@ function s.flipop(e,tp,eg,ep,ev,re,r,rp)
 	--choose which kuriboh its going to transform
 	Duel.Hint(HINT_SELECTMSG,tp,aux.Stringid(id,1))
 	local code=Duel.SelectCardsFromCodes(tp,1,1,nil,false,table.unpack(cards))
-	local token=Duel.CreateToken(tp,code)
-	if g:GetFirst():IsPreviousLocation(LOCATION_MZONE) then
-		--Move to field
-		local e0=Effect.CreateEffect(e:GetHandler())
-		e0:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_CONTINUOUS)
-		e0:SetCode(EVENT_FREE_CHAIN)
-		e0:SetOperation(function () Duel.SetChainLimitTillChainEnd(aux.FALSE) end)
-		token:RegisterEffect(e0)
-		Duel.MoveToField(token,tp,tp,LOCATION_MZONE,pos,true,(1<<seq))
-		e0:Reset()
+	if tc:IsLocation(LOCATION_MZONE) then
+		--transform
+		tc:Recreate(code,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,true)
 	else
-		Duel.SendtoHand(token,nil,REASON_RULE)
-		Duel.ConfirmCards(1-tp,token)
+		tc:Recreate(code,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,true)
+		Duel.ConfirmCards(1-tp,tc)
+		Duel.ShuffleHand(tp)
 	end
 end

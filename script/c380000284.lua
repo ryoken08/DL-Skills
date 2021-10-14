@@ -51,27 +51,13 @@ function s.flipop(e,tp,eg,ep,ev,re,r,rp)
 	end
 	--transform
 	if tc then
-		local seq=tc:GetSequence()
-		local pos=tc:GetPosition()
 		local code=nil
 		if tc:IsOriginalSetCard(0xbd) then
 			code=5405694
 		elseif tc:IsOriginalCodeRule(5405694) then
 			code=54484652
 		end
-		tc:ResetEffect(RESETS_REDIRECT,RESET_EVENT)
-		Duel.SendtoDeck(tc,nil,-2,REASON_RULE)
-		local token=Duel.CreateToken(tp,code)
-		if token then
-			--Move to field
-			local e0=Effect.CreateEffect(e:GetHandler())
-			e0:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_CONTINUOUS)
-			e0:SetCode(EVENT_FREE_CHAIN)
-			e0:SetOperation(function () Duel.SetChainLimitTillChainEnd(aux.FALSE) end)
-			token:RegisterEffect(e0)
-			Duel.MoveToField(token,tp,tp,LOCATION_MZONE,pos,true,(1<<seq))
-			e0:Reset()
-		end
+		tc:Recreate(code,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,true)
 	end
 	Duel.Hint(HINT_SKILL_FLIP,tp,id|(2<<32))
 end

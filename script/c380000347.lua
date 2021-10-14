@@ -30,39 +30,25 @@ function s.flipop(e,tp,eg,ep,ev,re,r,rp)
 	local sg=nil
 	if opt==0 then
 		g=Duel.SelectMatchingCard(tp,Card.IsCode,tp,LOCATION_HAND,0,1,1,nil,54289683)
-		if #g>0 then
-			Duel.ConfirmCards(1-tp,g)
+		local tc=g:GetFirst()
+		if tc then
+			Duel.ConfirmCards(1-tp,tc)
 			local cards={14291024,5494820}
 			Duel.Hint(HINT_SELECTMSG,tp,aux.Stringid(id,0))
 			local code=Duel.SelectCardsFromCodes(tp,1,1,nil,false,table.unpack(cards))
-			Duel.SendtoDeck(g,nil,-2,REASON_RULE)
-			local token=Duel.CreateToken(tp,code)
-			Duel.SendtoHand(token,nil,REASON_RULE)
-			Duel.ConfirmCards(1-tp,token)
+			tc:Recreate(code,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,true)
+			Duel.ConfirmCards(1-tp,tc)
+			Duel.ShuffleHand(tp)
 		end
 	else
 		sg=Duel.SelectMatchingCard(tp,s.namefilter2,tp,LOCATION_MZONE,0,1,1,nil)
-		if #sg>0 then
-			Duel.HintSelection(sg)
-			local tc=sg:GetFirst()
-			local seq=tc:GetSequence()
-			local pos=tc:GetPosition()
-			tc:ResetEffect(RESETS_REDIRECT,RESET_EVENT)
+		Duel.HintSelection(sg)
+		local tc=sg:GetFirst()
+		if tc then
 			local cards={93130021,10642488}
 			Duel.Hint(HINT_SELECTMSG,tp,aux.Stringid(id,0))
 			local code=Duel.SelectCardsFromCodes(tp,1,1,nil,false,table.unpack(cards))
-			Duel.SendtoDeck(tc,nil,-2,REASON_RULE)
-			local token=Duel.CreateToken(tp,code)
-			if token then
-				--Move to field
-				local e0=Effect.CreateEffect(e:GetHandler())
-				e0:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_CONTINUOUS)
-				e0:SetCode(EVENT_FREE_CHAIN)
-				e0:SetOperation(function () Duel.SetChainLimitTillChainEnd(aux.FALSE) end)
-				token:RegisterEffect(e0)
-				Duel.MoveToField(token,tp,tp,LOCATION_MZONE,pos,true,(1<<seq))
-				e0:Reset()
-			end
+			tc:Recreate(code,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,true)
 		end
 	end
 	Duel.Hint(HINT_SKILL_FLIP,tp,id|(2<<32))

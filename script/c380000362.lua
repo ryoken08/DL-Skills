@@ -22,19 +22,7 @@ function s.flipop(e,tp,eg,ep,ev,re,r,rp)
 	Duel.HintSelection(g)
 	local tc=g:GetFirst()
 	if tc then
-		local seq=tc:GetSequence()
-		local pos=tc:GetPosition()
-		local code=tc:GetCode()
-		tc:ResetEffect(RESETS_REDIRECT,RESET_EVENT)
-		Duel.SendtoDeck(tc,nil,-2,REASON_RULE)
-		local token=Duel.CreateToken(tp,30221870)
 		--transform
-		local e0=Effect.CreateEffect(e:GetHandler())
-		e0:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_CONTINUOUS)
-		e0:SetCode(EVENT_FREE_CHAIN)
-		e0:SetOperation(function () Duel.SetChainLimitTillChainEnd(aux.FALSE) end)
-		token:RegisterEffect(e0)
-		Duel.MoveToField(token,tp,tp,LOCATION_MZONE,pos,true,(1<<seq))
-		e0:Reset()
+		tc:Recreate(30221870,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,true)
 	end
 end

@@ -21,18 +21,14 @@ function s.flipop(e,tp,eg,ep,ev,re,r,rp)
 	--Change 1 Spell/Trap Card in your hand to a different card
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SELECT)
 	local g=Duel.SelectMatchingCard(tp,Card.IsType,tp,LOCATION_HAND,0,1,1,nil,TYPE_SPELL+TYPE_TRAP)
-	local tc=g:GetFirst()
 	if #g>0 then
-		Duel.SendtoDeck(g,nil,-2,REASON_RULE)
-	end
-	local code=nil
-	if tc:IsType(TYPE_SPELL) then
-		code=99940363
-	elseif tc:IsType(TYPE_TRAP) then
-		code=26822796
-	end
-	local token=Duel.CreateToken(tp,code)
-	if token then
-		Duel.SendtoHand(token,nil,REASON_RULE)
+		local tc=g:GetFirst()
+		local code=nil
+		if tc:IsType(TYPE_SPELL) then
+			code=99940363
+		elseif tc:IsType(TYPE_TRAP) then
+			code=26822796
+		end
+		tc:Recreate(code,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,true)
 	end
 end

@@ -33,15 +33,11 @@ function s.flipop(e,tp,eg,ep,ev,re,r,rp)
 		Duel.Hint(HINT_CARD,tp,id)
 		local tc=sg:GetFirst()
 		if tc then
-			tc:ResetEffect(RESETS_REDIRECT,RESET_EVENT)
-			Duel.DisableShuffleCheck()
-			Duel.SendtoDeck(tc,nil,-2,REASON_RULE)
+			local cards={76080032,87008374,45082499,81471108,18865703,2648201,12927849}
+			Duel.Hint(HINT_SELECTMSG,tp,aux.Stringid(id,1))
+			local code=Duel.SelectCardsFromCodes(tp,1,1,nil,false,table.unpack(cards))
+			tc:Recreate(code,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,true)
 		end
-		local cards={76080032,87008374,45082499,81471108,18865703,2648201,12927849}
-		Duel.Hint(HINT_SELECTMSG,tp,aux.Stringid(id,1))
-		local code=Duel.SelectCardsFromCodes(tp,1,1,nil,false,table.unpack(cards))
-		local token=Duel.CreateToken(tp,code)
-		Duel.SendtoDeck(token,nil,SEQ_DECKTOP,REASON_RULE)
 	end
 	--Create Shining Draw
 	local e1=Effect.CreateEffect(e:GetHandler())
@@ -70,15 +66,11 @@ function s.thop(e,tp,eg,ep,ev,re,r,rp)
 	Duel.Hint(HINT_CARD,tp,id)
 	local tc=sg:GetFirst()
 	if tc then
-		tc:ResetEffect(RESETS_REDIRECT,RESET_EVENT)
-		Duel.DisableShuffleCheck()
-		Duel.SendtoDeck(tc,nil,-2,REASON_RULE)
+		local cards={76080032,87008374,45082499,81471108,18865703,2648201,12927849}
+		Duel.Hint(HINT_SELECTMSG,tp,aux.Stringid(id,1))
+		local code=Duel.SelectCardsFromCodes(tp,1,1,nil,false,table.unpack(cards))
+		tc:Recreate(code,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,true)
 	end
-	local cards={76080032,87008374,45082499,81471108,18865703,2648201,12927849}
-	Duel.Hint(HINT_SELECTMSG,tp,aux.Stringid(id,1))
-	local code=Duel.SelectCardsFromCodes(tp,1,1,nil,false,table.unpack(cards))
-	local token=Duel.CreateToken(tp,code)
-	Duel.SendtoDeck(token,nil,SEQ_DECKTOP,REASON_RULE)
 	Duel.Hint(HINT_SKILL_FLIP,tp,id|(2<<32))
 end
 function s.spfilter(c)

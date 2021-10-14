@@ -53,10 +53,10 @@ function s.flipop(e,tp,eg,ep,ev,re,r,rp)
 	local g=Duel.SelectMatchingCard(tp,Card.IsCode,tp,LOCATION_HAND,0,1,1,nil,CARD_POLYMERIZATION)
 	if #g>0 then
 		Duel.ConfirmCards(1-tp,g)
-		Duel.SendtoDeck(g,nil,-2,REASON_RULE)
-		local token=Duel.CreateToken(tp,94820406)
-		Duel.SendtoHand(token,nil,REASON_RULE)
-		Duel.ConfirmCards(1-tp,token)
+		local tc=g:GetFirst()
+		tc:Recreate(94820406,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,true)
+		Duel.ConfirmCards(1-tp,tc)
+		Duel.ShuffleHand(tp)
 	end
 	Duel.Hint(HINT_SKILL_FLIP,tp,id|(2<<32))
 end

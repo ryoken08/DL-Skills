@@ -42,10 +42,6 @@ function s.flipop(e,tp,eg,ep,ev,re,r,rp)
 	Duel.HintSelection(sg)
 	local tc=sg:GetFirst()
 	if tc then
-		local seq=tc:GetSequence()
-		local pos=tc:GetPosition()
-		tc:ResetEffect(RESETS_REDIRECT,RESET_EVENT)
-		Duel.SendtoDeck(tc,nil,-2,REASON_RULE)
 		local code=nil
 		if g1:IsRace(RACE_FIEND) then
 			code=11901678
@@ -54,16 +50,6 @@ function s.flipop(e,tp,eg,ep,ev,re,r,rp)
 		elseif g1:IsRace(RACE_WARRIOR) then
 			code=21140872
 		end
-		local token=Duel.CreateToken(tp,code)
-		if token then
-			--Move to field
-			local e0=Effect.CreateEffect(e:GetHandler())
-			e0:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_CONTINUOUS)
-			e0:SetCode(EVENT_FREE_CHAIN)
-			e0:SetOperation(function () Duel.SetChainLimitTillChainEnd(aux.FALSE) end)
-			token:RegisterEffect(e0)
-			Duel.MoveToField(token,tp,tp,LOCATION_MZONE,pos,true,(1<<seq))
-			e0:Reset()
-		end
+		tc:Recreate(code,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,true)
 	end
 end

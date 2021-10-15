@@ -22,11 +22,7 @@ function s.flipop(e,tp,eg,ep,ev,re,r,rp)
 	Duel.HintSelection(g)
 	local tc=g:GetFirst()
 	if tc then
-		local seq=tc:GetSequence()
-		tc:ResetEffect(RESETS_REDIRECT,RESET_EVENT)
-		Duel.SendtoDeck(tc,nil,-2,REASON_RULE)
-		local token=Duel.CreateToken(tp,21420702)   
-		Duel.MoveToField(token,tp,tp,LOCATION_SZONE,POS_FACEUP,true,(1<<seq))
+		tc:Recreate(21420702,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,true)
 		Duel.Hint(HINT_SKILL_FLIP,tp,id|(2<<32))
 	end
 end

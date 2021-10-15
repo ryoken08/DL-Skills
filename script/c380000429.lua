@@ -22,6 +22,7 @@ function s.flipop(e,tp,eg,ep,ev,re,r,rp)
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SELECT)
 	local g=Duel.SelectMatchingCard(tp,Card.IsType,tp,LOCATION_HAND,0,1,1,nil,TYPE_SPELL+TYPE_TRAP)
 	if #g>0 then
+		Duel.ConfirmCards(1-tp,g)
 		local tc=g:GetFirst()
 		local code=nil
 		if tc:IsType(TYPE_SPELL) then
@@ -30,5 +31,7 @@ function s.flipop(e,tp,eg,ep,ev,re,r,rp)
 			code=26822796
 		end
 		tc:Recreate(code,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,true)
+		Duel.ConfirmCards(1-tp,tc)
+		Duel.ShuffleHand(tp)
 	end
 end

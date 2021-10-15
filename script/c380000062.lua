@@ -24,4 +24,5 @@ function s.flipop(e,tp,eg,ep,ev,re,r,rp)
 	for tc in aux.Next(g) do
 		tc:Recreate(CARD_SKULL_SERVANT)
 	end
+	Duel.ConfirmCards(tp,g,true)
 end

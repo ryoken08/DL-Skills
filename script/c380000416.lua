@@ -43,7 +43,7 @@ function s.flipop(e,tp,eg,ep,ev,re,r,rp)
 	--opd register
 	Duel.RegisterFlagEffect(ep,id,0,0,0)
 	--Add 1 "Superheavy Samurai Big Benkei" from your Graveyard to your hand
-	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_TODECK)
+	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_ATOHAND)
 	local g=Duel.SelectMatchingCard(tp,Card.IsCode,tp,LOCATION_GRAVE,0,1,1,nil,3117804)
 	local tc=g:GetFirst()
 	if tc then

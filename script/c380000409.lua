@@ -28,8 +28,15 @@ function s.flipop(e,tp,eg,ep,ev,re,r,rp)
 	e1:SetValue(s.aclimit)
 	e1:SetReset(RESET_PHASE+PHASE_END+RESET_OPPO_TURN)
 	Duel.RegisterEffect(e1,tp)
+	--Cannot activate monster effects
+	local e2=e1:Clone()
+	e2:SetValue(s.aclimit2)
+	Duel.RegisterEffect(e2,tp)
 	aux.RegisterClientHint(e:GetHandler(),nil,tp,1,0,aux.Stringid(id,1),RESET_OPPO_TURN)
 end
 function s.aclimit(e,re,tp)
 	return not re:GetHandler():IsSetCard(0x125) and re:IsActiveType(TYPE_SPELL+TYPE_TRAP)
+end
+function s.aclimit2(e,re,tp)
+	return re:IsActiveType(TYPE_MONSTER)
 end

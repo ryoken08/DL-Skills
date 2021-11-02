@@ -33,10 +33,10 @@ function s.flipcon(e,tp,eg,ep,ev,re,r,rp)
 	and s[2+tp]>=1500
 end
 function s.filter1(c,tp)
-	return Duel.IsExistingMatchingCard(s.filter2,tp,LOCATION_EXTRA,0,1,nil,c)
+	return c:IsMonster() and Duel.IsExistingMatchingCard(s.filter2,tp,LOCATION_EXTRA,0,1,nil,c)
 end
 function s.filter2(c,fc)
-	return c.material and fc:IsCode(table.unpack(c.material)) and c:IsSetCard(0x16)
+	return c:IsType(TYPE_FUSION) and c:IsSetCard(0x16) and aux.IsMaterialListCode(c,fc:GetCode())
 end
 function s.flipop(e,tp,eg,ep,ev,re,r,rp)
 	Duel.Hint(HINT_SKILL_FLIP,tp,id|(1<<32))

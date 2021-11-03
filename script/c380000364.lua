@@ -4,9 +4,9 @@ function s.initial_effect(c)
 	aux.AddSkillProcedure(c,1,false,s.flipcon,s.flipop,1)
 end
 s.listed_names={67328336}
-s.listed_series={0x3013}
+s.listed_series={0x13}
 function s.filter(c)
-	return c:IsSetCard(0x3013) and c:IsType(TYPE_MONSTER)
+	return c:IsMonster() and c:IsSetCard(0x13)
 end
 function s.flipcon(e,tp,eg,ep,ev,re,r,rp)
 	--twice per duel check
@@ -30,5 +30,6 @@ function s.flipop(e,tp,eg,ep,ev,re,r,rp)
 	--Add 1 Meklord Fortress to your hand
 	local token=Duel.CreateToken(tp,67328336)
 	Duel.SendtoHand(token,nil,REASON_RULE)
+	Duel.ConfirmCards(1-tp,token)
 	Duel.Hint(HINT_SKILL_FLIP,tp,id|(2<<32))
 end

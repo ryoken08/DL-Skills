@@ -15,13 +15,15 @@ function s.flipop(e,tp,eg,ep,ev,re,r,rp)
 	Duel.Hint(HINT_CARD,tp,id)
 	--opd register
 	Duel.RegisterFlagEffect(ep,id,0,0,0)
+	--add 1 random Trap Card to your hand from your Graveyard
 	local g=Duel.GetMatchingGroup(Card.IsType,tp,LOCATION_GRAVE,0,nil,TYPE_TRAP):RandomSelect(tp,1)
 	if #g>0 then
 		Duel.SendtoHand(g,nil,REASON_RULE)
 		Duel.ConfirmCards(1-tp,g)
 	end
-	Duel.BreakEffect()
-	local sg=Duel.GetMatchingGroup(Card.IsType,tp,LOCATION_GRAVE,0,nil,TYPE_TRAP)
+	--return 1 card to your Deck from your hand
+	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_TODECK)
+	local sg=Duel.SelectMatchingCard(tp,aux.TRUE,tp,LOCATION_HAND,0,1,1,nil)
 	if #sg>0 then
 		Duel.SendtoDeck(sg,nil,SEQ_DECKSHUFFLE,REASON_RULE)
 	end

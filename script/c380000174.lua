@@ -17,11 +17,15 @@ end
 s.listed_names={74825788,213326,37318031,63703130,191749}
 s.listed_series={0x08}
 function s.filter(c)
-	return c:IsSetCard(0x08) and c:IsType(TYPE_NORMAL)
+	return c:IsMonster() and c:IsType(TYPE_NORMAL) and c:IsSetCard(0x08)
+end
+function s.exfilter(c)
+	return c:IsMonster() and not c:IsSetCard(0x08)
 end
 function s.condition(e,tp,eg,ep,ev,re,r,rp)
 	--condition
-	return Duel.IsExistingMatchingCard(s.filter,tp,LOCATION_DECK,0,4,nil)
+	return Duel.GetMatchingGroup(s.filter,tp,LOCATION_DECK,0,nil):GetClassCount(Card.GetCode)>=4
+	   and not Duel.IsExistingMatchingCard(s.exfilter,tp,LOCATION_DECK,0,1,nil)
 end
 function s.activate(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()

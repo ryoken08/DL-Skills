@@ -16,7 +16,7 @@ function s.initial_effect(c)
 end
 s.listed_series={0x55,0x7b}
 function s.exfilter(c)
-	return c:IsType(TYPE_MONSTER) and not c:IsAttribute(ATTRIBUTE_LIGHT)
+	return c:IsMonster() and not (c:IsSetCard(0x48) or c:IsAttribute(ATTRIBUTE_LIGHT))
 end
 function s.condition(e,tp,eg,ep,ev,re,r,rp)
 	--condition

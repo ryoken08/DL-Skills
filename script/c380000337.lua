@@ -49,11 +49,21 @@ end
 function s.flipcon(e,tp,eg,ep,ev,re,r,rp)
 	--condition
 	return aux.CanActivateSkill(tp) and s[tp]>=2
+	and Duel.IsExistingMatchingCard(Card.IsSetCard,tp,LOCATION_HAND,0,1,nil,0x27)
 	and Duel.IsExistingMatchingCard(s.spfilter,tp,LOCATION_EXTRA,0,1,nil,e,tp)
 end
 function s.flipop(e,tp,eg,ep,ev,re,r,rp)
 	Duel.Hint(HINT_SKILL_FLIP,tp,id|(1<<32))
 	Duel.Hint(HINT_CARD,tp,id)
+	--return 1 "T.G." card in your hand to your Deck
+	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_TODECK)
+	local g=Duel.SelectMatchingCard(tp,Card.IsSetCard,tp,LOCATION_HAND,0,1,1,nil,0x27)
+	local g1=g:GetFirst()
+	if g1 then
+		Duel.ConfirmCards(1-tp,g1)
+		Duel.SendtoDeck(g1,nil,SEQ_DECKSHUFFLE,REASON_RULE)
+	end
+	--play 1 "T.G. Recipro Dragonfly" from your Extra Deck
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_TOFIELD)
 	local sg=Duel.SelectMatchingCard(tp,s.spfilter,tp,LOCATION_EXTRA,0,1,1,nil,e,tp)
 	local tc=sg:GetFirst()

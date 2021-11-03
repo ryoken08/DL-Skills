@@ -33,7 +33,7 @@ function s.flipop(e,tp,eg,ep,ev,re,r,rp)
 		Duel.Hint(HINT_CARD,tp,id)
 		local tc=sg:GetFirst()
 		if tc then
-			local cards={76080032,87008374,45082499,81471108,18865703,2648201,12927849}
+			local cards={76080032,87008374,45082499,81471108,18865703,29353756,2648201,40941889,12927849}
 			Duel.Hint(HINT_SELECTMSG,tp,aux.Stringid(id,1))
 			local code=Duel.SelectCardsFromCodes(tp,1,1,nil,false,table.unpack(cards))
 			tc:Recreate(code,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,true)
@@ -66,7 +66,7 @@ function s.thop(e,tp,eg,ep,ev,re,r,rp)
 	Duel.Hint(HINT_CARD,tp,id)
 	local tc=sg:GetFirst()
 	if tc then
-		local cards={76080032,87008374,45082499,81471108,18865703,2648201,12927849}
+		local cards={76080032,87008374,45082499,81471108,18865703,29353756,2648201,40941889,12927849}
 		Duel.Hint(HINT_SELECTMSG,tp,aux.Stringid(id,1))
 		local code=Duel.SelectCardsFromCodes(tp,1,1,nil,false,table.unpack(cards))
 		tc:Recreate(code,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,true)

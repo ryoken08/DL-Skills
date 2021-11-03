@@ -16,7 +16,7 @@ function s.initial_effect(c)
 end
 s.listed_series={0xbd,0x10cf}
 function s.exfilter(c)
-	return c:IsType(TYPE_MONSTER) and (c:IsSetCard(0xbd) or (c:IsRace(RACE_DRAGON) and c:IsLevelAbove(5)))
+	return c:IsMonster() and (c:IsSetCard(0xbd) or (c:IsRace(RACE_DRAGON) and c:IsLevelAbove(5)))
 end
 function s.condition(e,tp,eg,ep,ev,re,r,rp)
 	--condition
@@ -28,7 +28,6 @@ function s.activate(e,tp,eg,ep,ev,re,r,rp)
 		local e1=Effect.CreateEffect(c)
 		e1:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
 		e1:SetCode(EVENT_FREE_CHAIN)
-		e1:SetCountLimit(1)
 		e1:SetCondition(s.flipcon)
 		e1:SetOperation(s.flipop)
 		Duel.RegisterEffect(e1,tp)
@@ -40,7 +39,7 @@ function s.flipcon(e,tp,eg,ep,ev,re,r,rp)
 	if Duel.GetFlagEffect(ep,id)>0 then return end
 	--condition
 	return aux.CanActivateSkill(tp)
-	and Duel.IsExistingMatchingCard(aux.TRUE,tp,LOCATION_HAND,0,1,nil)
+	and Duel.IsExistingMatchingCard(Card.IsMonster,tp,LOCATION_HAND,0,1,nil)
 	and Duel.IsExistingMatchingCard(Card.IsCode,tp,LOCATION_DECK,0,1,nil,2106266)
 end
 function s.flipop(e,tp,eg,ep,ev,re,r,rp)
@@ -48,9 +47,8 @@ function s.flipop(e,tp,eg,ep,ev,re,r,rp)
 	Duel.Hint(HINT_CARD,tp,id)
 	--opd register
 	Duel.RegisterFlagEffect(ep,id,0,0,0)
-	local c=e:GetHandler()
 	--Register Special Summon Limit
-	local e0=Effect.CreateEffect(c)
+	local e0=Effect.CreateEffect(e:GetHandler())
 	e0:SetType(EFFECT_TYPE_FIELD)
 	e0:SetProperty(EFFECT_FLAG_PLAYER_TARGET)
 	e0:SetCode(EFFECT_CANNOT_SPECIAL_SUMMON)
@@ -59,13 +57,14 @@ function s.flipop(e,tp,eg,ep,ev,re,r,rp)
 	e0:SetReset(RESET_PHASE+PHASE_END)
 	Duel.RegisterEffect(e0,tp)
 	aux.RegisterClientHint(c,EFFECT_FLAG_OATH,tp,1,0,aux.Stringid(id,1),nil)
-	--return 1 card from your hand to your Deck
+	--return 1 monster in your hand to your Deck
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_TODECK)
-	local g=Duel.SelectMatchingCard(tp,aux.TRUE,tp,LOCATION_HAND,0,1,1,nil)
+	local g=Duel.SelectMatchingCard(tp,Card.IsMonster,tp,LOCATION_HAND,0,1,1,nil)
 	if #g>0 then
+		Duel.ConfirmCards(1-tp,g)
 		Duel.SendtoDeck(g,nil,SEQ_DECKSHUFFLE,REASON_RULE)
 	end
-	--place 1 Galloping Gaia face-up on your field
+	--place 1 Galloping Gaia face-up in your Field Zone
 	local tc=Duel.GetFirstMatchingCard(Card.IsCode,tp,LOCATION_DECK,0,nil,2106266)
 	if tc then
 		Duel.MoveToField(tc,tp,tp,LOCATION_FZONE,POS_FACEUP,true)

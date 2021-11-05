@@ -16,6 +16,9 @@ function s.flipcon(e,tp,eg,ep,ev,re,r,rp)
 	and Duel.GetTurnPlayer()==tp
 	and Duel.GetLP(tp)<=2000
 end
+s.cards = {
+	76080032, 87008374, 45082499, 81471108, 18865703, 29353756, 2648201, 40941889, 12927849
+}
 function s.flipop(e,tp,eg,ep,ev,re,r,rp)
 	Duel.Hint(HINT_SKILL_FLIP,tp,id|(1<<32))
 	Duel.Hint(HINT_CARD,tp,id)
@@ -33,9 +36,8 @@ function s.flipop(e,tp,eg,ep,ev,re,r,rp)
 		Duel.Hint(HINT_CARD,tp,id)
 		local tc=sg:GetFirst()
 		if tc then
-			local cards={76080032,87008374,45082499,81471108,18865703,29353756,2648201,40941889,12927849}
 			Duel.Hint(HINT_SELECTMSG,tp,aux.Stringid(id,1))
-			local code=Duel.SelectCardsFromCodes(tp,1,1,nil,false,table.unpack(cards))
+			local code=Duel.SelectCardsFromCodes(tp,1,1,nil,false,table.unpack(s.cards))
 			tc:Recreate(code,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,true)
 		end
 	end
@@ -66,9 +68,8 @@ function s.thop(e,tp,eg,ep,ev,re,r,rp)
 	Duel.Hint(HINT_CARD,tp,id)
 	local tc=sg:GetFirst()
 	if tc then
-		local cards={76080032,87008374,45082499,81471108,18865703,29353756,2648201,40941889,12927849}
 		Duel.Hint(HINT_SELECTMSG,tp,aux.Stringid(id,1))
-		local code=Duel.SelectCardsFromCodes(tp,1,1,nil,false,table.unpack(cards))
+		local code=Duel.SelectCardsFromCodes(tp,1,1,nil,false,table.unpack(s.cards))
 		tc:Recreate(code,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,true)
 	end
 	Duel.Hint(HINT_SKILL_FLIP,tp,id|(2<<32))

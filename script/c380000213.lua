@@ -47,11 +47,9 @@ function s.checkop(e,tp,eg,ep,ev,re,r,rp)
 	c:SetTurnCounter(ct)
 end
 function s.filter(c)
-	return c:IsSetCard(0xb) and c:IsType(TYPE_MONSTER)
+	return c:IsMonster() and c:IsSetCard(0xb)
 end
 function s.flipcon(e,tp,eg,ep,ev,re,r,rp)
-	--opd check
-	if Duel.GetFlagEffect(ep,id)>0 then return end
 	--condition
 	local c=e:GetHandler()
 	return aux.CanActivateSkill(tp)
@@ -62,6 +60,7 @@ end
 function s.flipop(e,tp,eg,ep,ev,re,r,rp)
 	Duel.Hint(HINT_SKILL_FLIP,tp,id|(1<<32))
 	Duel.Hint(HINT_CARD,tp,id)
+	--Discard up to 2 cards from your hand
 	local ct=Duel.GetMatchingGroupCount(s.filter,tp,LOCATION_DECK,0,nil)
 	if ct>2 then ct=2 end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_TOGRAVE)
@@ -77,12 +76,13 @@ function s.flipop(e,tp,eg,ep,ev,re,r,rp)
 			tc:RegisterEffect(e1)
 		end
 		Duel.SendtoGrave(g,REASON_RULE)
-		Duel.BreakEffect()
 	end
+	--Send an equal number of "Infernity" monsters from your Deck to the Graveyard
 	local ft=g:GetCount()
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_TOGRAVE)
 	local sg=Duel.SelectMatchingCard(tp,s.filter,tp,LOCATION_DECK,0,ft,ft,nil)
 	if #sg>0 then
+		Duel.BreakEffect()
 		for tc in aux.Next(sg) do
 			local e1=Effect.CreateEffect(e:GetHandler())
 			e1:SetType(EFFECT_TYPE_SINGLE)

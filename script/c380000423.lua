@@ -42,21 +42,14 @@ function s.flipop(e,tp,eg,ep,ev,re,r,rp)
 	Duel.Hint(HINT_CARD,tp,id)
 	--opd register
 	Duel.RegisterFlagEffect(ep,id,0,0,0)
-	--The first monster Summoned by your opponent cannot attack during your opponent's next turn
+	--The first monster Normal Summoned/Set by your opponent cannot attack during your opponent's next turn
 	local e1=Effect.CreateEffect(e:GetHandler())
 	e1:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
-	e1:SetCode(EVENT_SPSUMMON_SUCCESS)
+	e1:SetCode(EVENT_SUMMON_SUCCESS)
 	e1:SetCondition(s.sumcon)
 	e1:SetOperation(s.sumop)
 	e1:SetReset(RESET_PHASE+PHASE_END,2)
 	Duel.RegisterEffect(e1,tp)
-	local e2=e1:Clone()
-	e2:SetCode(EVENT_FLIP_SUMMON_SUCCESS)
-	e2:SetCondition(s.sumcon2)
-	Duel.RegisterEffect(e2,tp)
-	local e3=e1:Clone()
-	e3:SetCode(EVENT_FLIP_SUMMON_SUCCESS)
-	Duel.RegisterEffect(e3,tp)
 end
 function s.sumcon(e,tp,eg,ep,ev,re,r,rp)
 	return eg and eg:IsExists(Card.IsSummonPlayer,1,nil,1-tp)
@@ -68,14 +61,7 @@ function s.filter(c,tp)
 	return c:IsFaceup() and c:IsSummonPlayer(1-tp)
 end
 function s.sumop(e,tp,eg,ep,ev,re,r,rp)
-	local tc=nil	
-	if #eg>1 then
-		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SELECT)
-		local g=eg:FilterSelect(tp,s.filter,1,1,nil,tp)
-		tc=g:GetFirst()
-	else
-		tc=eg:GetFirst()
-	end
+	local tc=eg:GetFirst()
 	if tc then
 		Duel.Hint(HINT_CARD,tp,id)
 		--Cannot attack

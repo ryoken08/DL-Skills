@@ -43,6 +43,7 @@ function s.flipcon(e,tp,eg,ep,ev,re,r,rp)
 	local g=Duel.GetMatchingGroup(s.filter,tp,LOCATION_REMOVED,0,nil,0xaf)
 	return aux.CanActivateSkill(tp)
 	and #g>=20
+	and Duel.GetLocationCount(tp,LOCATION_SZONE)>0
 end
 function s.flipop(e,tp,eg,ep,ev,re,r,rp)
 	Duel.Hint(HINT_SKILL_FLIP,tp,id|(1<<32))

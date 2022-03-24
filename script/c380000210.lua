@@ -11,6 +11,7 @@ function s.flipcon(e,tp,eg,ep,ev,re,r,rp)
 	--condition
 	return aux.CanActivateSkill(tp)
 	and Duel.IsExistingMatchingCard(aux.FilterFaceupFunction(Card.IsSetCard,0x21),tp,LOCATION_MZONE,0,1,nil)
+	and Duel.GetLocationCount(tp,LOCATION_SZONE)>0
 end
 s.cards = {
 	96907086, 29934351, 56339050

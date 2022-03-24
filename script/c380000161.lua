@@ -13,9 +13,13 @@ function s.initial_effect(c)
 	e1:SetCondition(s.condition)
 	e1:SetOperation(s.activate)
 	c:RegisterEffect(e1)
+	Duel.AddCustomActivityCounter(id,ACTIVITY_SPSUMMON,s.counterfilter)
 end
 s.listed_names={CARD_BLACK_ROSE_DRAGON}
 s.listed_series={0x1123}
+function s.counterfilter(c)
+	return not c:IsCode(CARD_BLACK_ROSE_DRAGON)
+end
 function s.exfilter(c)
 	return c:IsType(TYPE_MONSTER) and not (c:IsSetCard(0x1123) or c:IsRace(RACE_PLANT))
 end
@@ -35,14 +39,13 @@ function s.activate(e,tp,eg,ep,ev,re,r,rp)
 	end
 	e:SetLabel(1)
 end
-function s.filter(c)
-	return c:IsFaceup() and c:IsCode(CARD_BLACK_ROSE_DRAGON) and c:IsStatus(STATUS_SPSUMMON_TURN)
-end
+s.filter=aux.FilterFaceupFunction(Card.IsCode,CARD_BLACK_ROSE_DRAGON)
 function s.flipcon(e,tp,eg,ep,ev,re,r,rp)
 	--opd check
 	if Duel.GetFlagEffect(ep,id)>0 then return end
 	--condition
 	return aux.CanActivateSkill(tp)
+	and Duel.GetCustomActivityCount(id,tp,ACTIVITY_SPSUMMON)>0
 	and Duel.IsExistingMatchingCard(s.filter,tp,LOCATION_ONFIELD,0,1,nil)
 end
 function s.flipop(e,tp,eg,ep,ev,re,r,rp)

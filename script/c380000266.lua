@@ -21,8 +21,7 @@ s.listed_names={31461282}
 s.listed_series={0x12e}
 function s.checkop(e,tp,eg,ep,ev,re,r,rp)
 	local tc=eg:GetFirst()
-	local rc=re:GetHandler()
-	if tc:IsSetCard(0x12e) and tc:GetSummonLocation(LOCATION_HAND) and rc:IsCode(tc:GetCode()) then
+	if tc:IsSetCard(0x12e) and tc:GetReasonEffect():GetOwner()==tc then
 		s[rp]=true
 	end
 end

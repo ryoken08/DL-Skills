@@ -7,6 +7,8 @@ end
 s.listed_series={0xae}
 s.filter=aux.FilterFaceupFunction(Card.IsSetCard,0xae)
 function s.flipcon(e,tp,eg,ep,ev,re,r,rp)
+	--opd check
+	if Duel.GetFlagEffect(ep,id)>0 then return end
 	--condition
 	return Duel.GetCurrentChain()==0
 	and Duel.GetTurnPlayer()==tp
@@ -17,7 +19,9 @@ function s.flipop(e,tp,eg,ep,ev,re,r,rp)
 	if not Duel.SelectYesNo(tp,aux.Stringid(id,0)) then return end
 	Duel.Hint(HINT_SKILL_FLIP,tp,id|(1<<32))
 	Duel.Hint(HINT_CARD,tp,id)
-	--activate
+	--opd register
+	Duel.RegisterFlagEffect(ep,id,0,0,0)
+	--Skip the Standby Phase of this turn
 	local e1=Effect.CreateEffect(e:GetHandler())
 	e1:SetType(EFFECT_TYPE_FIELD)
 	e1:SetProperty(EFFECT_FLAG_PLAYER_TARGET)
@@ -25,5 +29,4 @@ function s.flipop(e,tp,eg,ep,ev,re,r,rp)
 	e1:SetTargetRange(1,0)
 	e1:SetReset(RESET_PHASE+PHASE_END+RESET_SELF_TURN,1)
 	Duel.RegisterEffect(e1,tp)
-	Duel.Hint(HINT_SKILL_FLIP,tp,id|(2<<32))
 end

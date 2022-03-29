@@ -22,14 +22,14 @@ function s.exfilter(c)
 end
 function s.condition(e,tp,eg,ep,ev,re,r,rp)
 	--condition
-	return Duel.IsExistingMatchingCard(s.exfilter,tp,LOCATION_DECK,0,6,nil)
-	and Duel.IsExistingMatchingCard(Card.IsCode,tp,LOCATION_DECK,0,1,nil,47198668)
+	return Duel.IsExistingMatchingCard(s.exfilter,tp,LOCATION_DECK,0,3,nil)
 end
 function s.activate(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	if e:GetLabel()==0 then
 		Duel.Hint(HINT_SKILL_FLIP,tp,id|(1<<32))
 		Duel.Hint(HINT_CARD,tp,id)
+		--skill
 		local e1=Effect.CreateEffect(c)
 		e1:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
 		e1:SetCode(EVENT_FREE_CHAIN)
@@ -63,7 +63,7 @@ function s.flipop(e,tp,eg,ep,ev,re,r,rp)
 	if #g>0 then
 		Duel.SendtoExtraP(g,nil,REASON_RULE)
 	end
-	--Select up to 1 "D/D" Pendulum Monster respectively from your Field/Deck and place it in your Pendulum Zone
+	--Select up to 1 "D/D" Pendulum Monster from your field and Deck respectively and place it in your Pendulum Zone
 	local sg=Duel.GetMatchingGroup(s.pendfilter,tp,LOCATION_MZONE+LOCATION_DECK,0,nil)
 	if #sg>0 then
 		Duel.BreakEffect()
@@ -80,7 +80,7 @@ function s.flipop(e,tp,eg,ep,ev,re,r,rp)
 		local e1=Effect.CreateEffect(e:GetHandler())
 		e1:SetType(EFFECT_TYPE_SINGLE)
 		e1:SetCode(EFFECT_DISABLE)
-		e1:SetReset(RESET_EVENT+RESETS_STANDARD)
+		e1:SetReset(RESET_EVENT+RESETS_STANDARD+RESET_PHASE+PHASE_STANDBY+RESET_SELF_TURN,1)
 		tc1:RegisterEffect(e1,true)
 		local e2=e1:Clone()
 		e2:SetCode(EFFECT_DISABLE_EFFECT)
@@ -90,22 +90,13 @@ function s.flipop(e,tp,eg,ep,ev,re,r,rp)
 			local e1=Effect.CreateEffect(e:GetHandler())
 			e1:SetType(EFFECT_TYPE_SINGLE)
 			e1:SetCode(EFFECT_DISABLE)
-			e1:SetReset(RESET_EVENT+RESETS_STANDARD)
+			e1:SetReset(RESET_EVENT+RESETS_STANDARD+RESET_PHASE+PHASE_STANDBY+RESET_SELF_TURN,1)
 			g2:GetFirst():RegisterEffect(e1,true)
 			local e2=e1:Clone()
 			e2:SetCode(EFFECT_DISABLE_EFFECT)
 			g2:GetFirst():RegisterEffect(e2,true)
 		end
 	end
-	--At the beginning of your next turn, return all cards in your Pendulum Zones to your Deck
-	local e3=Effect.CreateEffect(e:GetHandler())
-	e3:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
-	e3:SetProperty(EFFECT_FLAG_IGNORE_IMMUNE)
-	e3:SetCode(EVENT_PREDRAW)
-	e3:SetCondition(s.tdcon)
-	e3:SetOperation(s.tdop)
-	e3:SetReset(RESET_PHASE+PHASE_DRAW+RESET_SELF_TURN)
-	Duel.RegisterEffect(e3,tp)
 end
 function s.tdcon(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.IsExistingMatchingCard(aux.TRUE,tp,LOCATION_PZONE,0,1,nil) and Duel.IsTurnPlayer(tp)

@@ -22,14 +22,17 @@ function s.condition(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.GetMatchingGroup(s.filter,tp,LOCATION_DECK,0,nil):GetClassCount(Card.GetCode)>=6
 end
 function s.activate(e,tp,eg,ep,ev,re,r,rp)
-	--add to hand
-	local e1=Effect.CreateEffect(e:GetHandler())
-	e1:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
-	e1:SetCode(EVENT_PREDRAW)
-	e1:SetCountLimit(1)
-	e1:SetCondition(s.flipcon)
-	e1:SetOperation(s.flipop)
-	Duel.RegisterEffect(e1,tp)
+	local c=e:GetHandler()
+	if e:GetLabel()==0 then
+		--skill
+		local e1=Effect.CreateEffect(c)
+		e1:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
+		e1:SetCode(EVENT_PREDRAW)
+		e1:SetCondition(s.flipcon)
+		e1:SetOperation(s.flipop)
+		Duel.RegisterEffect(e1,tp)
+	end
+	e:SetLabel(1)
 end
 function s.flipcon(e,tp,eg,ep,ev,re,r,rp)
 	--twice per duel check

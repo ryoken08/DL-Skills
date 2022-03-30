@@ -39,12 +39,19 @@ function s.condition(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.GetMatchingGroup(Card.IsType,tp,LOCATION_DECK,0,nil,TYPE_SPELL+TYPE_TRAP):GetClassCount(Card.GetCode)>=3
 end
 function s.activate(e,tp,eg,ep,ev,re,r,rp)
-	--flag register
-	Duel.RegisterFlagEffect(tp,id,0,0,0)
+	local c=e:GetHandler()
+	if e:GetLabel()==0 then
+		--skill
+		local e1=Effect.CreateEffect(c)
+		e1:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
+		e1:SetCode(EVENT_PREDRAW)
+		e1:SetCondition(s.flipcon)
+		e1:SetOperation(s.flipop)
+		Duel.RegisterEffect(e1,tp)
+	end
+	e:SetLabel(1)
 end
 function s.flipcon(e,tp,eg,ep,ev,re,r,rp)
-	--flag check
-	if Duel.GetFlagEffect(ep,id)==0 then return end
 	--condition
 	return Duel.GetCurrentChain()==0 and tp==Duel.GetTurnPlayer()
 	and Duel.GetFieldGroupCount(tp,LOCATION_DECK,0)>0

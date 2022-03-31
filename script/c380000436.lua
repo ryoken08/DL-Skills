@@ -125,12 +125,15 @@ function s.flipop(e,tp,eg,ep,ev,re,r,rp)
 				e1:SetType(EFFECT_TYPE_SINGLE)
 				e1:SetCode(EFFECT_CANNOT_TRIGGER)
 				e1:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
-				e1:SetRange(LOCATION_GRAVE+LOCATION_REMOVED)
+				e1:SetRange(LOCATION_GRAVE)
 				e1:SetReset(RESET_CHAIN)
 				tc:RegisterEffect(e1)
 				tc:ResetEffect(RESETS_REDIRECT,RESET_EVENT)
+				Duel.SendtoGrave(tc,REASON_DESTROY)
+				if tc:IsLocation(LOCATION_REMOVED) then
+					Duel.SendtoGrave(tc,REASON_DESTROY)
+				end
 			end
-			Duel.SendtoGrave(sg,REASON_DESTROY)
 		end
 	end
 	Duel.Hint(HINT_SKILL_FLIP,tp,id|(2<<32))

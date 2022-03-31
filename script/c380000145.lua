@@ -97,14 +97,20 @@ function s.tgop(e,tp,eg,ep,ev,re,r,rp)
 		e1:SetType(EFFECT_TYPE_SINGLE)
 		e1:SetCode(EFFECT_CANNOT_TRIGGER)
 		e1:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
-		e1:SetRange(LOCATION_GRAVE+LOCATION_REMOVED)
+		e1:SetRange(LOCATION_GRAVE)
 		e1:SetReset(RESET_CHAIN)
 		tc:RegisterEffect(e1)
 		Duel.SendtoGrave(tc,REASON_RULE)
+		if tc:IsLocation(LOCATION_REMOVED) then
+			Duel.SendtoGrave(g,REASON_RULE)
+		end
 	end
 	if Duel.GetFlagEffect(ep,id+1)==1 then
 		local token=Duel.CreateToken(tp,9365703)
 		Duel.SendtoGrave(token,REASON_RULE)
+		if token:IsLocation(LOCATION_REMOVED) then
+			Duel.SendtoGrave(token,REASON_RULE)
+		end
 	end
 end
 

@@ -30,6 +30,9 @@ function s.activate(e,tp,eg,ep,ev,re,r,rp)
 		--activate
 		local token=Duel.CreateToken(tp,85475641)
 		Duel.SendtoGrave(token,REASON_RULE)
+		if token:IsLocation(LOCATION_REMOVED) then
+			Duel.SendtoGrave(token,REASON_RULE)
+		end
 	end
 	e:SetLabel(1)
 end

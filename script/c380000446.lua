@@ -70,4 +70,7 @@ function s.tgcon(e,tp,eg,ep,ev,re,r,rp)
 end
 function s.tgop(e,tp,eg,ep,ev,re,r,rp)
 	Duel.SendtoGrave(e:GetLabelObject(),REASON_RULE)
+	if e:GetLabelObject():IsLocation(LOCATION_REMOVED) then
+		Duel.SendtoGrave(e:GetLabelObject(),REASON_RULE)
+	end
 end

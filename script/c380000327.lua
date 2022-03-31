@@ -25,5 +25,8 @@ function s.flipop(e,tp,eg,ep,ev,re,r,rp)
 	if num<5 then
 		local token=Duel.CreateToken(tp,66436257)
 		Duel.SendtoGrave(token,REASON_RULE)
+		if token:IsLocation(LOCATION_REMOVED) then
+			Duel.SendtoGrave(token,REASON_RULE)
+		end
 	end
 end

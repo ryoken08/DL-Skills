@@ -21,8 +21,20 @@ function s.flipop(e,tp,eg,ep,ev,re,r,rp)
 	Duel.RegisterFlagEffect(ep,id,0,0,0)
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_TOGRAVE)
 	local g=Duel.SelectMatchingCard(tp,s.filter,tp,LOCATION_SZONE,0,1,1,nil)
-	g:GetFirst():ResetEffect(RESETS_REDIRECT,RESET_EVENT)
-	Duel.SendtoGrave(g,REASON_RULE)
+	if #g>0 then
+		local e1=Effect.CreateEffect(e:GetHandler())
+		e1:SetType(EFFECT_TYPE_SINGLE)
+		e1:SetCode(EFFECT_CANNOT_TRIGGER)
+		e1:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
+		e1:SetRange(LOCATION_GRAVE)
+		e1:SetReset(RESET_CHAIN)
+		g:GetFirst():RegisterEffect(e1)
+		g:GetFirst():ResetEffect(RESETS_REDIRECT,RESET_EVENT)
+		Duel.SendtoGrave(g,REASON_RULE)
+		if g:GetFirst():IsLocation(LOCATION_REMOVED) then
+			Duel.SendtoGrave(g,REASON_RULE)
+		end
+	end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_TOFIELD)
 	local sg=Duel.SelectMatchingCard(tp,Card.IsCode,tp,0x13,0,1,1,nil,32543380)
 	local tc=sg:GetFirst()

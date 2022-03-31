@@ -33,6 +33,9 @@ function s.activate(e,tp,eg,ep,ev,re,r,rp)
 		Duel.Hint(HINT_SKILL_FLIP,tp,id|(1<<32))
 		local token=Duel.CreateToken(tp,11069680)
 		Duel.SendtoGrave(token,REASON_RULE)
+		if token:IsLocation(LOCATION_REMOVED) then
+			Duel.SendtoGrave(token,REASON_RULE)
+		end
 		local e1=Effect.CreateEffect(c)
 		e1:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
 		e1:SetCode(EVENT_FREE_CHAIN)

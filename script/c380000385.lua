@@ -68,10 +68,13 @@ function s.flipop(e,tp,eg,ep,ev,re,r,rp)
 		e1:SetType(EFFECT_TYPE_SINGLE)
 		e1:SetCode(EFFECT_CANNOT_TRIGGER)
 		e1:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
-		e1:SetRange(LOCATION_GRAVE+LOCATION_REMOVED)
+		e1:SetRange(LOCATION_GRAVE)
 		e1:SetReset(RESET_CHAIN)
 		g1:RegisterEffect(e1)
 		Duel.SendtoGrave(g1,REASON_RULE)
+		if g1:IsLocation(LOCATION_REMOVED) then
+			Duel.SendtoGrave(g1,REASON_RULE)
+		end
 	end
 	--select option
 	local b1=(Duel.GetFlagEffect(ep,id)==0 and Duel.IsExistingMatchingCard(Card.IsCode,tp,LOCATION_DECK,0,1,nil,94820406,12071500))
@@ -97,6 +100,9 @@ function s.flipop(e,tp,eg,ep,ev,re,r,rp)
 		Duel.RegisterFlagEffect(ep,id+1,0,0,0)
 		local token=Duel.CreateToken(tp,45659520)
 		Duel.SendtoGrave(token,REASON_RULE)
+		if token:IsLocation(LOCATION_REMOVED) then
+			Duel.SendtoGrave(token,REASON_RULE)
+		end
 	end
 	Duel.Hint(HINT_SKILL_FLIP,tp,id|(2<<32))
 end

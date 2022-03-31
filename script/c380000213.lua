@@ -71,11 +71,14 @@ function s.flipop(e,tp,eg,ep,ev,re,r,rp)
 			e1:SetType(EFFECT_TYPE_SINGLE)
 			e1:SetCode(EFFECT_CANNOT_TRIGGER)
 			e1:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
-			e1:SetRange(LOCATION_GRAVE+LOCATION_REMOVED)
+			e1:SetRange(LOCATION_GRAVE)
 			e1:SetReset(RESET_CHAIN)
 			tc:RegisterEffect(e1)
+			Duel.SendtoGrave(tc,REASON_RULE)
+			if tc:IsLocation(LOCATION_REMOVED) then
+				Duel.SendtoGrave(tc,REASON_RULE)
+			end
 		end
-		Duel.SendtoGrave(g,REASON_RULE)
 	end
 	--Send an equal number of "Infernity" monsters from your Deck to the Graveyard
 	local ft=g:GetCount()
@@ -88,10 +91,13 @@ function s.flipop(e,tp,eg,ep,ev,re,r,rp)
 			e1:SetType(EFFECT_TYPE_SINGLE)
 			e1:SetCode(EFFECT_CANNOT_TRIGGER)
 			e1:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
-			e1:SetRange(LOCATION_GRAVE+LOCATION_REMOVED)
+			e1:SetRange(LOCATION_GRAVE)
 			e1:SetReset(RESET_CHAIN)
 			tc:RegisterEffect(e1)
+			Duel.SendtoGrave(tc,REASON_RULE)
+			if tc:IsLocation(LOCATION_REMOVED) then
+				Duel.SendtoGrave(tc,REASON_RULE)
+			end
 		end
-		Duel.SendtoGrave(sg,REASON_RULE)
 	end
 end

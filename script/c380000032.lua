@@ -40,17 +40,20 @@ function s.flipop(e,tp,eg,ep,ev,re,r,rp)
 		Duel.SendtoDeck(g,nil,SEQ_DECKSHUFFLE,REASON_RULE)
 	end
 	--if you control a Field Spell, place it in the Graveyard
-	local g=Duel.GetFieldCard(tp,LOCATION_SZONE,5)
-	if g then
+	local g1=Duel.GetFieldCard(tp,LOCATION_SZONE,5)
+	if g1 then
 		local e1=Effect.CreateEffect(e:GetHandler())
 		e1:SetType(EFFECT_TYPE_SINGLE)
 		e1:SetCode(EFFECT_CANNOT_TRIGGER)
 		e1:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
-		e1:SetRange(LOCATION_GRAVE+LOCATION_REMOVED)
+		e1:SetRange(LOCATION_GRAVE)
 		e1:SetReset(RESET_CHAIN)
-		g:RegisterEffect(e1)
-		g:ResetEffect(RESETS_REDIRECT,RESET_EVENT)
-		Duel.SendtoGrave(g,REASON_RULE)
+		g1:RegisterEffect(e1)
+		g1:ResetEffect(RESETS_REDIRECT,RESET_EVENT)
+		Duel.SendtoGrave(g1,REASON_RULE)
+		if g1:IsLocation(LOCATION_REMOVED) then
+			Duel.SendtoGrave(g1,REASON_RULE)
+		end
 	end
 	--place 1 "Harpies' Hunting Ground" to your Field Zone from your Deck
 	local tc=Duel.GetFirstMatchingCard(Card.IsCode,tp,LOCATION_DECK,0,nil,75782277)

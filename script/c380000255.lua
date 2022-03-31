@@ -31,10 +31,13 @@ function s.flipop(e,tp,eg,ep,ev,re,r,rp)
 		e1:SetType(EFFECT_TYPE_SINGLE)
 		e1:SetCode(EFFECT_CANNOT_TRIGGER)
 		e1:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
-		e1:SetRange(LOCATION_GRAVE+LOCATION_REMOVED)
+		e1:SetRange(LOCATION_GRAVE)
 		e1:SetReset(RESET_CHAIN)
 		g1:RegisterEffect(e1)
 		Duel.SendtoGrave(g1,REASON_RULE)
+		if g1:IsLocation(LOCATION_REMOVED) then
+			Duel.SendtoGrave(g1,REASON_RULE)
+		end
 	end
 	--transform 1 red-eyes
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_FACEUP)

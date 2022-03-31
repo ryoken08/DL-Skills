@@ -21,10 +21,21 @@ function s.flipop(e,tp,eg,ep,ev,re,r,rp)
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_TOGRAVE)
 	local g=Duel.SelectMatchingCard(tp,s.tgfilter,tp,LOCATION_HAND,0,1,1,nil)
 	if #g>0 then
+		local e1=Effect.CreateEffect(e:GetHandler())
+		e1:SetType(EFFECT_TYPE_SINGLE)
+		e1:SetCode(EFFECT_CANNOT_TRIGGER)
+		e1:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
+		e1:SetRange(LOCATION_GRAVE)
+		e1:SetReset(RESET_CHAIN)
+		g:GetFirst():RegisterEffect(e1)
 		Duel.SendtoGrave(g,REASON_RULE)
+		if g:GetFirst():IsLocation(LOCATION_REMOVED) then
+			Duel.SendtoGrave(g,REASON_RULE)
+		end
 	end
 	--Destroy all face-up "Dark Contract" cards on your field
 	local sg=Duel.GetMatchingGroup(s.filter,tp,LOCATION_ONFIELD,0,nil)
+	local ct=0
 	if #sg>0 then
 		for tc in aux.Next(sg) do
 			local e1=Effect.CreateEffect(e:GetHandler())
@@ -34,9 +45,13 @@ function s.flipop(e,tp,eg,ep,ev,re,r,rp)
 			e1:SetRange(LOCATION_GRAVE+LOCATION_REMOVED)
 			e1:SetReset(RESET_CHAIN)
 			tc:RegisterEffect(e1)
+			Duel.SendtoGrave(tc,REASON_DESTROY)
+			if tc:IsLocation(LOCATION_REMOVED) then
+				Duel.SendtoGrave(tc,REASON_DESTROY)
+			end
+			ct=ct+1
 		end
 	end
-	local ct=Duel.SendtoGrave(sg,REASON_DESTROY)
 	if ct==0 then return end
 	Duel.BreakEffect()
 	--Increase your Life Points by the number of destroyed "Dark Contract" cards x 1000

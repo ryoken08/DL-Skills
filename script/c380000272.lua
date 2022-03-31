@@ -38,4 +38,7 @@ function s.flipop(e,tp,eg,ep,ev,re,r,rp)
 end
 function s.tgop(e,tp,eg,ep,ev,re,r,rp)
 	Duel.SendtoGrave(e:GetHandler(),REASON_RULE)
+	if e:GetHandler():IsLocation(LOCATION_REMOVED) then
+		Duel.SendtoGrave(e:GetHandler,REASON_RULE)
+	end
 end

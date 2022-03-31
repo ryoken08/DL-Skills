@@ -62,6 +62,9 @@ end
 function s.tgop(e,tp,eg,ep,ev,re,r,rp)
 	local tc=e:GetLabelObject()
 	Duel.SendtoGrave(tc,REASON_RULE)
+	if tc:IsLocation(LOCATION_REMOVED) then
+		Duel.SendtoGrave(tc,REASON_RULE)
+	end
 end
 function s.flip(e,tp,eg,ep,ev,re,r,rp)
 	Duel.Hint(HINT_SKILL_FLIP,tp,id|(2<<32))

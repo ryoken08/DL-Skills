@@ -69,10 +69,13 @@ function s.flipop(e,tp,eg,ep,ev,re,r,rp)
 			e1:SetType(EFFECT_TYPE_SINGLE)
 			e1:SetCode(EFFECT_CANNOT_TRIGGER)
 			e1:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
-			e1:SetRange(LOCATION_GRAVE+LOCATION_REMOVED)
+			e1:SetRange(LOCATION_GRAVE)
 			e1:SetReset(RESET_CHAIN)
 			tg:RegisterEffect(e1)
 			Duel.SendtoGrave(tg,REASON_RULE)
+			if tg:IsLocation(LOCATION_REMOVED) then
+				Duel.SendtoGrave(tg,REASON_RULE)
+			end
 		end
 		--Add 1 "Clock Tower Prison" from your Deck to your hand
 		local tc=Duel.GetFirstMatchingCard(Card.IsCode,tp,LOCATION_DECK,0,nil,75041269)

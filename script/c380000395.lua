@@ -67,12 +67,15 @@ function s.flipop(e,tp,eg,ep,ev,re,r,rp)
 		e1:SetType(EFFECT_TYPE_SINGLE)
 		e1:SetCode(EFFECT_CANNOT_TRIGGER)
 		e1:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
-		e1:SetRange(LOCATION_GRAVE+LOCATION_REMOVED)
+		e1:SetRange(LOCATION_GRAVE)
 		e1:SetReset(RESET_CHAIN)
 		tc:RegisterEffect(e1)
 	end
-	if Duel.SendtoGrave(tc,REASON_RULE)>0 and tc:IsPreviousLocation(LOCATION_DECK)
-		and Duel.IsExistingMatchingCard(Card.IsType,tp,LOCATION_HAND,0,1,nil,TYPE_MONSTER)
+	Duel.SendtoGrave(tc,REASON_RULE)
+	if tc:IsLocation(LOCATION_REMOVED) then
+		Duel.SendtoGrave(tc,REASON_RULE)
+	end
+	if not tc:IsType(TYPE_EXTRA) and Duel.IsExistingMatchingCard(Card.IsType,tp,LOCATION_HAND,0,1,nil,TYPE_MONSTER)
 		and Duel.SelectYesNo(tp,aux.Stringid(id,1)) then
 		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_TOGRAVE)
 		local g1=Duel.SelectMatchingCard(tp,Card.IsType,tp,LOCATION_HAND,0,1,1,nil,TYPE_MONSTER)
@@ -80,10 +83,13 @@ function s.flipop(e,tp,eg,ep,ev,re,r,rp)
 		e2:SetType(EFFECT_TYPE_SINGLE)
 		e2:SetCode(EFFECT_CANNOT_TRIGGER)
 		e2:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
-		e2:SetRange(LOCATION_GRAVE+LOCATION_REMOVED)
+		e2:SetRange(LOCATION_GRAVE)
 		e2:SetReset(RESET_CHAIN)
 		g1:GetFirst():RegisterEffect(e2)
 		Duel.SendtoGrave(g1,REASON_RULE)
+		if g1:GetFirst():IsLocation(LOCATION_REMOVED) then
+			Duel.SendtoGrave(g1,REASON_RULE)
+		end
 	end
 	local lv=nil
 	if tc:IsType(TYPE_XYZ) then

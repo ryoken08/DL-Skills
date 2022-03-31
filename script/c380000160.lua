@@ -39,5 +39,8 @@ function s.flipop(e,tp,eg,ep,ev,re,r,rp)
 	--activate
 	local token=Duel.CreateToken(tp,50164989)   
 	Duel.SendtoGrave(token,REASON_RULE)
+	if token:IsLocation(LOCATION_REMOVED) then
+		Duel.SendtoGrave(token,REASON_RULE)
+	end
 	s[2+tp]=0
 end

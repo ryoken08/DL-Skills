@@ -65,6 +65,7 @@ function s.flipop(e,tp,eg,ep,ev,re,r,rp)
 		Duel.SendtoHand(tc,nil,REASON_RULE)
 		Duel.ConfirmCards(1-tp,tc)
 		Duel.ShuffleHand(tp)
+		Duel.ShuffleDeck(tp)
 	end
 	Duel.BreakEffect()
 	--return 1 card from your hand to the bottom of your Deck

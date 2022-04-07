@@ -45,6 +45,7 @@ function s.flipcon(e,tp,eg,ep,ev,re,r,rp)
 	return aux.CanActivateSkill(tp)
 	and Duel.IsExistingMatchingCard(s.tgfilter,tp,LOCATION_HAND,0,1,nil)
 	and Duel.IsExistingMatchingCard(s.tgfilter,tp,LOCATION_GRAVE,0,1,nil)
+	and Duel.GetLocationCount(tp,LOCATION_MZONE)>0
 end
 function s.spfilter(c,lvl)
 	return (c:IsRace(RACE_FIEND) or c:IsRace(RACE_ZOMBIE)) and (c:IsLevelBelow(lvl) or c:IsRankBelow(lvl)) and not c:IsType(TYPE_EFFECT)

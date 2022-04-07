@@ -77,7 +77,7 @@ function s.flipop(e,tp,eg,ep,ev,re,r,rp)
 	end
 	--if you control "Red Dragon Archfiend", you can select up to 2 monsters instead
 	local ct=1
-	if Duel.IsExistingMatchingCard(aux.FilterFaceupFunction(Card.IsCode,70902743),tp,LOCATION_MZONE,0,1,nil) then
+	if Duel.IsExistingMatchingCard(aux.FilterFaceupFunction(Card.IsCode,70902743),tp,LOCATION_MZONE,0,1,nil) and Duel.GetLocationCount(tp,LOCATION_MZONE)>1 then
 		ct=2
 	end
 	--play 1 Level 4 or lower Tuner monster from your Graveyard in Defense Position, but negate its effects

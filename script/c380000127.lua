@@ -45,7 +45,8 @@ function s.flipop(e,tp,eg,ep,ev,re,r,rp)
 		Duel.SendtoDeck(g,nil,SEQ_DECKSHUFFLE,REASON_RULE)
 		Duel.BreakEffect()
 	end
-	local sg=Duel.GetMatchingGroup(s.filter,tp,LOCATION_DECK,0,nil):RandomSelect(tp,1)
+	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_TOFIELD)
+	local sg=Duel.SelectMatchingCard(tp,s.filter,tp,LOCATION_DECK,0,1,1,nil,tp)
 	local tc=sg:GetFirst()
 	if tc then
 		local e0=Effect.CreateEffect(e:GetHandler())

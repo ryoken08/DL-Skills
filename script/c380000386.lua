@@ -47,6 +47,7 @@ function s.flipcon(e,tp,eg,ep,ev,re,r,rp)
 	local g=Duel.GetFieldGroup(tp,LOCATION_MZONE,0)
 	return aux.CanActivateSkill(tp) and #g==1 
 	and Duel.IsExistingMatchingCard(s.filter1,tp,LOCATION_MZONE,0,1,nil,tp)
+	and Duel.GetLocationCount(tp,LOCATION_MZONE)>-1
 	and Duel.GetActivityCount(tp,ACTIVITY_SUMMON)==0
 	and Duel.GetActivityCount(tp,ACTIVITY_SPSUMMON)==0
 end

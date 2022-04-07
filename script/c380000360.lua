@@ -15,18 +15,23 @@ function s.flipcon(e,tp,eg,ep,ev,re,r,rp)
 	and Duel.IsExistingMatchingCard(aux.FilterFaceupFunction(Card.IsCode,68140974,30221870),tp,LOCATION_ONFIELD,0,1,nil)
 	and Duel.GetFieldGroupCount(tp,LOCATION_EXTRA,0)==0
 	and Duel.IsExistingMatchingCard(s.tdfilter,tp,LOCATION_HAND,0,1,nil)
+	and Duel.GetLocationCount(tp,LOCATION_MZONE)>0
 end
 function s.flipop(e,tp,eg,ep,ev,re,r,rp)
 	Duel.Hint(HINT_SKILL_FLIP,tp,id|(1<<32))
 	Duel.Hint(HINT_CARD,tp,id)
 	--opd register
 	Duel.RegisterFlagEffect(ep,id,0,0,0)
+	--Return up to 2 Level 1 DARK Machine-Type monsters in your hand to your Deck
+	local ct=Duel.GetLocationCount(tp,LOCATION_MZONE)
+	if ct>2 then ct=2 end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_TODECK)
-	local g=Duel.SelectMatchingCard(tp,s.filter,tp,LOCATION_HAND,0,1,2,nil)
+	local g=Duel.SelectMatchingCard(tp,s.filter,tp,LOCATION_HAND,0,1,ct,nil)
 	if #g>0 then
 		Duel.ConfirmCards(1-tp,g)
 		Duel.SendtoDeck(g,nil,SEQ_DECKSHUFFLE,REASON_RULE)
 	end
+	--play "Wisel Top", "Wisel Attack", "Wisel Guard", or "Wisel Carrier" (max. 1 each) up to the number of monsters you have returned
 	local ft=g:GetCount()
 	Duel.Hint(HINT_SELECTMSG,tp,aux.Stringid(id,1))
 	local cards = {100000051, 100000052, 100000053, 100000054}
